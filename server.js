@@ -551,18 +551,20 @@ app.delete('/dbReset', (req, res) => {
 
 app.get('/', function (req, res) {
     console.log("1");
+  
     /* 데스크탑 */
     res.sendFile(path.join(__dirname, '/build/index.html'));
     /* 노트북 */
     /*res.sendFile(path.join(__dirname, '/build/index.html'));*/
+  
 });
 
 app.get('*', function (req, res) {
     /*console.log("2");*/
+  
     /* 데스크탑 */
     res.sendFile(path.join(__dirname, '/build/index.html'));
     /* 노트북 */
     /*res.sendFile(path.join(__dirname, '/build/index.html'));*/
-    /**/
-    /**/
+    
 });
