@@ -35,16 +35,9 @@ function RevenueTable(props) {
                         <th> 가격 </th>
                     </tr>
                     {
-                        data != null ?
-                            props.callPage == 1 ?
-                                <Reverse data = { data } callPage = { props.callPage } />
-                                : idToggle == false ?
-                                <Primary data = { data } callPage = { props.callPage } />
-                                : <Reverse data = { data } callPage = { props.callPage } />
-                                : null
-                        /*menuToggle == false ?
-                        <Primary data = { data } />
-                        : <MenuSort data = { data } />*/
+                        data != null
+                            ? <Reverse data = { data } callPage = { props.callPage } />
+                            : null
                     }
                 </table>
             </div>

@@ -8,39 +8,39 @@ import axios from "axios";
 
 function AdminPage() {
     let history = useHistory();
-    let [data, setData] = useState(null);
     let [price, setPrice] = useState(0);
     let [people, setPeople] = useState(0);
+    let [payment, setPayment] = useState(null);
     let callPage = 1;
 
+    /* 매출 정보 */
     useEffect(() => {
-
         axios.get('/getPrice')
 
             .then(( res ) => {
-                setData(res.data)
+                setPrice(res.data)
             })
             .catch(( error )=>{ console.log( error ) })
 
     }, [])
 
+    /* 방문자 정보 */
     useEffect(() => {
         axios.get('/getVisitors')
             .then((res) => {
-                console.log(res.data)
                 setPeople(res.data);
             })
             .catch((error) => { console.log( error ) })
     }, [])
 
+    /* 지불 정보 */
     useEffect(() => {
-        return (
-            data == null ?
-                null
-                : setPrice(data.reduce((sum, value) => {
-                    return sum + value;
-                }, 0))
-        )
+        axios.get('/getPayment')
+            .then((res) => {
+                let temp = JSON.parse(res.data)
+                setPayment(temp[0]);
+            })
+            .catch((error) => { console.log( error )})
     })
 
     return (
@@ -69,14 +69,20 @@ function AdminPage() {
                                     <h2> 결제방법 </h2>
                                     <div className = "getInline">
                                         <div className = "payMethod">
-                                            <div>
-                                                <h3> 현금 </h3>
-                                                <h3>1,000,000원</h3>
-                                            </div>
-                                            <div>
-                                                <h3> 카드 </h3>
-                                                <h3>1,000,000원</h3>
-                                            </div>
+                                            {
+                                                payment != null
+                                                    ? <>
+                                                            <div>
+                                                                <h3> 현금 </h3>
+                                                                <h3> { payment.cash } 원</h3>
+                                                            </div>
+                                                            <div>
+                                                                <h3> 카드 </h3>
+                                                                <h3> { payment.card } 원</h3>
+                                                            </div>
+                                                        </>
+                                                    : null
+                                            }
                                         </div>
                                     </div>
                                 </div>
