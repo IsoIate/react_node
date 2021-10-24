@@ -261,7 +261,7 @@ app.post('/makeComp', (req, res) => {
             }
             console.log("result : " + globalCount)
         })
-
+/**/
         /* visitors 값을 1 증가시키는 함수 */
         VisInc();
 
