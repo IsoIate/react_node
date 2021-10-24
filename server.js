@@ -578,12 +578,29 @@ app.get('/getRevenue', (req, res) => {
     db.collection('rev_menu').find().toArray((err, comp) => {
         if(err) return err;
 
+        /* DB에 들어있는 데이터를 id값 기준으로 정렬 */
+        function customSort(a, b) {
+            if(a._id === b._id) { return 0 }
+            return a._id > b._id ? 1 : -1;
+        }
+        comp.sort(customSort);
+
         if(comp != null) res.json({ comp });
     })
 })
 
 /* rev_variety collecion 호출 */
 app.get('/getVariety', (req, res) => {
+
+    db.collection('variety').find().toArray((err, comp) => {
+        if(err) return err;
+
+        console.log("comp")
+        console.log(comp)
+
+        if(comp != null) res.json({ comp });
+    })
+
 
     /*db.collection('variety').find().toArray((err, comp) => {
         if(err) return err;

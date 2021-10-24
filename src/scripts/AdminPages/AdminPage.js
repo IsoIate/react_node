@@ -5,6 +5,7 @@ import '../../css/AdminPages/AdminPage.css'
 import LeftNav from "./LeftNav";
 import RevenueTable from "./RevenueTable";
 import axios from "axios";
+import RecentRevenue from "./RecentRevenue";
 
 function AdminPage() {
     let history = useHistory();
@@ -105,7 +106,7 @@ function AdminPage() {
                                 최근매출 <i className="fas fa-angle-right fa-1x"></i>
                             </h2>
                             <div>
-                                <RevenueTable callPage = { callPage } />
+                                <RecentRevenue callPage = { callPage } />
                             </div>
                         </div>
 

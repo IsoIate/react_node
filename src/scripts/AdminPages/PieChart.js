@@ -22,8 +22,8 @@ function PieChart() {
 
             axios.get('/getVariety')
                 .then((res) => {
-                    setVarData(res.data.jsonArr);
-                    console.log(res.data.jsonArr);
+                    setVarData(res.data.comp);
+                    console.log(res.data.comp);
                 })
                 .catch((error) => { console.log(error) })
         )

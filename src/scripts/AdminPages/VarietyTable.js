@@ -8,7 +8,7 @@ function VarietyTable() {
     useEffect(() => {
         axios.get('/getVariety')
             .then((res) => {
-                setData(res.data.jsonArr);
+                setData(res.data.comp);
             })
             .catch((error) => { console.log(error) })
     }, [])
@@ -27,9 +27,7 @@ function VarietyTable() {
                         data != null ?
                             data.map((num, index) => {
                                 return (
-                                    data[index].수량 != 0 ?
-                                        <TableBody data = { data } index = { index } />
-                                        : null
+                                    <TableBody data = { data } index = { index } />
                                 )
                             })
                             : null

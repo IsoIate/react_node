@@ -36,7 +36,7 @@ function RevenueTable(props) {
                     </tr>
                     {
                         data != null
-                            ? <Reverse data = { data } callPage = { props.callPage } />
+                            ? <Primary data = { data } callPage = { props.callPage } />
                             : null
                     }
                 </table>
@@ -49,23 +49,11 @@ function Primary (props) {
     return (
         props.data.map((num, index) => {
             return (
-                props.callPage == 1 ?
+                /*props.callPage == 1 ?
                     index >= 3 ? null
                         : <TableBody data = { props.data } index = { index } />
-                        : <TableBody data = { props.data } index = { index } />
-            )
-        })
-    )
-}
-
-function Reverse (props) {
-    return (
-        props.data.reverse().map((num, index) => {
-            return (
-                props.callPage == 1 ?
-                    index >= 3 ? null
-                        : <TableBody data = { props.data } index = { index } />
-                        : <TableBody data = { props.data } index = { index } />
+                        : <TableBody data = { props.data } index = { index } />*/
+                <TableBody data = { props.data } index = { index } />
             )
         })
     )
