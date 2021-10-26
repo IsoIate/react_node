@@ -14,4 +14,9 @@
 .pieCharts {
     display: flex;
     flex-direction: row;
+
+}
+
+.pieChartContents {
+    width: 100%;
 }

@@ -146,7 +146,7 @@ function RightNav(props) {
                 </div>
 
                 {/* 옵션 아이콘 */}
-                <div className = "detailMenuDiv {/*detailOptionDiv*/}">
+                <div className = "detailMenuDiv">
                     <div className = "navHeaders">
                         <p> 추가옵션 </p>
                     </div>
@@ -176,7 +176,7 @@ function RightNav(props) {
                     }}> 제조 완료 </button>*/}
                     {
                         detailState[0] != null
-                            ? <Temp detailState = { detailState } dispatch = { dispatch } />
+                            ? <ConfirmBtn detailState = { detailState } dispatch = { dispatch } />
                             : <button type = "submit" className = "btn btn-success confirmBtn"> 제조 완료 </button>
                     }
                 </div>
@@ -196,7 +196,7 @@ function RightNav(props) {
     )
 }
 
-function Temp(props) {
+function ConfirmBtn(props) {
     let detail = props.detailState[0];
     let detailNum = [];
 

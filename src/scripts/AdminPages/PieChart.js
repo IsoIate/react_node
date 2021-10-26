@@ -157,8 +157,12 @@ function PieChart() {
                 }
             </div>
             <div className="pieCharts">
-                <Chart options={count.options} series={count.options.series} type="pie" width="700" />
-                <Chart options={variety.options} series={variety.options.series} type="pie" width="700" />
+                <div className = "pieChartContents">
+                    <Chart options={count.options} series={count.options.series} type="pie" width="100" />
+                </div>
+                <div className = "pieChartContents">
+                    <Chart options={variety.options} series={variety.options.series} type="pie" width="100" />
+                </div>
             </div>
             
         </>

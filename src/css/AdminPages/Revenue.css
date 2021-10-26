@@ -18,7 +18,7 @@
 
 .tabs {
     width: 100%;
-
+    overflow: hidden;
     background-color: #A6A6A6;
 }
 

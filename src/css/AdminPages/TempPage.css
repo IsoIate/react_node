@@ -1,14 +1,54 @@
-.imgContainer {
+.bodyDiv {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background: grey;
+}
+
+.bodyDiv div {
+    border-radius: 25px;
+    margin: 2%;
+}
+
+.bodyTopDiv {
     display: flex;
     flex-direction: row;
 }
 
-.imgDiv {
+.totalRevenue {
     display: flex;
-    flex-direction: column;
-    border: 1px solid black;
+    width: 70%;
+    height: 100%;
+    background-color : white;
+    overflow: hidden;
 }
 
-.imgDiv img {
-    width: 40%;
+.revenueChart {
+    position : relative;
+    width : 50%;
+    left : -2.5%;
+    top : 5%;
+}
+
+.payHistory {
+    width: 30%;
+    height: 100%;
+    background-color : white;
+    overflow: hidden;
+}
+
+.bodyBottomDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+.visitors {
+    width: 70%;
+    background: yellow;
+}
+
+.topRevenue {
+    width: 30%;
+    background: green;
 }
