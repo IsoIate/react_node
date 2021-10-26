@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom'
 import AdminNav from "./AdminNav";
-import '../../css/AdminPages/AdminPage.css'
 import LeftNav from "./LeftNav";
-import RevenueTable from "./RevenueTable";
+import TempPage from "./TempPage";
+import '../../css/AdminPages/AdminPage.css'
 import axios from "axios";
-import RecentRevenue from "./RecentRevenue";
 
 function AdminPage() {
     let history = useHistory();
@@ -45,73 +44,38 @@ function AdminPage() {
     })
 
     return (
-        <div className = "totalDiv">
+        <div className = "revenueDiv">
             <LeftNav/>
-            <div className = "rightDiv">
+
+            <div className="container mt-3" className = "rightDiv">
                 <AdminNav/>
 
-                <div className = "container-fluid contents">
-                    <div className = "row topTables">
-                        <div className = "container col-lg-11 status">
-                            <h2 className = "titleHeader">
-                                총 매출 <i className="fas fa-angle-right fa-1x"></i>
-                            </h2>
-                            <div className = "totalRevDiv">
-                                <div className = "leftBox">
-                                    <h2> 총 매출 </h2>
-                                    <div className = "getInline">
-                                        <div className = "revText">
-                                            <h1> { price } </h1>
-                                            <h3>원</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className = "centerBox">
-                                    <h2> 결제방법 </h2>
-                                    <div className = "getInline">
-                                        <div className = "payMethod">
-                                            {
-                                                payment != null
-                                                    ? <>
-                                                            <div>
-                                                                <h3> 현금 </h3>
-                                                                <h3> { payment.cash } 원</h3>
-                                                            </div>
-                                                            <div>
-                                                                <h3> 카드 </h3>
-                                                                <h3> { payment.card } 원</h3>
-                                                            </div>
-                                                        </>
-                                                    : null
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className = "rightBox">
-                                    <h2> 이용객 수 </h2>
-                                    <div className = "getInline">
-                                        <div className = "peopleCount">
-                                            <h1> { people } </h1>
-                                            <h3>명</h3>
-                                        </div>
-                                    </div>
-                                </div>
+                <TempPage/>
 
+                {/*<div className = "bodyDiv">
+                    <div className = "bodyTopDiv">
+                        <div className = "totalRevenue">
+                            <div className = "revenueChart">
+                                <Chart options={totalRevenue.options} series={totalRevenue.options.series} type="line"
+                                       width="200%" height="150%"/>
                             </div>
                         </div>
-                    </div>
-                    <div className = "row btmTables">
-                        <div className = "container col-lg-11 recentRev">
-                            <h2>
-                                최근매출 <i className="fas fa-angle-right fa-1x"></i>
-                            </h2>
-                            <div>
-                                <RecentRevenue callPage = { callPage } />
-                            </div>
+                        <div className = "payHistory">
+                            <Chart options={payments.options} series={payments.options.series} type="donut"
+                                   width="100%" height="100%"/>
                         </div>
-
                     </div>
-                </div>
+                    <div className = "bodyBottomDiv">
+                        <div className = "visitors">
+                            <Chart options={visitors.options} series={visitors.options.series} type="bar"
+                                   width="100%" height="150%"/>
+                        </div>
+                        <div className = "topRevenue">
+                            <Chart options={topRevenue.options} series={topRevenue.options.series} type="bar"
+                                   width="100%" height="100%"/>
+                        </div>
+                    </div>
+                </div>*/}
             </div>
         </div>
     )

@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import { Button, Jumbotron } from "react-bootstrap";
 import '../../css/AdminPages/TempPage.css'
-import LeftNav from "./LeftNav";
-import AdminNav from "./AdminNav";
 import Chart from 'react-apexcharts';
-
 
 function TempPage () {
     let revenue = [10, 41, 35, 51, 49, 62, 69, 91, 148];
+
     /* 총 매출 차트 */
     let totalRevenue = {
         options : {
@@ -254,37 +251,27 @@ function TempPage () {
     })
 
     return (
-        <div>
-            <div className = "revenueDiv">
-                <LeftNav/>
-
-                <div className="container mt-3" className = "rightDiv">
-                    <AdminNav/>
-
-                    <div className = "bodyDiv">
-                        <div className = "bodyTopDiv">
-                            <div className = "totalRevenue">
-                                <div className = "revenueChart">
-                                    <Chart options={totalRevenue.options} series={totalRevenue.options.series} type="line"
-                                           width="200%" height="150%"/>
-                                </div>
-                            </div>
-                            <div className = "payHistory">
-                                <Chart options={payments.options} series={payments.options.series} type="donut"
-                                       width="100%" height="100%"/>
-                            </div>
-                        </div>
-                        <div className = "bodyBottomDiv">
-                            <div className = "visitors">
-                                <Chart options={visitors.options} series={visitors.options.series} type="bar"
-                                       width="100%" height="150%"/>
-                            </div>
-                            <div className = "topRevenue">
-                                <Chart options={topRevenue.options} series={topRevenue.options.series} type="bar"
-                                       width="100%" height="100%"/>
-                            </div>
-                        </div>
+        <div className = "temp_bodyDiv">
+            <div className = "bodyTopDiv">
+                <div className = "totalRevenue">
+                    <div className = "revenueChart">
+                        <Chart options={totalRevenue.options} series={totalRevenue.options.series} type="line"
+                               width="200%" height="150%"/>
                     </div>
+                </div>
+                <div className = "payHistory">
+                    <Chart options={payments.options} series={payments.options.series} type="donut"
+                           width="100%" height="100%"/>
+                </div>
+            </div>
+            <div className = "bodyBottomDiv">
+                <div className = "visitors">
+                    <Chart options={visitors.options} series={visitors.options.series} type="bar"
+                           width="100%" height="150%"/>
+                </div>
+                <div className = "topRevenue">
+                    <Chart options={topRevenue.options} series={topRevenue.options.series} type="bar"
+                           width="100%" height="100%"/>
                 </div>
             </div>
         </div>

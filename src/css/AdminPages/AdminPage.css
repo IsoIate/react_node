@@ -15,164 +15,66 @@ html, body {
     width: 100vh;
     height : 100vh;
 }
+/*
 
-.contents {
-    color: white;
-}
-
-.topTables {
+.bodyDiv {
     display: flex;
-    justify-content: center;
-}
 
-.status {
-    border: 1px solid #A6A6A6;
-    border-radius: 15px;
-    background-color: #f8f9fa;
-    margin: 30px;
-    padding : 0;
-}
-
-.status > h2 {
-    border-radius: 15px 15px 0 0;
-    background-color: #f6b26b;
-    padding: 15px;
-}
-
-.recentRev {
-    border: 1px solid #A6A6A6;
-    border-radius: 15px;
-    background-color: #f8f9fa;
-    margin: 30px;
-    padding : 0;
-}
-
-.recentRev > h2 {
-    border-radius: 15px 15px 0 0;
-    background-color: #f6b26b;
-    padding: 15px;
-}
-
-.btmTables {
-    display: flex;
-    justify-content: center;
-}
-
-.revenue {
-    border: 1px solid black;
-    margin: 45px;
-    padding : 0;
-}
-
-.totalRevDiv {
-    display: flex;
-    flex-direction: row;
-
-}
-
-.totalRevDiv > div {
-    width: 48%;
-    height : 200px;
-    margin: 10px 1% 10px;
-    border-radius: 15px;
-}
-
-.totalRevDiv > div > h2 {
-    border-radius: 15px 15px 0 0;
-    padding: 10px;
-    margin: 0 auto;
-}
-
-.leftBox {
-    background-color: #8eceff;
-}
-
-.leftBox > h2 {
-    background-color: rgba(88,133,175,0.49);
-}
-
-.getInline {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: calc(100% - 58px);
-}
-
-.revText {
-    display: flex;
-    align-items: baseline;
-}
-
-.centerBox {
-    background-color: #ffc9d6;
-}
-
-.centerBox > h2 {
-    background-color: rgba(196,153,163,0.49);
-}
-
-.payMethod {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    flex-grow: 1;
-    margin: 0 !important;
-}
-
-.payMethod > div {
-    display: flex;
-    flex-direction: column;
-    background-color: #ff838f;
-    flex-grow: 1;
-    margin: 10px 2% 10px;
-    border-radius: 15px;
-
-}
-
-.rightBox {
-    background-color: #4fcfc0;
-}
-
-.rightBox > h2 {
-    background-color: rgba(52,140,130,0.38);
-}
-
-.rightBoxContents {
-    display: flex;
-    flex-direction: row;
     width: 100%;
+    height: 100vh;
+    background: #e8eeff;
 }
 
-.rightBoxContents h3 {
-    margin: 0 auto;
+.bodyDiv div {
+    border-radius: 25px;
+    margin: 1.25% 1% 0.75% 1%;
 }
 
-.peopleCount {
+.bodyTopDiv {
     display: flex;
-    align-items: baseline;
+    flex-direction: row;
 }
 
-.noticeHeader {
-    display: block;
-    width: 130px;
-    text-align: left;
-    margin-left: 20px;
-    cursor: pointer;
+.totalRevenue {
+    display: flex;
+    width: 70%;
+    height: 100%;
+    background-color : white;
+    overflow: hidden;
 }
 
-.no {
-    width : 15%
+.revenueChart {
+    position : relative;
+    width : 50%;
+    left : -2.5%;
+    top : 5%;
 }
 
-.title {
-    width : 55%;
+.payHistory {
+    width: 30%;
+    height: 100%;
+    background-color : white;
+    overflow: hidden;
 }
 
-.name {
-    width : 15%;
+.payChart {
+    position : relative;
+    width : 100%;
+    left : -25%;
+    top : 5%;
 }
 
-.date {
-    width : 15%;
+.bodyBottomDiv {
+    display: flex;
+    flex-direction: row;
 }
+
+.visitors {
+    width: 70%;
+    background: white;
+}
+
+.topRevenue {
+    width: 30%;
+    background: white;
+}*/

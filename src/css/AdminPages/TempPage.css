@@ -1,4 +1,4 @@
-.bodyDiv {
+.temp_bodyDiv {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -6,7 +6,7 @@
     background: #e8eeff;
 }
 
-.bodyDiv div {
+.temp_bodyDiv div {
     border-radius: 25px;
     margin: 1.25% 1% 0.75% 1%;
 }
