@@ -3,8 +3,6 @@ import '../../css/AdminPages/TempPage.css'
 import Chart from 'react-apexcharts';
 
 function ChartPage (props) {
-    let revenue = [10, 41, 35, 51, 49, 62, 69, 91, 148];
-
     /* 총 매출 차트 */
     let totalRevenue = {
         options : {
@@ -32,7 +30,7 @@ function ChartPage (props) {
                 }
             },
             xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
             }
         }
     }
@@ -245,10 +243,16 @@ function ChartPage (props) {
     }
 
     /* 매출 차트에 값 삽입 */
-    totalRevenue.options.series.push({
-        name : "매출",
-        data : revenue
-    })
+    if(props.monthRev != null) {
+        let revenue = []
+        for(let i = 0; i < 12; i++) {
+            revenue[i] = props.monthRev[i].revenue
+        }
+        totalRevenue.options.series.push({
+            name : "매출",
+            data : revenue
+        })
+    }
 
     /* 결제방법 차트에 값 삽입 */
     if(props.payment != null) {

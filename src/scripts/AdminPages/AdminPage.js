@@ -8,17 +8,17 @@ import axios from "axios";
 
 function AdminPage() {
     let history = useHistory();
-    let [price, setPrice] = useState(0);
+    let [monthRev, setMonthRev] = useState(null);
     let [people, setPeople] = useState(0);
     let [payment, setPayment] = useState(null);
     let callPage = 1;
 
     /* 매출 정보 */
     useEffect(() => {
-        axios.get('/getPrice')
+        axios.get('/getMonthRev')
 
             .then(( res ) => {
-                setPrice(res.data)
+                setMonthRev(res.data)
             })
             .catch(( error )=>{ console.log( error ) })
 
@@ -50,7 +50,7 @@ function AdminPage() {
             <div className="container mt-3" className = "rightDiv">
                 <AdminNav/>
 
-                <ChartPage payment = { payment } />
+                <ChartPage monthRev = { monthRev } payment = { payment } />
             </div>
         </div>
     )

@@ -336,17 +336,25 @@ function multiOrder(req, mMenu, index, temp) {
 /* AdminPage */
 
 /* 총 매출 확인 */
-app.get('/getPrice', (req, res) => {
-    db.collection('revenue').find().toArray((err, comp) => {
-        if (err) return err;
-        let priceArray = 0;
+app.get('/getMonthRev', (req, res) => {
+    let jsonArray = [];
+    let data = new Object();
 
-        if(comp != null) {
-            comp.map((num, index) => {
-                priceArray += (comp[index].가격);
-            })
+    db.collection('rev_month').find().toArray((err, comp) => {
+        console.log("comp ?")
+        /*console.log(comp)*/
+        for(let i = 0; i < 12; i++) {
+            data.month = comp[i].날짜
+            data.revenue = comp[i].가격
 
-            res.json(priceArray);
+            jsonArray.push(JSON.parse(JSON.stringify(data)))
+        }
+
+        console.log("jsonArray")
+        console.log(jsonArray)
+
+        if( comp != null ) {
+            res.json(jsonArray);
         }
     })
 })
