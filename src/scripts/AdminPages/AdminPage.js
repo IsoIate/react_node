@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom'
 import AdminNav from "./AdminNav";
 import LeftNav from "./LeftNav";
-import TempPage from "./TempPage";
+import ChartPage from "./ChartPage";
 import '../../css/AdminPages/AdminPage.css'
 import axios from "axios";
 
@@ -37,8 +37,8 @@ function AdminPage() {
     useEffect(() => {
         axios.get('/getPayment')
             .then((res) => {
-                let temp = JSON.parse(res.data)
-                setPayment(temp[0]);
+                let data = res.data;
+                setPayment(data);
             })
             .catch((error) => { console.log( error )})
     }, [])
@@ -50,32 +50,7 @@ function AdminPage() {
             <div className="container mt-3" className = "rightDiv">
                 <AdminNav/>
 
-                <TempPage/>
-
-                {/*<div className = "bodyDiv">
-                    <div className = "bodyTopDiv">
-                        <div className = "totalRevenue">
-                            <div className = "revenueChart">
-                                <Chart options={totalRevenue.options} series={totalRevenue.options.series} type="line"
-                                       width="200%" height="150%"/>
-                            </div>
-                        </div>
-                        <div className = "payHistory">
-                            <Chart options={payments.options} series={payments.options.series} type="donut"
-                                   width="100%" height="100%"/>
-                        </div>
-                    </div>
-                    <div className = "bodyBottomDiv">
-                        <div className = "visitors">
-                            <Chart options={visitors.options} series={visitors.options.series} type="bar"
-                                   width="100%" height="150%"/>
-                        </div>
-                        <div className = "topRevenue">
-                            <Chart options={topRevenue.options} series={topRevenue.options.series} type="bar"
-                                   width="100%" height="100%"/>
-                        </div>
-                    </div>
-                </div>*/}
+                <ChartPage payment = { payment } />
             </div>
         </div>
     )

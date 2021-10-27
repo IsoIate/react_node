@@ -60,64 +60,7 @@ http.listen(8080, function () {
     console.log('listening on 8080')
 });
 
-/* AdminPage */
 
-/* 매출 확인 */
-app.get('/getPrice', (req, res) => {
-    db.collection('revenue').find().toArray((err, comp) => {
-        if (err) return err;
-        let priceArray = 0;
-
-        if(comp != null) {
-            comp.map((num, index) => {
-                priceArray += (comp[index].가격);
-            })
-
-            res.json(priceArray);
-        }
-    })
-})
-
-/* 방문객 수 확인 */
-app.get('/getVisitors', (req, res) => {
-    db.collection('counter').find().toArray((err, comp) => {
-        if(err) return err;
-
-        if( comp != null ) {
-            res.json(comp[0].visitors);
-        }
-    })
-})
-
-/* 지불 정보 확인 */
-app.get('/getPayment', (req, res) => {
-    db.collection('revenue').find().toArray((err, comp) => {
-        let cash = 0;
-        let card = 0;
-        let json = null;
-        let data = null;
-        let result = null;
-
-        if(err) return err;
-
-        if(comp != null) {
-            for(let i = 0; i < comp.length; i++) {
-                comp[i].지불 === "현금" ? (cash += comp[i].가격) : (card += comp[i].가격)
-            }
-
-            data = {};
-            data.cash = cash
-            data.card = card
-
-            json = [];
-            json.push(data)
-
-            result = JSON.stringify(json)
-
-            res.json(result);
-        }
-    })
-})
 
 /* Counter */
 
@@ -198,28 +141,18 @@ app.post('/makeComp', (req, res) => {
             /* id 값을 1 증가시키는 함수 */
             CountInc();
 
-            db.collection('rev_month').findOne({ col : "rev_month" }, (err, monRes) => {
-                if(req.body.payment == 0) {
-                    db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
-                        {
-                            $set: {
-                                현금: parseInt(monRes.현금) + parseInt(req.body.count),
-                            }
-                        })
-                }
-                else if (req.body.payment == 1) {
-                    db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
-                        {
-                            $set: {
-                                현금: parseInt(monRes.카드) + parseInt(req.body.count),
-                            }
-                        })
-                }
+            db.collection('rev_month').findOne({ 날짜 : (date.getMonth() + 1) }, (err, monRes) => {
                 db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
                     {
                         $set: {
                             수량: parseInt(monRes.수량) + parseInt(req.body.count),
                             가격: parseInt(monRes.가격) + parseInt(req.body.price),
+                            현금: req.body.payment == 0
+                                    ? parseInt(monRes.현금) + parseInt(req.body.count)
+                                    : parseInt(monRes.현금),
+                            카드: req.body.payment == 1
+                                    ? parseInt(monRes.카드) + parseInt(req.body.count)
+                                    : parseInt(monRes.카드)
                         }
                     })
             })
@@ -398,6 +331,55 @@ function multiOrder(req, mMenu, index, temp) {
         })
     })
 }
+
+
+/* AdminPage */
+
+/* 총 매출 확인 */
+app.get('/getPrice', (req, res) => {
+    db.collection('revenue').find().toArray((err, comp) => {
+        if (err) return err;
+        let priceArray = 0;
+
+        if(comp != null) {
+            comp.map((num, index) => {
+                priceArray += (comp[index].가격);
+            })
+
+            res.json(priceArray);
+        }
+    })
+})
+
+/* 방문객 수 확인 */
+app.get('/getVisitors', (req, res) => {
+    db.collection('counter').find().toArray((err, comp) => {
+        if(err) return err;
+
+        if( comp != null ) {
+            res.json(comp[0].visitors);
+        }
+    })
+})
+
+/* 지불 정보 확인 */
+app.get('/getPayment', (req, res) => {
+    let date = new Date();
+    let payData = new Object();
+
+    db.collection('rev_month').findOne({ 날짜 : (date.getMonth() + 1) }, (err, comp) => {
+        console.log("comp")
+        console.log(comp)
+
+        payData.cash = comp.현금;
+        payData.card = comp.카드;
+
+        console.log("??")
+        if(payData != null) console.log(payData)
+
+        if(comp != null) res.json({ payData });
+    })
+})
 
 /* Revenue */
 

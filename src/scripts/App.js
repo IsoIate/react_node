@@ -14,7 +14,7 @@ import FrontPage from "./FrontPage/FrontPage";
 import Revenue from "./AdminPages/Revenue";
 import Setting from "./AdminPages/Setting";
 import Counter from "./AdminPages/Counter";
-import TempPage from "./AdminPages/TempPage";
+import TempPage from "./AdminPages/ChartPage";
 /*import imgA from './img/Admin.png';*/
 
 function App() {

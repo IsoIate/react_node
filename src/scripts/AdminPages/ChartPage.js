@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import '../../css/AdminPages/TempPage.css'
 import Chart from 'react-apexcharts';
 
-function TempPage () {
+function ChartPage (props) {
     let revenue = [10, 41, 35, 51, 49, 62, 69, 91, 148];
 
     /* 총 매출 차트 */
@@ -40,7 +40,7 @@ function TempPage () {
     /* 결제 방법 차트 */
     let payments = {
         options : {
-            series: [70, 30],
+            series: [],
             chart: {
                 type: 'donut',
                 offsetY: 10,
@@ -244,11 +244,16 @@ function TempPage () {
         }
     }
 
-    /* 차트에 값 삽입 */
+    /* 매출 차트에 값 삽입 */
     totalRevenue.options.series.push({
         name : "매출",
         data : revenue
     })
+
+    /* 결제방법 차트에 값 삽입 */
+    if(props.payment != null) {
+        payments.options.series.push(parseInt(props.payment.payData.cash), parseInt(props.payment.payData.card))
+    }
 
     return (
         <div className = "temp_bodyDiv">
@@ -280,4 +285,4 @@ function TempPage () {
 
 
 
-export default TempPage;
+export default ChartPage;
