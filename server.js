@@ -32,6 +32,7 @@ const http = require('http').createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(http);
 let globalCount = 0;
+let date = new Date();
 
 io.on("connect", socket => {
     /*console.log("connect client by Socket.io");*/
@@ -131,9 +132,20 @@ app.post('/order', (req, res) => {
 app.post('/makeComp', (req, res) => {
     var menuTitle = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트'];
 
+    let jsonData = [];
+    let dataSet = new Object();
+    let jsonResult = null;
+
+    dataSet.month = (date.getMonth() + 1);
+    dataSet.day = date.getDate();
+    dataSet.hour = date.getHours();
+    dataSet.minute = date.getMinutes();
+
+    jsonData.push(dataSet);
+    console.log(jsonData[0]);
+
     console.log("makeComp");
     console.log(req.body);
-
 
     /* 주문 메뉴가 1가지 일 때 */
     if(typeof (req.body.title) == "string") {
@@ -154,7 +166,7 @@ app.post('/makeComp', (req, res) => {
 
         /* 주문 추가 */
         db.collection('counter').findOne({ name : '카운터'}, (err, cntRes) => {
-            let totalCount = (cntRes.count === 0 ? 1 : cntRes.count);
+            let totalCount = cntRes.count;
 
             /* 메뉴별 매출 추가 */
             db.collection('rev_menu').findOne({ 메뉴이름 : orderMenu }, (err, revRes) => {
@@ -185,6 +197,37 @@ app.post('/makeComp', (req, res) => {
 
             /* id 값을 1 증가시키는 함수 */
             CountInc();
+
+            db.collection('rev_month').findOne({ col : "rev_month" }, (err, monRes) => {
+                if(req.body.payment == 0) {
+                    db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
+                        {
+                            $set: {
+                                현금: parseInt(monRes.현금) + parseInt(req.body.count),
+                            }
+                        })
+                }
+                else if (req.body.payment == 1) {
+                    db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
+                        {
+                            $set: {
+                                현금: parseInt(monRes.카드) + parseInt(req.body.count),
+                            }
+                        })
+                }
+                db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
+                    {
+                        $set: {
+                            수량: parseInt(monRes.수량) + parseInt(req.body.count),
+                            가격: parseInt(monRes.가격) + parseInt(req.body.price),
+                        }
+                    })
+            })
+
+
+            /* 일별 매출 추가 */
+
+
         })
 
         /* visitors 값을 1 증가시키는 함수 */
@@ -265,49 +308,6 @@ app.post('/makeComp', (req, res) => {
         /* visitors 값을 1 증가시키는 함수 */
         VisInc();
 
-        /*db.collection('counter').find().toArray((err, res) => {
-            /!* 주문한 종류가 DB에 존재하는지 검색 *!/
-            db.collection('tmp_variety').find().toArray((varErr, mvRes) => {
-                db.collection('tmp_count').findOne({ name : '카운터'}, (err, res) => {
-                    let mvVar = [];
-                    let dupCount = [0, 0, 0, 0, 0, 0, 0, 0];
-                    let dupPrice = [0, 0, 0, 0, 0, 0, 0, 0];
-                    let uniqArr = [];
-
-                    for (let i = 0; i < mvRes.length; i++) {
-                        mvVar.push(mvRes[i].종류);
-                    }
-                    /!*
-                    console.log("mvVar : ")
-                    console.log(mvVar);
-                    *!/
-
-                    /!* 중복된 종류 탐색, 결합 *!/
-                    req.body.menuIndex.forEach((e) => {
-                        if(!uniqArr.includes(e)) {
-                            uniqArr.push(e);
-                        }
-                    })
-
-                    /!* 배열에 중복된 종류 삽입 *!/
-                    for (let i = 0; i < req.body.menuIndex.length; i++) {
-                        dupCount[parseInt(req.body.menuIndex[i])] += parseInt(req.body.count[i]);
-                        dupPrice[parseInt(req.body.menuIndex[i])] += parseInt(req.body.price[i]);
-                    }
-                    /!*
-                    console.log(dupCount)
-                    console.log(dupPrice)
-                    *!/
-
-                    for(let i = 0; i < menuTitle.length; i++) {
-                        db.collection('tmp_variety').updateOne({ 종류 : menuTitle[i] },
-                            { $inc: { 수량: dupCount[i], 가격: dupPrice[i] } })
-                    }
-                })
-            })
-
-        })*/
-
     }
 
     setTimeout( () => {
@@ -353,7 +353,7 @@ function VisInc() {
 
 function singleOrder(req, sMenu) {
     db.collection('counter').findOne({ name: "카운터" }, (err, res) => {
-        let totalCount = (res.count === 0 ? 1 : res.count);
+        let totalCount = res.count;
 
         /* 매출 컬렉션 */
         db.collection('revenue').insertOne({
@@ -377,7 +377,7 @@ function singleOrder(req, sMenu) {
 
 function multiOrder(req, mMenu, index, temp) {
     db.collection('counter').findOne({ name: "카운터" }, (err, res) => {
-        let totalCount = (res.count === 0 ? 1 : res.count);
+        let totalCount = res.count;
         console.log("temp? " + temp)
         /* 매출 컬렉션 */
         db.collection('revenue').insertOne({
@@ -398,175 +398,6 @@ function multiOrder(req, mMenu, index, temp) {
         })
     })
 }
-
-/* 매출표 작성을 위한 주문데이터를 DB에 삽입하는 과정 */
-/*app.post('/payInfo', (req, res) => {
-
-    var menuTitle = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트'];
-
-    console.log("req")
-    console.log(req.body)
-
-    /!* 주문 메뉴가 1가지 일 때 *!/
-    if(typeof (req.body.title) == "string") {
-        var sMenu;
-
-        for(let i = 0; i <= 8; i++) {
-            if(i == req.body.menuIndex) {
-                sMenu = menuTitle[i];
-            }
-        }
-
-        console.log("1개");
-        console.log((req.body.title))
-
-        /!* 주문 추가 *!/
-        db.collection('tmp_count').findOne({ name : '카운터'}, (err, res) => {
-            let totalCount = res.count;
-            let grpCount = (res.visitors + 1);
-
-            /!* 카운터 컬렉션 *!/
-            db.collection('counter').insertOne({
-                    _id : (totalCount + 1), 메뉴이름 : req.body.title,
-                    수량 : parseInt(req.body.count), 가격 : parseInt(req.body.price),
-                    지불 : parseInt(req.body.payment), group : (grpCount)
-                },
-                (err, comp) => { if(err) return console.log(err) })
-
-            /!* id 값을 1 증가시키는 함수 *!/
-            tmpCountInc();
-        })
-
-        /!* 종류 추가 *!/
-        /!* 주문한 종류가 DB에 존재하는지 검색 *!/
-        db.collection('tmp_variety').findOne({ 종류 : sMenu }, (err, svRes) => {
-            db.collection('tmp_count').findOne({ name : '카운터'}, (err, res) => {
-                let totalCount = res.count;
-
-                /!* 주문한 종류가 DB에 존재하지 않을 때 *!/
-                if (svRes == null) {
-                    db.collection('tmp_variety').insertOne({
-                        /!*_id: (totalCount + 1), *!/종류: sMenu, 수량: parseInt(req.body.count),
-                        가격: parseInt(req.body.price)
-                    }, (err, comp) => {
-                        if (err) return console.log(err)
-                    })
-                }
-
-                /!* 주문한 종류가 DB에 존재할 때 *!/
-                else {
-                    db.collection('tmp_variety').updateOne({ 종류 : sMenu },
-                        {
-                            $set: {
-                                수량: parseInt(svRes.수량) + parseInt(req.body.count),
-                                가격: parseInt(svRes.가격) + parseInt(req.body.price),
-                            }
-                        })
-                }
-            })
-        })
-
-        /!* visitors 값을 1 증가시키는 함수 *!/
-        tmpVisInc();
-    }
-
-    /!* 주문 메뉴가 2가지 이상 일 때 *!/
-    else if (typeof (req.body.title) == "object") {
-        var mMenu = [];
-
-        /!*console.log(req.body.menuIndex);*!/
-        for(let i = 0; i <= req.body.menuIndex.length; i++) {
-            for(let j = 0; j <= 8; j++) {
-                if(j == parseInt(req.body.menuIndex[i])) {
-                    mMenu[i] = menuTitle[j];
-                }
-            }
-        }
-
-        /!*console.log(mMenu);*!/
-        console.log("2가지 이상")
-        console.log("주문메뉴 : " + (req.body.title))
-
-        db.collection('tmp_count').findOne({ name : '카운터'}, (err, tcRes) => {
-            let tmpCount = tcRes.count;
-            let grpCount = (tcRes.visitors + 1);
-
-            for (let i = 0; i < req.body.title.length; i++) {
-
-                /!* 카운터 컬렉션 *!/
-                db.collection('counter').insertOne({
-                        _id: (tmpCount + ( i + 1 )), 메뉴이름: req.body.title[i],
-                        수량: parseInt(req.body.count[i]), 가격: parseInt(req.body.price[i]),
-                        지불 : parseInt(req.body.payment[i]), group: (grpCount)
-                    },
-                    (err, comp) => {
-                        if (err) return console.log(err)
-                    })
-                tmpCountInc();
-
-            }
-        })
-
-        /!* visitors 값을 1 증가시키는 함수 *!/
-        tmpVisInc();
-
-        db.collection('counter').find().toArray((err, res) => {
-            /!* 주문한 종류가 DB에 존재하는지 검색 *!/
-            db.collection('tmp_variety').find().toArray((varErr, mvRes) => {
-                db.collection('tmp_count').findOne({ name : '카운터'}, (err, res) => {
-                    let mvVar = [];
-                    let dupCount = [0, 0, 0, 0, 0, 0, 0, 0];
-                    let dupPrice = [0, 0, 0, 0, 0, 0, 0, 0];
-                    let uniqArr = [];
-
-                    for (let i = 0; i < mvRes.length; i++) {
-                        mvVar.push(mvRes[i].종류);
-                    }
-                    /!*
-                    console.log("mvVar : ")
-                    console.log(mvVar);
-                    *!/
-
-                    /!* 중복된 종류 탐색, 결합 *!/
-                    req.body.menuIndex.forEach((e) => {
-                        if(!uniqArr.includes(e)) {
-                            uniqArr.push(e);
-                        }
-                    })
-
-                    /!* 배열에 중복된 종류 삽입 *!/
-                    for (let i = 0; i < req.body.menuIndex.length; i++) {
-                        dupCount[parseInt(req.body.menuIndex[i])] += parseInt(req.body.count[i]);
-                        dupPrice[parseInt(req.body.menuIndex[i])] += parseInt(req.body.price[i]);
-                    }
-                    /!*
-                    console.log(dupCount)
-                    console.log(dupPrice)
-                    *!/
-
-                    for(let i = 0; i < menuTitle.length; i++) {
-                        db.collection('tmp_variety').updateOne({ 종류 : menuTitle[i] },
-                            { $inc: { 수량: dupCount[i], 가격: dupPrice[i] } })
-                    }
-                })
-            })
-
-        })
-
-        /!*
-        /!* id값을 1 증가시키는 함수 *!/
-        tmpCountInc();
-
-        /!* visitors값을 1 증가시키는 함수 *!/
-        tmpVisInc();
-        *!/
-    }
-
-    setTimeout(() => {
-        res.redirect('./order/0');
-    }, 3000)
-
-})*/
 
 /* Revenue */
 
@@ -600,40 +431,6 @@ app.get('/getVariety', (req, res) => {
 
         if(comp != null) res.json({ comp });
     })
-
-
-    /*db.collection('variety').find().toArray((err, comp) => {
-        if(err) return err;
-
-        var menuTitle = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트'];
-        var countArr = [0, 0, 0, 0, 0, 0, 0, 0];
-        var priceArr = [0, 0, 0, 0, 0, 0, 0, 0];
-
-        if(comp != null) {
-            for(var i = 0; i < comp.length; i++) {
-                for(var j = 0; j < menuTitle.length; j++) {
-                    if(comp[i].종류 == menuTitle[j]) {
-                        countArr[j] += parseInt(comp[i].수량);
-                        priceArr[j] += comp[i].가격;
-                    }
-                }
-            }
-
-            var jsonArr = new Array();
-            for ( var i = 0; i < menuTitle.length; i++) {
-                var jsonObj = new Object();
-
-                jsonObj.종류 = menuTitle[i];
-                jsonObj.수량 = countArr[i];
-                jsonObj.가격 = priceArr[i];
-
-                jsonObj = JSON.stringify(jsonObj);
-                jsonArr.push(JSON.parse(jsonObj));
-            }
-
-            res.json({ jsonArr });
-        }
-    })*/
 })
 
 /* Setting */
@@ -643,7 +440,7 @@ app.delete('/dbReset', (req, res) => {
 
     /* counter Reset */
     db.collection('counter').updateOne({ name : "카운터" },
-        { $set : { count : 0, visitors: 0 }}, (err, comp) => {
+        { $set : { count : 1, visitors: 0 }}, (err, comp) => {
             if (err) return err;
             else console.log("counter Reset Success");
         })
@@ -661,6 +458,14 @@ app.delete('/dbReset', (req, res) => {
         if(err) return err;
         else console.log("rev_menu Reset Success");
     })
+
+    /* rev_month Reset */
+    for(let i = 1; i <= 12; i++) {
+        db.collection('rev_month').updateOne({ 날짜 : i },
+            { $set : { 수량 : 0, 가격: 0, 현금: 0, 카드: 0 }}, (err, comp) => {
+                if (err) return err;
+            })
+    }
 
     /* revenue Reset */
     db.collection('revenue').deleteMany({}, (err) => {

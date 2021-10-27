@@ -41,7 +41,7 @@ function AdminPage() {
                 setPayment(temp[0]);
             })
             .catch((error) => { console.log( error )})
-    })
+    }, [])
 
     return (
         <div className = "revenueDiv">
