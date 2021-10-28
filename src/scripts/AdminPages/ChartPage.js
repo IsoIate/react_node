@@ -265,18 +265,18 @@ function ChartPage (props) {
                 <div className = "totalRevenue">
                     <div className = "revenueChart">
                         <Chart options={totalRevenue.options} series={totalRevenue.options.series} type="line"
-                               width="200%" height="150%"/>
+                               width="200%" height="90%"/>
                     </div>
                 </div>
                 <div className = "payHistory">
                     <Chart options={payments.options} series={payments.options.series} type="donut"
-                           width="100%" height="100%"/>
+                           width="100%" height="90%"/>
                 </div>
             </div>
             <div className = "bodyBottomDiv">
                 <div className = "visitors">
                     <Chart options={visitors.options} series={visitors.options.series} type="bar"
-                           width="100%" height="150%"/>
+                           width="100%" height="100%"/>
                 </div>
                 <div className = "topRevenue">
                     <Chart options={topRevenue.options} series={topRevenue.options.series} type="bar"

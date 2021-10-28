@@ -148,10 +148,10 @@ app.post('/makeComp', (req, res) => {
                             수량: parseInt(monRes.수량) + parseInt(req.body.count),
                             가격: parseInt(monRes.가격) + parseInt(req.body.price),
                             현금: req.body.payment == 0
-                                    ? parseInt(monRes.현금) + parseInt(req.body.count)
+                                    ? parseInt(monRes.현금) + 1
                                     : parseInt(monRes.현금),
                             카드: req.body.payment == 1
-                                    ? parseInt(monRes.카드) + parseInt(req.body.count)
+                                    ? parseInt(monRes.카드) + 1
                                     : parseInt(monRes.카드)
                         }
                     })

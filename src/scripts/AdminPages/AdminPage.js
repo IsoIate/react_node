@@ -25,13 +25,13 @@ function AdminPage() {
     }, [])
 
     /* 방문자 정보 */
-    useEffect(() => {
+    /*useEffect(() => {
         axios.get('/getVisitors')
             .then((res) => {
                 setPeople(res.data);
             })
             .catch((error) => { console.log( error ) })
-    }, [])
+    }, [])*/
 
     /* 지불 정보 */
     useEffect(() => {
