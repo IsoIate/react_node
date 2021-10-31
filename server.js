@@ -332,6 +332,356 @@ function multiOrder(req, mMenu, index, temp) {
     })
 }
 
+/* DB Insert */
+/*app.get('/dbInsert', (req, res) => {
+    console.log(req)
+
+    let bub = [
+        {
+            id: 0,
+            title : "밀크티버블라떼",
+            content : "밀크티버블라떼",
+            price : 3000,
+            comment : "달콤한 밀크티에 쫄깃한 젤리를 넣은 음료"
+        },
+
+        {
+            id: 1,
+            title : "흑당버블라떼",
+            content : "흑당버블라떼",
+            price : 3500,
+            comment : "달콤한 흑설탕 커피에 쫄깃한 젤리를 넣은 음료"
+        },
+
+        {
+            id: 2,
+            title : "달고나버블라떼",
+            content : "달고나버블라떼",
+            price : 3500,
+            comment : "커피에 달콤한 달고나와 쫄깃한 젤리를 넣은 음료"
+        },
+
+        {
+            id : 3,
+            title : "흑당고구마라떼",
+            content : "흑당고구마라떼",
+            price : 4000,
+            comment : "달콤한 흑설탕 커피에 고구마를 갈아 넣은 음료"
+        }];
+    let fra = [
+        {
+        id: 0,
+        title : "자바칩프라푸치노",
+        content : "자바칩 프라푸치노",
+        price : 3500,
+        comment : "달콤한 초코음료에 생크림을 얹어 만든 시원한 음료"
+        },
+
+        {
+            id: 1,
+            title : "쿠앤크프라푸치노",
+            content : "쿠앤크 프라푸치노",
+            price : 3500,
+            comment : "쿠키를 갈아넣은 음료에 생크림을 얹어 만든 시원한 음료"
+        },
+
+        {
+            id: 2,
+            title : "민트초코프라푸치노",
+            content : "민트초코 프라푸치노",
+            price : 4000,
+            comment : "민트맛 초코음료에 생크림을 얹어 만든 시원한 음료"
+        },
+
+        {
+            id : 3,
+            title : "딸기크림프라푸치노",
+            content : "딸기크림 프라푸치노",
+            price : 4000,
+            comment : "신선한 딸기음료에 생딸기를 얹어 만든 시원한 음료"
+        },
+
+        {
+            id : 4,
+            title : "녹차프라푸치노",
+            content : "녹차 프라푸치노",
+            price : 3500,
+            comment : "신선한 녹차음료에 생크림을 얹어 만든 시원한 음료"
+        }];
+    let smo = [
+        {
+            id: 0,
+            title : "플레인요거트",
+            content : "플레인요거트",
+            price : 3000,
+            comment : "신선한 우유맛 요거트에  시원한 음료"
+        },
+
+        {
+            id: 1,
+            title : "딸기요거트",
+            content : "딸기 요거트",
+            price : 3500,
+            comment : "신선한 딸기를 갈아 만든 시원한 요거트 음료"
+        },
+
+        {
+            id: 2,
+            title : "블루베리요거트",
+            content : "블루베리 요거트",
+            price : 3500,
+            comment : "신선한 블루베리를 갈아 만든 시원한 요거트 음료"
+        },
+
+        {
+            id : 3,
+            title : "망고요거트",
+            content : "망고 요거트",
+            price : 3500,
+            comment : "신선한 망고를 갈아 만든 시원한 요거트 음료"
+        },
+
+        {
+            id : 4,
+            title : "딸기바나나요거트",
+            content : "딸기 바나나 요거트",
+            price : 3500,
+            comment : "신선한 딸기와 바나나를 갈아 만든 시원한 요거트 음료"
+        },
+
+        {
+            id : 5,
+            title : "망고바나나요거트",
+            content : "망고 바나나 요거트",
+            price : 3500,
+            comment : "신선한 망고와 바나나를 갈아 만든 시원한 요거트 음료"
+        },
+
+        {
+            id : 6,
+            title : "애플망고크러쉬",
+            content : "애플망고 크러쉬",
+            price : 3000,
+            comment : "신선한 애플망고를 갈아 만든 시원한 음료"
+        }
+    ]
+    let ade = [
+        {
+            id: 0,
+            title : "자몽라임에이드",
+            content : "자몽라임 에이드",
+            price : 3000,
+            comment : "톡 쏘는 탄산수에 신선한 자몽과 라임을 넣은 음료"
+        },
+
+        {
+            id: 1,
+            title : "청포도에이드",
+            content : "청포도 에이드",
+            price : 3000,
+            comment : "톡 쏘는 탄산수에 신선한 청포도를 넣은 음료"
+        },
+
+        {
+            id: 2,
+            title : "레몬에이드",
+            content : "레몬 에이드",
+            price : 3000,
+            comment : "톡 쏘는 탄산수에 신선한 레몬을 넣은 음료"
+        },
+
+        {
+            id : 3,
+            title : "블루레몬에이드",
+            content : "블루레몬 에이드",
+            price : 3000,
+            comment : "톡 쏘는 탄산수에 신선한 레몬를 넣고 색을 입힌 음료"
+        },
+
+        {
+            id : 4,
+            title : "유자에이드",
+            content : "유자 에이드",
+            price : 3000,
+            comment : "톡 쏘는 탄산수에 신선한 유자를 넣은 음료"
+        },
+
+        {
+            id : 5,
+            title : "깔라만시에이드",
+            content : "깔라만시 에이드",
+            price : 3000,
+            comment : "톡 쏘는 탄산수에 깔라만시를 넣은 새콤달콤한 음료"
+        }
+    ]
+    let jui = [
+        {
+            id: 0,
+            title : "바나나 주스",
+            content : "바나나 주스",
+            price : 2500,
+            comment : "신선한 바나나를 직접 갈아넣은 시원한 음료"
+        },
+
+        {
+            id: 1,
+            title : "토마토 주스",
+            content : "토마토 주스",
+            price : 2500,
+            comment : "신선한 토마토를 직접 갈아넣은 시원한 음료"
+        },
+
+        {
+            id: 2,
+            title : "키위 주스",
+            content : "키위 주스",
+            price : 2500,
+            comment : "신선한 키위를 직접 갈아넣은 시원한 음료"
+        }
+    ]
+    let tea = [
+        {
+            id: 0,
+            title : "청귤차",
+            content : "청귤차",
+            price : 3000,
+            comment : "신선한 청귤을 넣어만든 새콤달콤한 차"
+        },
+
+        {
+            id: 1,
+            title : "생강차",
+            content : "생강차",
+            price : 3000,
+            comment : "신선한 생강을 넣어만든 알싸한 차"
+        },
+
+        {
+            id: 2,
+            title : "레몬차",
+            content : "레몬차",
+            price : 2500,
+            comment : "신선한 레몬을 넣어만든 상큼한 차"
+        },
+
+        {
+            id : 3,
+            title : "자몽차",
+            content : "자몽차",
+            price : 2500,
+            comment : "신선한 자몽을 넣어만든 새콤달콤한 차"
+        },
+
+        {
+            id : 4,
+            title : "유자차",
+            content : "유자차",
+            price : 2500,
+            comment : "신선한 유자을 넣어만든 건강한 차"
+        },
+
+        {
+            id : 5,
+            title : "페퍼민트",
+            content : "페퍼민트",
+            price : 3000,
+            comment : "산뜻한 페퍼민트향이 은은히 퍼지는 건강한 차"
+        },
+
+        {
+            id : 6,
+            title : "카모마일",
+            content : "카모마일",
+            price : 3000,
+            comment : "산뜻한 카모마일향이 은은히 퍼지는 건강한 차"
+        },
+
+        {
+            id : 7,
+            title : "얼그레이",
+            content : "얼그레이",
+            price : 3000
+        }
+    ]
+    let des = [
+        {
+            id: 0,
+            title : "치즈케익",
+            content : "치즈 케익 (1조각)",
+            price : 4500,
+            comment : "치즈의 풍미를 느낄 수 있는 달지않은 조각케익"
+        },
+
+        {
+            id: 1,
+            title : "티라미수케익",
+            content : "티라미수 케익 (1조각)",
+            price : 5000,
+            comment : "커피와 치즈를 섞어 만든 달콤하고 폭신한 조각케익"
+        },
+
+        {
+            id: 2,
+            title : "초코크림케익",
+            content : "초코크림 케익 (1조각)",
+            price : 5000,
+            comment : "초코크림을 잔뜩 넣어 달콤하고 폭신한 조각케익"
+        },
+
+        {
+            id : 3,
+            title : "플레인크로플",
+            content : "플레인 크로플",
+            price : 4000,
+            comment : "담백하고 짭짤한 크로플에 시럽을 얹어 만든 디저트"
+        },
+
+        {
+            id : 4,
+            title : "아이스크림크로플",
+            content : "아이스크림 크로플",
+            price : 5000,
+            comment : "담백하고 짭짤한 크로플에 아이스크림을 얹어 만든 디저트"
+        },
+
+        {
+            id : 5,
+            title : "커피콩빵",
+            content : "커피콩 빵",
+            price : 3500,
+            comment : "신선한 원두의 향을 느낄 수 있는 원두모양 빵"
+        },
+
+        {
+            id : 6,
+            title : "슈크림커피콩빵",
+            content : "슈크림 커피콩 빵",
+            price : 4500,
+            comment : "원두의 향을 느낄 수 있는 원두모양 빵에 슈크림을 넣은 디저트"
+        }
+    ]
+    let array = [bub, fra, smo, ade, jui, tea, des]
+    let collection = ['bubbleTea_data', 'frappe_data', 'smoothie_data', 'ade_data', 'juice_data', 'tea_data', 'dessert_data']
+
+
+    for(let i = 0; i < array.length; i++) {
+        for(let j = 0; j < array[i].length; j++) {
+             db.collection(collection[i]).insertOne({
+                     _id : ( array[i][j].id ), title : array[i][j].title,
+                     content : array[i][j].content, price : array[i][j].price,
+                     comment : array[i][j].comment,
+                 },
+                 (err, comp) => { if(comp) console.log('success') })
+        }
+    }
+
+
+
+    setTimeout(() => {
+        res.send('test');
+    }, 300000)
+})*/
+
 
 /* AdminPage */
 
