@@ -683,15 +683,27 @@ function multiOrder(req, mMenu, index, temp) {
 })*/
 
 /* Order */
-app.get('/getCoffee', (req, res) => {
+let getArray = ['/getCoffee', '/getBubbleTea', '/getFrappe', '/getSmoothie', '/getAde', '/getJuice', '/getTea', '/getDessert']
+let collectionArray = ['coffee_data', 'bubbleTea_data', 'frappe_data', 'smoothie_data', 'ade_data', 'juice_data', 'tea_data', 'dessert_data']
 
-    db.collection('coffee_data').find().toArray((err, comp) => {
-        console.log("comp??")
-        console.log(comp)
+for(let i = 0; i < getArray.length; i++) {
+    app.get(getArray[i], (req, res) => {
 
-        res.json({ comp })
+        db.collection(collectionArray[i]).find().toArray((err, comp) => {
+            console.log("comp??")
+
+            /* DB에 들어있는 데이터를 id값 기준으로 정렬 */
+            function customSort(a, b) {
+                if(a._id === b._id) { return 0 }
+                return a._id > b._id ? 1 : -1;
+            }
+            comp.sort(customSort);
+
+            res.json({ comp })
+        })
     })
-})
+}
+
 
 /* AdminPage */
 

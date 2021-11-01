@@ -51,6 +51,7 @@ import tea3 from "../../img/tea/grapefruiteTea.png";
 import tea4 from "../../img/tea/citronTea.png";
 import tea5 from "../../img/tea/peppermintTea.png";
 import tea6 from "../../img/tea/chamomileTea.png";
+import tea7 from "../../img/tea/earlgreyTea.png";
 import dessert0 from "../../img/dessert/cheeseCake.png";
 import dessert1 from "../../img/dessert/tiramisuCake.png";
 import dessert2 from "../../img/dessert/chocomousseCake.png";
@@ -62,7 +63,7 @@ import axios from "axios";
 
 function TempPage() {
     let [coffee, setCoffee] = useState(coffeeData);
-    let [bubbleTea, setBubbletea] = useState(bubbleTeaData);
+    let [bubbleTea, setBubbleTea] = useState(bubbleTeaData);
     let [frappe, setFrappe] = useState(frappeData);
     let [smoothie, setSmoothie] = useState(smoothieData);
     let [ade, setAde] = useState(adeData);
@@ -70,76 +71,39 @@ function TempPage() {
     let [tea, setTea] = useState(teaData);
     let [dessert, setDessert] = useState(dessertData);
 
-    useEffect(() => {
-        return (
-            axios.get('/getCoffee')
-                .then((res) => {
-                    setCoffee(res.data.comp)
-                    console.log(res.data.comp)
-                })
-                .catch(( error )=>{ console.log( error ) })
-            /*axios.get('/getBubbletea')
-                .then((res) => {
-                    /!*setCoffee(res.data)*!/
-                    console.log(res.data)
-                })
-                .catch(( error )=>{ console.log( error ) }),
-            axios.get('/getFrappe')
-                .then((res) => {
-                    /!*setCoffee(res.data)*!/
-                    console.log(res.data)
-                })
-                .catch(( error )=>{ console.log( error ) }),
-            axios.get('/getSmoothie')
-                .then((res) => {
-                    /!*setCoffee(res.data)*!/
-                    console.log(res.data)
-                })
-                .catch(( error )=>{ console.log( error ) }),
-            axios.get('/getAde')
-                .then((res) => {
-                    /!*setCoffee(res.data)*!/
-                    console.log(res.data)
-                })
-            .catch(( error )=>{ console.log( error ) }),
-            axios.get('/getJuice')
-                .then((res) => {
-                    /!*setCoffee(res.data)*!/
-                    console.log(res.data)
-                })
-                .catch(( error )=>{ console.log( error ) }),
-            axios.get('/getTea')
-                .then((res) => {
-                    /!*setCoffee(res.data)*!/
-                    console.log(res.data)
-                })
-                .catch(( error )=>{ console.log( error ) }),
-            axios.get('/getDessert')
-                .then((res) => {
-                    /!*setCoffee(res.data)*!/
-                    console.log(res.data)
-                })
-                .catch(( error )=>{ console.log( error ) })*/
-        )
-    }, [])
-
     let coffeeImg = [coffee0, coffee1, coffee2, coffee3, coffee4, coffee5, coffee6];
     let bubbleTeaImg = [bubbleTea0, bubbleTea1, bubbleTea2, bubbleTea3];
     let frappeImg = [frappe0, frappe1, frappe2, frappe3, frappe4];
     let smoothieImg = [smoothie0, smoothie1, smoothie2, smoothie3, smoothie4, smoothie5, smoothie6];
     let adeImg = [ade0, ade1, ade2, ade3, ade4, ade5];
     let juiceImg = [juice0, juice1, juice2];
-    let teaImg = [tea0, tea1, tea2, tea3, tea4, tea5, tea6  /*, 나중에 수정 tea7*/];
+    let teaImg = [tea0, tea1, tea2, tea3, tea4, tea5, tea6, tea7];
     let dessertImg = [dessert0, dessert1, dessert2, dessert3, dessert4, dessert5, dessert6];
-    let menuItem = [ coffee, bubbleTea, frappe, smoothie, ade, juice, tea, dessert ];
+
     let menuImg = [coffeeImg, bubbleTeaImg, frappeImg, smoothieImg, adeImg, juiceImg, teaImg, dessertImg ];
+    let menuArray = [coffee, bubbleTea, frappe, smoothie, ade, juice, tea, dessert]
 
+    useEffect(() => {
+        let setArray = [setCoffee, setBubbleTea, setFrappe, setSmoothie, setAde, setJuice, setTea, setDessert]
+        let getArray = ['/getCoffee', '/getBubbleTea', '/getFrappe', '/getSmoothie', '/getAde', '/getJuice', '/getTea', '/getDessert']
+        return (
+            getArray.map((num, index) => {
+                return (
+                    axios.get(getArray[index])
+                        .then((res) => {
+                            setArray[index](res.data.comp)
+                            console.log(res.data.comp)
+                        })
+                        .catch(( error )=>{ console.log( error ) })
+                )
+            })
+        )
+    }, [])
 
-    let tempArr = [0, 0, 0, 0, 0, 0, 0, 0]
     const date = new Date();
+    let [tabChange, setTabChange] = useState(0);
     let translate = 0;
-    let slideNum = 69.56 * 2;
-
+    let slideNum = 69.56 * (parseInt((menuArray[tabChange].length) / 3));
     return (
         <div className = "orderContents">
             <div className = "leftContents">
@@ -161,20 +125,8 @@ function TempPage() {
                 <div className = "orderBody">
                     <div className = "menuContents">
                         <div className = "menuItems">
-                            {
-                                coffee.map((num, index) => {
-                                    return (
-                                        <div className = "menu_Container">
-                                            <div className = "menuImages slide-boxes">
-                                                <img src = { coffeeImg[index] }/>
-                                            </div>
-                                            <div className = "menuName slide-boxes">
-                                                <p> { coffee[index].title } </p>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
+                            <MenuDisplayTab coffee = { coffee } coffeeImg = { coffeeImg }
+                                            tabChange = { tabChange } menuArray = { menuArray } menuImg = { menuImg } />
                         </div>
                     </div>
                 </div>
@@ -198,36 +150,7 @@ function TempPage() {
                         <i className="fas fa-chevron-right fa-3x"></i>
                     </div>
                 </div>
-                <div className = "varietyContents">
-                    <div className = "menuTable _top">
-                        <div>
-                            <p> 커피 </p>
-                        </div>
-                        <div>
-                            <p> 버블티 </p>
-                        </div>
-                        <div>
-                            <p> 프라페 </p>
-                        </div>
-                        <div>
-                            <p> 스무디 </p>
-                        </div>
-                    </div>
-                    <div className = "menuTable _bottom">
-                        <div>
-                            <p> 에이드 </p>
-                        </div>
-                        <div>
-                            <p> 주스 </p>
-                        </div>
-                        <div>
-                            <p> 차 </p>
-                        </div>
-                        <div>
-                            <p> 디저트 </p>
-                        </div>
-                    </div>
-                </div>
+                <MenuSelectButton setTabChange = { setTabChange } />
             </div>
             <div className = "rightContents">
                 <div className = "recipe">
@@ -312,6 +235,60 @@ function TempPage() {
                         <Button className = "cancelBtn"> 취소하기 </Button>
                     </div>
                 </div>
+            </div>
+        </div>
+    )
+}
+
+function MenuDisplayTab(props) {
+    return (
+        props.menuArray[props.tabChange].map((num, index) => {
+            return (
+                <div className = "menu_Container">
+                    <div className = "menuImages slide-boxes">
+                        <img src = { props.menuImg[props.tabChange][index] }/>
+                    </div>
+                    <div className = "menuName slide-boxes">
+                        <p> { props.menuArray[props.tabChange][index].title } </p>
+                    </div>
+                </div>
+            )
+        })
+    )
+}
+
+function MenuSelectButton(props) {
+    let menu = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트']
+    let tempArr = [0, 1, 2, 3]
+    return (
+        <div className = "varietyContents">
+            <div className = "menuTable _top">
+                {
+                    tempArr.map((num, index) => {
+                        return (
+                            <div onClick = { () => {
+                                props.setTabChange(index)
+                                console.log(index)
+                            } }>
+                                <p> { menu[index] } </p>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className = "menuTable _bottom">
+                {
+                    tempArr.map((num, index) => {
+                        return (
+                            <div onClick = { () => {
+                                props.setTabChange(index + 4)
+                                console.log(index + 4)
+                            } }>
+                                <p> { menu[index + 4] } </p>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )
