@@ -50,7 +50,7 @@
 .orderBody {
     display: flex;
     flex-direction: row;
-    height: 60vh;
+    height: 50vh;
 }
 
 .menuContents {
@@ -78,11 +78,11 @@
 .menuImages {
     background-color: white;
     border-radius: 10px 10px 0 0;
-    height: 35vh;
+    height: 40vh;
 }
 
 .menuImages img {
-    width: 80%;
+    width: 90%;
 }
 
 .menuName {
@@ -134,25 +134,166 @@
 }
 
 .varietyContents {
-    background-color: deepskyblue;
-    height: 30vh;
+    background-color: white;
+    margin: 2.5% 2.75%;
+    border-radius: 25px;
+}
+
+.menuTable {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.menuTable > div {
+    width: 100%;
+    padding: 2% 10%;
+}
+
+.menuTable > div:hover {
+    background-color: #c4d1f5;
+    cursor: pointer;
+}
+
+._top > div:nth-child(1):hover {
+    border-top-left-radius: 25px;
+}
+
+._top > div:nth-child(4):hover {
+    border-top-right-radius: 25px;
+}
+
+._bottom > div:nth-child(1):hover {
+    border-bottom-left-radius: 25px;
+}
+
+._bottom > div:nth-child(4):hover {
+    border-bottom-right-radius: 25px;
+}
+
+.menuTable > div > p {
+    margin: 0;
+    font-size: 20px;
+    font-family: "나눔스퀘어라운드 Bold";
 }
 
 .rightContents {
     display: flex;
     flex-direction: column;
-    background-color: green;
     width: 30%;
 }
 
-.recipeContents {
+.recipe {
+
+    border-radius: 25px;
+    margin: 6.5% 5%;
+    height: 100%;
+}
+
+.recipeTop {
+    height: 75%;
+    border-radius: 20px;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.recipeTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 10%;
+}
+
+.recipeTitle > p {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.recipeBody {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipeBody p {
+    margin: 0;
+}
+
+.recipeContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1.5% 5%;
+    border-radius: 20px;
+    background-color: #f7f9ff;
+}
+
+.recipeContent > img {
+    width: 25%;
+    padding-bottom: 3.5%;
+}
+
+.recipeDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.recipeDetail > p {
+    font-size: 20px;
 
 }
 
-.payContents {
+.recipeCount {
+    display: flex;
+    flex-direction: row;
+    margin-left: 20%;
+}
+
+.recipeCount > p {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 40%;
+}
+
+.recipeCount > span {
+    cursor: pointer;
+}
+
+.temp {
+    font-size: 50px !important;
+    font-weight: bold;
+}
+
+.recipeBottom {
+    display: flex;
+    flex-direction: column;
+    height: 25%;
+    border-radius: 20px;
+    background-color: white;
 
 }
 
-.payButton {
+.recipePrice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 40%;
+}
 
+.recipePrice > p {
+    margin: 0;
+    font-size: 20px;
+}
+
+.buyBtn {
+    height: 30%;
+    margin: 2.5% 10%;
+}
+
+.cancelBtn {
+    height: 30%;
+    margin: 2.5% 10% 7.5% 10%;
 }

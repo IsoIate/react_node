@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import { Button } from 'react-bootstrap'
 import '../../css/Order/TempPage.css'
 import logo from "../../img/cafelogo.png";
 import LiveClock from "react-live-clock";
@@ -57,16 +58,70 @@ import dessert3 from "../../img/dessert/plainCroffle.png";
 import dessert4 from "../../img/dessert/icecreamCroffle.png";
 import dessert5 from "../../img/dessert/coffeeBeanBread.png";
 import dessert6 from "../../img/dessert/custardCreamBread.png";
+import axios from "axios";
 
 function TempPage() {
-    let [coffee] = useState(coffeeData);
-    let [bubbleTea] = useState(bubbleTeaData);
-    let [frappe] = useState(frappeData);
-    let [smoothie] = useState(smoothieData);
-    let [ade] = useState(adeData);
-    let [juice] = useState(juiceData);
-    let [tea] = useState(teaData);
-    let [dessert] = useState(dessertData);
+    let [coffee, setCoffee] = useState(coffeeData);
+    let [bubbleTea, setBubbletea] = useState(bubbleTeaData);
+    let [frappe, setFrappe] = useState(frappeData);
+    let [smoothie, setSmoothie] = useState(smoothieData);
+    let [ade, setAde] = useState(adeData);
+    let [juice, setJuice] = useState(juiceData);
+    let [tea, setTea] = useState(teaData);
+    let [dessert, setDessert] = useState(dessertData);
+
+    useEffect(() => {
+        return (
+            axios.get('/getCoffee')
+                .then((res) => {
+                    setCoffee(res.data.comp)
+                    console.log(res.data.comp)
+                })
+                .catch(( error )=>{ console.log( error ) })
+            /*axios.get('/getBubbletea')
+                .then((res) => {
+                    /!*setCoffee(res.data)*!/
+                    console.log(res.data)
+                })
+                .catch(( error )=>{ console.log( error ) }),
+            axios.get('/getFrappe')
+                .then((res) => {
+                    /!*setCoffee(res.data)*!/
+                    console.log(res.data)
+                })
+                .catch(( error )=>{ console.log( error ) }),
+            axios.get('/getSmoothie')
+                .then((res) => {
+                    /!*setCoffee(res.data)*!/
+                    console.log(res.data)
+                })
+                .catch(( error )=>{ console.log( error ) }),
+            axios.get('/getAde')
+                .then((res) => {
+                    /!*setCoffee(res.data)*!/
+                    console.log(res.data)
+                })
+            .catch(( error )=>{ console.log( error ) }),
+            axios.get('/getJuice')
+                .then((res) => {
+                    /!*setCoffee(res.data)*!/
+                    console.log(res.data)
+                })
+                .catch(( error )=>{ console.log( error ) }),
+            axios.get('/getTea')
+                .then((res) => {
+                    /!*setCoffee(res.data)*!/
+                    console.log(res.data)
+                })
+                .catch(( error )=>{ console.log( error ) }),
+            axios.get('/getDessert')
+                .then((res) => {
+                    /!*setCoffee(res.data)*!/
+                    console.log(res.data)
+                })
+                .catch(( error )=>{ console.log( error ) })*/
+        )
+    }, [])
 
     let coffeeImg = [coffee0, coffee1, coffee2, coffee3, coffee4, coffee5, coffee6];
     let bubbleTeaImg = [bubbleTea0, bubbleTea1, bubbleTea2, bubbleTea3];
@@ -144,18 +199,118 @@ function TempPage() {
                     </div>
                 </div>
                 <div className = "varietyContents">
-                    <p> 커피, 음료 등 선택창 </p>
+                    <div className = "menuTable _top">
+                        <div>
+                            <p> 커피 </p>
+                        </div>
+                        <div>
+                            <p> 버블티 </p>
+                        </div>
+                        <div>
+                            <p> 프라페 </p>
+                        </div>
+                        <div>
+                            <p> 스무디 </p>
+                        </div>
+                    </div>
+                    <div className = "menuTable _bottom">
+                        <div>
+                            <p> 에이드 </p>
+                        </div>
+                        <div>
+                            <p> 주스 </p>
+                        </div>
+                        <div>
+                            <p> 차 </p>
+                        </div>
+                        <div>
+                            <p> 디저트 </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className = "rightContents">
-                <div className = "recipeContents">
-                    <p> 주문 정보 </p>
-                </div>
-                <div className = "payContents">
-                    <p> 가격 정보 </p>
-                </div>
-                <div className = "payButton">
-                    <p> 버튼 </p>
+                <div className = "recipe">
+                    <div className = "recipeTop">
+                        <div className = "recipeTitle">
+                            <p> 계산대 </p>
+                            <i className="fas fa-redo-alt fa-2x"></i>
+                        </div>
+                        <div className = "recipeBody">
+                            <div className = "recipeContent">
+                                <img src = { coffeeImg[0] }/>
+                                <div className = "recipeDetail">
+                                    <p> 아메리카노 </p>
+                                    <p> 1500원 </p>
+                                </div>
+                                <div className = "recipeCount">
+                                    <span>
+                                        <i className="fas fa-caret-down fa-3x"></i>
+                                    </span>
+                                    <p> 5 </p>
+                                    <span>
+                                        <i className="fas fa-caret-up fa-3x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className = "recipeContent">
+                                <img src = { coffeeImg[0] }/>
+                                <div className = "recipeDetail">
+                                    <p> 아메리카노 </p>
+                                    <p> 1500원 </p>
+                                </div>
+                                <div className = "recipeCount">
+                                    <span>
+                                        <i className="fas fa-caret-down fa-3x"></i>
+                                    </span>
+                                    <p> 5 </p>
+                                    <span>
+                                        <i className="fas fa-caret-up fa-3x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className = "recipeContent">
+                                <img src = { coffeeImg[0] }/>
+                                <div className = "recipeDetail">
+                                    <p> 아메리카노 </p>
+                                    <p> 1500원 </p>
+                                </div>
+                                <div className = "recipeCount">
+                                    <span>
+                                        <i className="fas fa-caret-down fa-3x"></i>
+                                    </span>
+                                    <p> 5 </p>
+                                    <span>
+                                        <i className="fas fa-caret-up fa-3x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className = "recipeContent">
+                                <img src = { coffeeImg[0] }/>
+                                <div className = "recipeDetail">
+                                    <p> 아메리카노 </p>
+                                    <p> 1500원 </p>
+                                </div>
+                                <div className = "recipeCount">
+                                    <span>
+                                        <i className="fas fa-caret-down fa-3x"></i>
+                                    </span>
+                                    <p> 5 </p>
+                                    <span>
+                                        <i className="fas fa-caret-up fa-3x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className = "recipeBottom">
+                        <div className = "recipePrice">
+                            <p> 가격 </p>
+                            <p> 1500 원 </p>
+                        </div>
+                        <Button className = "buyBtn"> 구매하기 </Button>
+                        <Button className = "cancelBtn"> 취소하기 </Button>
+                    </div>
                 </div>
             </div>
         </div>

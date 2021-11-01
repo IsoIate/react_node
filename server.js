@@ -682,6 +682,16 @@ function multiOrder(req, mMenu, index, temp) {
     }, 300000)
 })*/
 
+/* Order */
+app.get('/getCoffee', (req, res) => {
+
+    db.collection('coffee_data').find().toArray((err, comp) => {
+        console.log("comp??")
+        console.log(comp)
+
+        res.json({ comp })
+    })
+})
 
 /* AdminPage */
 
