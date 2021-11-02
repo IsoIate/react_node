@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import '../../css/Order/TempPage.css'
 import logo from "../../img/cafelogo.png";
 import LiveClock from "react-live-clock";
@@ -60,6 +60,7 @@ import dessert4 from "../../img/dessert/icecreamCroffle.png";
 import dessert5 from "../../img/dessert/coffeeBeanBread.png";
 import dessert6 from "../../img/dessert/custardCreamBread.png";
 import axios from "axios";
+import MenuOption from "./MenuOption";
 
 function TempPage() {
     let [coffee, setCoffee] = useState(coffeeData);
@@ -92,7 +93,7 @@ function TempPage() {
                     axios.get(getArray[index])
                         .then((res) => {
                             setArray[index](res.data.comp)
-                            console.log(res.data.comp)
+                            /*console.log(res.data.comp)*/
                         })
                         .catch(( error )=>{ console.log( error ) })
                 )
@@ -104,6 +105,8 @@ function TempPage() {
     let [tabChange, setTabChange] = useState(0);
     let translate = 0;
     let slideNum = 69.56 * (parseInt((menuArray[tabChange].length) / 3));
+
+
     return (
         <div className = "orderContents">
             <div className = "leftContents">
@@ -130,9 +133,11 @@ function TempPage() {
                         </div>
                     </div>
                 </div>
+
                 <div className = "arrowBtnDiv">
                     <div className = "leftArrowBtn" onClick={() => {
                         if(translate >= -slideNum && translate < 0) {
+                            /*setTranslate(translate + 69.56)*/
                             translate = translate + 69.56;
                             $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
                         }
@@ -142,6 +147,7 @@ function TempPage() {
                     </div>
                     <div className = "rightArrowBtn" onClick = {() => {
                         if(translate > -slideNum  && translate <= 0) {
+                            /*setTranslate(translate - 69.56)*/
                             translate = translate - 69.56;
                             $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
                         }
@@ -150,7 +156,7 @@ function TempPage() {
                         <i className="fas fa-chevron-right fa-3x"></i>
                     </div>
                 </div>
-                <MenuSelectButton setTabChange = { setTabChange } />
+                <MenuSelectButton setTabChange = { setTabChange } translate = { translate } />
             </div>
             <div className = "rightContents">
                 <div className = "recipe">
@@ -241,17 +247,31 @@ function TempPage() {
 }
 
 function MenuDisplayTab(props) {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         props.menuArray[props.tabChange].map((num, index) => {
             return (
-                <div className = "menu_Container">
-                    <div className = "menuImages slide-boxes">
-                        <img src = { props.menuImg[props.tabChange][index] }/>
+                <>
+                    <div className = "menu_Container" onClick={() => {
+                        handleShow()
+                        console.log(props.menuArray[props.tabChange].length)
+                    }}>
+                        <div className = "menuImages slide-boxes">
+                            <img src = { props.menuImg[props.tabChange][index] }/>
+                        </div>
+                        <div className = "menuName slide-boxes">
+                            <p> { props.menuArray[props.tabChange][index].title } </p>
+                        </div>
                     </div>
-                    <div className = "menuName slide-boxes">
-                        <p> { props.menuArray[props.tabChange][index].title } </p>
-                    </div>
-                </div>
+                    {
+                        (index + 1) === props.menuArray[props.tabChange].length
+                            ?  <MenuOption show = { show } onHide = { handleClose } />
+                            :  null
+                    }
+                </>
             )
         })
     )
@@ -267,6 +287,8 @@ function MenuSelectButton(props) {
                     tempArr.map((num, index) => {
                         return (
                             <div onClick = { () => {
+                                props.translate = 0;
+
                                 props.setTabChange(index)
                                 console.log(index)
                             } }>
@@ -281,6 +303,7 @@ function MenuSelectButton(props) {
                     tempArr.map((num, index) => {
                         return (
                             <div onClick = { () => {
+                                props.translate = 0;
                                 props.setTabChange(index + 4)
                                 console.log(index + 4)
                             } }>

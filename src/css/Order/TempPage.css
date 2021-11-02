@@ -73,6 +73,7 @@
 .menu_Container {
     float : left;
     margin : 0px 0.2%;
+    cursor: pointer;
 }
 
 .menuImages {
@@ -248,13 +249,13 @@
 .recipeCount {
     display: flex;
     flex-direction: row;
-    margin-left: 20%;
+    margin-left: 3vw;
 }
 
 .recipeCount > p {
     font-size: 30px;
     font-weight: bold;
-    margin: 0 40%;
+    margin: 0 2vw;
 }
 
 .recipeCount > span {
