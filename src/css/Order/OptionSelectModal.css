@@ -1,41 +1,50 @@
-.titleDiv {
-    background-color: #e9ecef;
-    padding: 10px 5px;
-    display: flex;
-    justify-content: center;
-
-}
-
-.titleDiv h4 {
-    font-weight: bold;
-    margin : 0px;
-}
-
 .optionDiv {
     display: flex;
     flex-direction: column;
 }
 
-.packageOption {
+.sizeOption, .iceOption, .syrupOption, .packageOption {
     display: flex;
     flex-direction: row;
+}
+
+.optionNameFirst {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width : 100px;
+    font-size: 28px;
+    font-weight: bold;
+    color : white;
+    background-color: #b3c6ff;
+    border-top-left-radius : 10px;
 }
 
 .optionName {
     display: flex;
     justify-content: center;
     align-items: center;
-
     width : 100px;
-
     font-size: 28px;
     font-weight: bold;
     color : white;
-    background-color: #FEC800;
+    background-color: #b3c6ff;
 }
 
 .optionName p {
     margin : 0px;
+}
+
+.optionNameLast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width : 100px;
+    font-size: 28px;
+    font-weight: bold;
+    color : white;
+    background-color: #b3c6ff;
+    border-bottom-left-radius: 10px !important;
 }
 
 .optionSelect {
@@ -61,7 +70,7 @@
     height : 160px;
     padding : 10px 30px 0px 30px;
     cursor: pointer;
-    background-color: moccasin;
+    background-color: #e8eeff;
 }
 
 .optionSelectedBtn p {
@@ -88,3 +97,4 @@
     width : 40px;
     height: 60px;
 }
+

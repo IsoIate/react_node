@@ -1,20 +1,35 @@
 import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
-
-import mediumCup from "../../img/mediumCup.png";
-import largeCup from "../../img/largeCup.png";
-import {Modal} from "react-bootstrap";
-import '../../css/MenuSelectModal/SizeSelect.css'
+import mediumCup from "../../../img/mediumCup.png";
+import largeCup from "../../../img/largeCup.png";
+import '../../../css/Order/OptionSelectModal.css'
 
 function SizeSelect(props) {
 
-    let tempPrice = props.menuPrice;
-    /*useEffect(() => {
-        props.optionState[0] ? tempPrice = props.price : tempPrice = props.price + 1000
-    })*/
 
     return (
         <>
+            <div className = "optionDiv">
+                <div className = "sizeOption">
+                    <div className = "optionNameFirst">
+                        <p> 사이즈 </p>
+                    </div>
+                    <div className="optionSelect">
+                        <div className = "optionImages">
+                            <div className = "optionSelectBtn">
+                                <img className = "selectBtnImg" src = { mediumCup }/>
+                                <p> 미디엄 </p>
+                            </div>
+                            <div className = "optionSelectBtn">
+                                <img className = "selectBtnImg" src = { largeCup }/>
+                                <p> 라지 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+        /*<>
             <div className="titleDiv">
                 { props.pageCheck === 0 ? <h4> 사이즈를 선택해 주세요 </h4> : <h4> 컵의 크기를 선택해 주세요 </h4> }
             </div>
@@ -61,9 +76,9 @@ function SizeSelect(props) {
                     </div>
                 </div>
             </div>
-            {/*{ console.log(tempPrice) }*/}
+            {/!*{ console.log(tempPrice) }*!/}
             { props.costChange(tempPrice) }
-        </>
+        </>*/
     )
 }
 

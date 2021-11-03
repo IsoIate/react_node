@@ -1,18 +1,33 @@
 import React, {useEffect} from "react";
 import { connect } from "react-redux";
 
-import iceDrink from "../../img/iceDrink.png";
-import Drink from "../../img/drink.png";
-import hotDrink from "../../img/hotDrink.png";
-import noSyrup from "../../img/noSyrup.png";
-import syrup from "../../img/syrup.png";
-import {Modal} from "react-bootstrap";
-import '../../css/MenuSelectModal/OptionSelect.css'
+import noSyrup from "../../../img/noSyrup.png";
+import syrup from "../../../img/syrup.png";
+import '../../../css/Order/OptionSelectModal.css'
 
-function OptionSelect(props) {
+function SyrupSelect(props) {
 
     return (
-        <>
+        <div className="optionDiv">
+            <div className="syrupOption">
+                <div className="optionName">
+                    <p> 시럽 </p>
+                </div>
+                <div className="optionSelect">
+                    <div className="optionImages">
+                        <div className = "optionSelectBtn">
+                            <img className="selectBtnImg" src={noSyrup}/>
+                            <p> 시럽 없음 </p>
+                        </div>
+                        <div className = "optionSelectBtn">
+                            <img className="selectBtnImg" src={syrup}/>
+                            <p> 시럽 추가 </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        /*<>
             <div className="titleDiv">
                 { props.pageCheck === 0 ? <h4> 옵션을 선택해 주세요 </h4> : <h4> 기호를 선택해 주세요 </h4> }
             </div>
@@ -63,7 +78,7 @@ function OptionSelect(props) {
                                 <div className={props.optionState[2] === 1 ? "optionSelectedBtn" : "optionSelectBtn"}
                                      onClick={() => {
                                          props.dispatch({ type : "시럽변경", payload : 1 })
-                                         /*props.syrupChange(1);*/
+                                         /!*props.syrupChange(1);*!/
                                      }}>
                                     <img className="selectBtnImg" src={noSyrup}/>
                                     {props.pageCheck === 0 ? <p> 시럽 없음 </p> : <p> 달지 않게 </p>}
@@ -72,7 +87,7 @@ function OptionSelect(props) {
                                 <div className={props.optionState[2] === 2 ? "optionSelectedBtn" : "optionSelectBtn"}
                                      onClick={() => {
                                          props.dispatch({ type : "시럽변경", payload : 2 })
-                                         /*props.syrupChange(2);*/
+                                         /!*props.syrupChange(2);*!/
                                      }}>
                                     <img className="selectBtnImg" src={syrup}/>
                                     {props.pageCheck === 0 ? <p> 시럽 추가 </p> : <p> 더 달게 </p>}
@@ -83,7 +98,7 @@ function OptionSelect(props) {
                     </div>
                 }
             </div>
-        </>
+        </>*/
     )
 }
 
@@ -94,4 +109,4 @@ function Conversion(state) {
     }
 }
 
-export default connect(Conversion)(OptionSelect);
+export default connect(Conversion)(SyrupSelect);

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {Button, Modal, Jumbotron} from 'react-bootstrap'
 import { connect } from "react-redux";
-import SizeSelect from "../MenuSelectModal/SizeSelect";
-import OptionSelect from "../MenuSelectModal/OptionSelect";
-import PackageSelect from "../MenuSelectModal/PackageSelect";
-import ModalHeader from "../MenuSelectModal/ModalHeader";
+import SizeSelect from "./MenuSelectModal/SizeSelect";
+import OptionSelect from "./MenuSelectModal/SyrupSelect";
+import PackageSelect from "./MenuSelectModal/PackageSelect";
+import ModalHeader from "./MenuSelectModal/ModalHeader";
 import '../../css/Order/MenuSelectModal.css'
 
 

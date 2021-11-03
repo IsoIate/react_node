@@ -1,15 +1,33 @@
 import React, {useEffect} from "react";
 import { connect } from "react-redux";
 
-import takeAway from "../../img/takeAway.png";
-import inStore from "../../img/inStore.png";
-import {Modal} from "react-bootstrap";
-import '../../css/MenuSelectModal/PackageSelect.css'
+import takeAway from "../../../img/takeAway.png";
+import inStore from "../../../img/inStore.png";
+import '../../../css/Order/OptionSelectModal.css'
 
 function PackageSelect(props) {
 
     return (
-        <>
+        <div className = "optionDiv">
+            <div className = "packageOption">
+                <div className = "optionNameLast">
+                    <p> 포장 </p>
+                </div>
+                <div className="optionSelect">
+                    <div className = "optionImages">
+                        <div className = "optionSelectBtn">
+                            <img className = "selectBtnImg" src = { takeAway }/>
+                            <p> 테이크아웃 </p>
+                        </div>
+                        <div className = "optionSelectBtn">
+                            <img className = "selectBtnImg" src = { inStore }/>
+                            <p> 매장 취식 </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        /*<>
             <div className="titleDiv">
                 { props.pageCheck === 0 ? <h4> 테이크아웃 하시겠습니까? </h4> : <h4> 포장 하시겠습니까? </h4> }
             </div>
@@ -36,7 +54,7 @@ function PackageSelect(props) {
                     </div>
                 </div>
             </div>
-        </>
+        </>*/
     )
 }
 

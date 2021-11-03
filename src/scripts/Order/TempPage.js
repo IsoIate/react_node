@@ -246,10 +246,15 @@ function TempPage() {
     )
 }
 
+function TempFunc(props) {
+
+}
+
 function MenuDisplayTab(props) {
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+    let [clickNum, setClickNum] = useState(0)
 
     return (
         props.menuArray[props.tabChange].map((num, index) => {
@@ -257,7 +262,7 @@ function MenuDisplayTab(props) {
                 <>
                     <div className = "menu_Container" onClick={() => {
                         handleShow()
-                        console.log(props.menuArray[props.tabChange].length)
+                        setClickNum(index)
                     }}>
                         <div className = "menuImages slide-boxes">
                             <img src = { props.menuImg[props.tabChange][index] }/>
@@ -267,12 +272,18 @@ function MenuDisplayTab(props) {
                         </div>
                     </div>
                     {
+                        /* 반복이 끝나면 마지막에 모달을 호출함 */
                         (index + 1) === props.menuArray[props.tabChange].length
-                            ?  <MenuOption show = { show } onHide = { handleClose } />
-                            :  null
+                            ?   <MenuOption show = { show } onHide = { handleClose } handleClose = { handleClose }
+                                    image = { props.menuImg[props.tabChange][clickNum] }
+                                    title = { props.menuArray[props.tabChange][clickNum].title }
+                                    price = { props.menuArray[props.tabChange][clickNum].price } num = { clickNum }
+                                />
+                            :   null
                     }
                 </>
             )
+
         })
     )
 }

@@ -91,7 +91,7 @@ function RightNav(props) {
     let translate = 0;
     let slideNum = 0;
 
-    let state = useSelector(((state) => state))
+    let state = useSelector((state) => state)
     let detailState = state.detailReducer
     let dispatch = useDispatch()
 
