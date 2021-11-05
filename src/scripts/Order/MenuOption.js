@@ -65,11 +65,11 @@ function MenuOption(props) {
                             <h3> 가격 : { props.price } 원 </h3>
                         </div>
                         <div className = "footerButtons">
-                            <Button className = "cancelButton" variant="secondary" onClick={ props.handleClose }>
+                            <Button className = "cancelButton" variant="secondary" onClick={ props.modalClose }>
                                 <p> 돌아가기 </p>
                             </Button>
                             <Button  className = "addOrderButton" onClick={ () => {
-                                props.handleClose();
+                                props.modalClose();
 
                                 dispatch({
                                     type: "항목추가",

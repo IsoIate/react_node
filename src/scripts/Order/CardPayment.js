@@ -1,19 +1,13 @@
-import React from "react";
-import { useHistory } from 'react-router-dom'
+import React, {useEffect} from "react";
 import {Button, Modal} from "react-bootstrap";
 import payment from "../../img/payment.png";
 
 import '../../css/Order/CardPayment.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function CardPayment(props) {
-
-    let history = useHistory();
-
     return (
         <>
-            <Modal show = { props.show } onHide = { props.onHide } >
+            <Modal show = { props.cardShow } onHide = { props.onHide } backdrop = { "static" } keyboard = { false } >
                 <Modal.Header>
                     <div className = "headerDiv">
                         <h2> 카드 결제 </h2>
@@ -27,7 +21,6 @@ function CardPayment(props) {
                         <h2> ABC 카페 </h2>
                     </div>
                 </Modal.Body>
-
             </Modal>
         </>
     )

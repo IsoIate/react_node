@@ -1,0 +1,21 @@
+.resetModalHeader h2 {
+    display: flex;
+    justify-content: center;
+}
+
+.resetModalBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+}
+
+.resetButtonDiv {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+}
+
+.resetButtonDiv Button {
+    margin-left: 1%;
+}

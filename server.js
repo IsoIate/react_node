@@ -66,8 +66,9 @@ http.listen(8080, function () {
 
 /* 주문 완료시 3초 후에 새로고침 */
 app.post('/order', (req, res) => {
+    console.log("order?")
     setTimeout(() => {
-        res.redirect('./order/0');
+        res.redirect('./order');
     }, 3000)
 })
 

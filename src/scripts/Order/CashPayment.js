@@ -1,19 +1,13 @@
 import React from "react";
-import { useHistory } from 'react-router-dom'
 import {Button, Modal} from "react-bootstrap";
 import cash from "../../img/cash.png";
 
 import '../../css/Order/CashPayment.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function CashPayment(props) {
-
-    let history = useHistory();
-
     return (
         <>
-            <Modal show = { props.show } onHide = { props.onHide } >
+            <Modal show = { props.cashShow } onHide = { props.onHide } backdrop = { "static" } keyboard = { false } >
                 <Modal.Header>
                     <div className = "headerDiv">
                         <h2> 현금 결제 </h2>
@@ -27,7 +21,6 @@ function CashPayment(props) {
                         <h2> ABC 카페 </h2>
                     </div>
                 </Modal.Body>
-
             </Modal>
         </>
     )

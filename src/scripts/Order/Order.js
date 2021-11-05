@@ -109,6 +109,11 @@ import dessert6 from "../../img/dessert/custardCreamBread.png";
 import axios from "axios";
 import MenuOption from "./MenuOption";
 import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import Swal from "sweetalert2";
+import CashPayment from "./CashPayment";
+import CardPayment from "./CardPayment";
+import io from "socket.io-client";
 
 function Order() {
     let [coffee, setCoffee] = useState(coffeeData);
@@ -133,6 +138,8 @@ function Order() {
     let menuArray = [coffee, bubbleTea, frappe, smoothie, ade, juice, tea, dessert]
 
     const date = new Date();
+    let history = useHistory();
+
     let [tabChange, setTabChange] = useState(0);
     let translate = 0;
     let slideNum = 69.56 * (parseInt((menuArray[tabChange].length) / 3));
@@ -140,6 +147,28 @@ function Order() {
     let state = useSelector(state => state);
     let dispatch = useDispatch();
     let reducerState = state.reducer;
+
+    const [cash, setCash] = useState(false);
+    const cashShow = () => setCash(true);
+    const cashClose = () => setCash(false);
+
+    const [card, setCard] = useState(false);
+    const cardShow = () => setCard(true);
+    const cardClose = () => setCard(false);
+
+    const Toast = Swal.mixin({
+        width: 750,
+        padding: 50,
+        toast: true,
+        position: 'center-center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
     useEffect(() => {
         let setArray = [setCoffee, setBubbleTea, setFrappe, setSmoothie, setAde, setJuice, setTea, setDessert]
@@ -216,7 +245,20 @@ function Order() {
                         <div className = "recipeTitle">
                             <p> 계산대 </p>
                             <div className = "resetButton" onClick={() => {
-                                dispatch({ type: "항목초기화" })
+                                Swal.fire({
+                                    title: '초기화 하시겠습니까?',
+                                    text: "주문 내역이 모두 삭제됩니다.",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: '초기화',
+                                    cancelButtonText: '취소'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        dispatch({ type: "항목초기화" })
+                                    }
+                                })
                             }}>
                                 <i className="fas fa-redo-alt fa-2x"></i>
                             </div>
@@ -232,14 +274,101 @@ function Order() {
                     <div className = "recipeBottom">
                         <div className = "recipePrice">
                             <p> 가격 </p>
-                            <p> 1500 원 </p>
+                            <TotalPrice reducerState = { reducerState } />
                         </div>
-                        <Button className = "buyBtn"> 구매하기 </Button>
-                        <Button className = "cancelBtn"> 취소하기 </Button>
+                        <Button className = "buyBtn" onClick={() => {
+                            paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history)
+                        }}> 구매하기 </Button>
+                        <Button className = "cancelBtn" onClick={() => {
+                            Toast.fire({
+                                    icon: 'info',
+                                    title: '처음 화면으로 돌아갑니다'
+                            })
+                        }}> 취소하기 </Button>
                     </div>
                 </div>
             </div>
+            {
+                cash === true
+                    ? <CashPayment cashShow = { cashShow } onHide = { cashClose } cashShow = { cashShow } cashClose = { cashClose } />
+                    : null
+            }
+            {
+                card === true
+                    ? <CardPayment cardShow = { cardShow } onHide = { cardClose } cardShow = { cardShow } cardClose = { cardClose } />
+                    : null
+            }
         </div>
+    )
+}
+
+/* 결제 버튼 클릭 후 기능 */
+function paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history) {
+    const socketClient = io("http://localhost:8080");
+    let state = reducerState;
+    let index = state.length;
+
+    if(index > 0) {
+        Swal.fire({
+            title: '결제 방법을 선택해 주세요',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: '현금',
+            confirmButtonColor: '#3085d6',
+            denyButtonText: `카드`,
+            denyButtonColor: '#3085d6',
+            cancelButtonText: '취소',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cashShow();
+                console.log("cash")
+                socketClient.emit("payButton", reducerState);
+                socketClient.emit("payCash", 0);
+                setTimeout(() => {
+                    cashClose();
+                    history.push('/')
+                }, 3000)
+            } else if (result.isDenied) {
+                cardShow();
+                console.log("card")
+                socketClient.emit("payButton", reducerState);
+                socketClient.emit("payCard", 1);
+                setTimeout(() => {
+                    cardClose();
+                    history.push('/')
+                }, 3000)
+            }
+        })
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: '결제 오류',
+            text: '메뉴를 선택 후 주문해 주세요'
+        })
+    }
+}
+
+
+/* 총 가격 출력 기능 */
+function TotalPrice(props) {
+    let totalPrice = 0;
+    let data = props.reducerState
+    let index = data.length;
+
+    for(let i = 0; i < index; i++) {
+        totalPrice += data[i].price
+    }
+
+    return (
+        <>
+            {
+                index > 0
+                    ?   <p> { totalPrice } 원 </p>
+                    :   <p> 0 원 </p>
+            }
+        </>
     )
 }
 
@@ -251,13 +380,13 @@ function MenuOrderCart(props) {
         data.map((num, index) => {
             return (
                 <div className = "recipeContent">
-                    <img src = { props.reducerState[index].image }/>
+                    <img src = { data[index].image }/>
                     <div className = "recipeDetail">
-                        <p> { props.reducerState[index].title } </p>
+                        <p> { data[index].title } </p>
                     </div>
                     <div className = "recipeCount">
-                        <p> { props.reducerState[index].count } </p>
-                        <p> { props.reducerState[index].price } </p>
+                        <p> { data[index].count } </p>
+                        <p> { data[index].price } </p>
                     </div>
                 </div>
             )
@@ -268,8 +397,8 @@ function MenuOrderCart(props) {
 /* 각 메뉴 클릭 시 옵션 모달창 기능 */
 function OptionDisplayModal(props) {
     const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const modalShow = () => setShow(true);
+    const modalClose = () => setShow(false);
     let [clickNum, setClickNum] = useState(0)
 
     return (
@@ -277,7 +406,7 @@ function OptionDisplayModal(props) {
             return (
                 <>
                     <div className = "menu_Container" onClick={() => {
-                        handleShow()
+                        modalShow()
                         setClickNum(index)
                     }}>
                         <div className = "menuImages slide-boxes">
@@ -291,7 +420,7 @@ function OptionDisplayModal(props) {
                     {
                         /* 반복이 끝나면 마지막에 모달을 호출함 */
                         (index + 1) === props.menuArray[props.tabChange].length
-                            ?   <MenuOption show = { show } onHide = { handleClose } handleClose = { handleClose }
+                            ?   <MenuOption show = { show } onHide = { modalClose } modalClose = { modalClose }
                                             image = { props.menuImg[props.tabChange][clickNum] }
                                             title = { props.menuArray[props.tabChange][clickNum].title }
                                             price = { props.menuArray[props.tabChange][clickNum].price } num = { clickNum }

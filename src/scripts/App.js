@@ -35,7 +35,7 @@ function App() {
                 <Route exact path = { "/SimpleOrder/:id" }>
                     <SimpleOrder />
                 </Route>
-                <Route exact path = { "/MainPage/:id" }>
+                <Route exact path = { "/MainPage" }>
                     <Title/>
                     <MainPage show = { show } handleShow = { handleShow } handleClose = { handleClose }/>
                 </Route>
