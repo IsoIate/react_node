@@ -51,21 +51,21 @@ function CashMenuDetail(props) {
                         <div className = "menuDetail">
                             <div className = "md1">
                                 <div className = "payDivs">
-                                    <p> 현금 : { props.cash[1] } 원 </p>
+                                    <p> 현금 : { props.total.price } 원 </p>
                                     <p> 카드 : { 0 } 원 </p>
                                 </div>
                             </div>
                             <div className = "md2">
-                                <p> 수량 : { props.cash[0] } 개 </p>
+                                <p> 수량 : { props.total.count } 개 </p>
                             </div>
                             <div className = "md2">
-                                <p> 합계 : { props.cash[1] } 원 </p>
+                                <p> 합계 : { props.total.price } 원 </p>
                             </div>
                             <div className = "md1">
                                 <Button className = "submitBtn" onClick = { () => {
                                     /*console.log("req?")
                                     console.log(props.req)*/
-                                    props.dispatch({ type : "값 전송", payload : { data : props.req, payment : props.cash }})
+                                    props.dispatch({ type : "값 전송", payload : { data : props.req, total : props.total }})
                                 }}>
                                     자세히
                                 </Button>

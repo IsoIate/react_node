@@ -75,7 +75,7 @@ function MenuOption(props) {
                                     type: "항목추가",
                                     payload: {
                                         title: props.title, count: count,
-                                        price: (props.price) * count , image: props.image
+                                        price: (props.price) * count , image: props.image, menuIndex: props.index
                                     }
                                 })
 

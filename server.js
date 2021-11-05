@@ -44,14 +44,14 @@ io.on("connect", socket => {
     })
 
     socket.on("payCash", req => {
-        /*console.log("cash")
-        console.log(req);*/
+        console.log("cash")
+        console.log(req);
         io.emit("payCash", req)
     })
 
     socket.on("payCard", req => {
-        /*console.log("card")
-        console.log(req);*/
+        console.log("card")
+        console.log(req);
         io.emit("payCard", req)
     })
 });
@@ -684,6 +684,7 @@ function multiOrder(req, mMenu, index, temp) {
 })*/
 
 /* Order */
+/* 메뉴 데이터 전송 */
 let getArray = ['/getCoffee', '/getBubbleTea', '/getFrappe', '/getSmoothie', '/getAde', '/getJuice', '/getTea', '/getDessert']
 let collectionArray = ['coffee_data', 'bubbleTea_data', 'frappe_data', 'smoothie_data', 'ade_data', 'juice_data', 'tea_data', 'dessert_data']
 
@@ -691,8 +692,6 @@ for(let i = 0; i < getArray.length; i++) {
     app.get(getArray[i], (req, res) => {
 
         db.collection(collectionArray[i]).find().toArray((err, comp) => {
-            console.log("comp??")
-
             /* DB에 들어있는 데이터를 id값 기준으로 정렬 */
             function customSort(a, b) {
                 if(a._id === b._id) { return 0 }

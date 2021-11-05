@@ -139,6 +139,7 @@ function Order() {
 
     const date = new Date();
     let history = useHistory();
+    const socketClient = io("http://localhost:8080");
 
     let [tabChange, setTabChange] = useState(0);
     let translate = 0;
@@ -277,7 +278,7 @@ function Order() {
                             <TotalPrice reducerState = { reducerState } />
                         </div>
                         <Button className = "buyBtn" onClick={() => {
-                            paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history)
+                            paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
                         }}> 구매하기 </Button>
                         <Button className = "cancelBtn" onClick={() => {
                             Toast.fire({
@@ -303,8 +304,7 @@ function Order() {
 }
 
 /* 결제 버튼 클릭 후 기능 */
-function paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history) {
-    const socketClient = io("http://localhost:8080");
+function paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient) {
     let state = reducerState;
     let index = state.length;
 
@@ -323,7 +323,7 @@ function paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, his
             if (result.isConfirmed) {
                 cashShow();
                 console.log("cash")
-                socketClient.emit("payButton", reducerState);
+                socketClient.emit("payButton", state);
                 socketClient.emit("payCash", 0);
                 setTimeout(() => {
                     cashClose();
@@ -332,7 +332,7 @@ function paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, his
             } else if (result.isDenied) {
                 cardShow();
                 console.log("card")
-                socketClient.emit("payButton", reducerState);
+                socketClient.emit("payButton", state);
                 socketClient.emit("payCard", 1);
                 setTimeout(() => {
                     cardClose();
@@ -423,7 +423,7 @@ function OptionDisplayModal(props) {
                             ?   <MenuOption show = { show } onHide = { modalClose } modalClose = { modalClose }
                                             image = { props.menuImg[props.tabChange][clickNum] }
                                             title = { props.menuArray[props.tabChange][clickNum].title }
-                                            price = { props.menuArray[props.tabChange][clickNum].price } num = { clickNum }
+                                            price = { props.menuArray[props.tabChange][clickNum].price } index = { clickNum }
                             />
                             :   null
                     }

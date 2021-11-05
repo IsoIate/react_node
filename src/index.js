@@ -124,17 +124,23 @@ function detailReducer(state = detailState, action) {
     if(action.type === "값 전송") {
         let copy = [...state];
         let jsonArray = new Array();
-        let temp = action.payload.data;
+        let tempData = action.payload.data;
+        let tempTotal = action.payload.total;
+
+        console.log("detail?")
 
         for(let i = 0; i < action.payload.data.length; i++) {
             let data = new Object();
 
-            data.title = temp[i].title;
-            data.count = temp[i].count;
-            data.price = temp[i].price;
-            data.options = temp[i].options;
-            data.menuIndex = temp[i].menuIndex;
-            data.payment = action.payload.payment[2];
+            data.title = tempData[i].title;
+            data.count = tempData[i].count;
+            data.price = tempData[i].price;
+            data.menuIndex = tempData[i].menuIndex;
+            data.totalPrice = tempTotal.price;
+            data.totalCount = tempTotal.count;
+            data.options = [0, 0, 0, 0];
+
+            /*data.payment = action.payload.payment[2];*/
 
             jsonArray.push(data);
         }

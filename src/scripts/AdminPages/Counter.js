@@ -26,7 +26,7 @@ function Counter(props) {
     let [socketReq, setSocketReq] = useState(null);
     let [cashSocket, setCashSocket] = useState(null);
     let [cardSocket, setCardSocket] = useState(null);
-
+    let [total, setTotal] = useState(null);
     /* getCounter라는 url로 접속했을 때 아래 코드 실행 */
     /*useEffect(() => {
 
@@ -41,10 +41,24 @@ function Counter(props) {
     }, [])*/
 
     useEffect(() => {
+        let total = new Object();
+        let totalPrice = 0;
+        let totalCount = 0;
         socketClient.on("payRespond", req => {
             console.log("pay?")
             console.log(req)
+
+            for(let i = 0; i < req.length; i++) {
+                totalPrice += req[i].price
+                totalCount += req[i].count
+            }
+
+            total.price = totalPrice
+            total.count = totalCount
+
+            console.log(total)
             setSocketReq(req)
+            setTotal(total)
         })
     }, [socketClient.on])
 
@@ -93,9 +107,9 @@ function Counter(props) {
                             {
                                 socketReq != null ?
                                     cashSocket != null ?
-                                        <CashMenuDetail req = { socketReq } cash = { cashSocket } />
+                                        <CashMenuDetail req = { socketReq } cash = { cashSocket } total = { total } />
                                         : cardSocket != null ?
-                                            <CardMenuDetail req = { socketReq } card = { cardSocket } />
+                                            <CardMenuDetail req = { socketReq } card = { cardSocket } total = { total } />
                                         : null
                                     : null
                             }
