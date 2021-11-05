@@ -1,11 +1,14 @@
 import React, {useEffect} from "react";
-import { connect } from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 
 import takeAway from "../../../img/takeAway.png";
 import inStore from "../../../img/inStore.png";
 import '../../../css/Order/OptionSelectModal.css'
 
 function PackageSelect(props) {
+    let state = useSelector(state => state)
+    let optionState = state.optionReducer;
+    let dispatch = useDispatch();
 
     return (
         <div className = "optionDiv">
@@ -15,11 +18,15 @@ function PackageSelect(props) {
                 </div>
                 <div className="optionSelect">
                     <div className = "optionImages">
-                        <div className = "optionSelectBtn">
+                        <div className = { optionState[3] === 0 ? "optionSelectedBtn" : "optionSelectBtn" } onClick = {() => {
+                            dispatch({ type : "포장변경", payload : 0 })
+                        }}>
                             <img className = "selectBtnImg" src = { takeAway }/>
                             <p> 테이크아웃 </p>
                         </div>
-                        <div className = "optionSelectBtn">
+                        <div className = { optionState[3] === 1 ? "optionSelectedBtn" : "optionSelectBtn" } onClick = {() => {
+                            dispatch({ type : "포장변경", payload : 1 })
+                        }}>
                             <img className = "selectBtnImg" src = { inStore }/>
                             <p> 매장 취식 </p>
                         </div>

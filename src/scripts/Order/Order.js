@@ -423,7 +423,8 @@ function OptionDisplayModal(props) {
                             ?   <MenuOption show = { show } onHide = { modalClose } modalClose = { modalClose }
                                             image = { props.menuImg[props.tabChange][clickNum] }
                                             title = { props.menuArray[props.tabChange][clickNum].title }
-                                            price = { props.menuArray[props.tabChange][clickNum].price } index = { clickNum }
+                                            price = { props.menuArray[props.tabChange][clickNum].price }
+                                            index = { props.menuArray[props.tabChange][clickNum].id }
                             />
                             :   null
                     }

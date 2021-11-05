@@ -1,11 +1,14 @@
 import React, {useEffect} from "react";
-import { connect } from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 
 import noSyrup from "../../../img/noSyrup.png";
 import syrup from "../../../img/syrup.png";
 import '../../../css/Order/OptionSelectModal.css'
 
 function SyrupSelect(props) {
+    let state = useSelector(state => state)
+    let optionState = state.optionReducer;
+    let dispatch = useDispatch();
 
     return (
         <div className="optionDiv">
@@ -13,13 +16,17 @@ function SyrupSelect(props) {
                 <div className="optionName">
                     <p> 시럽 </p>
                 </div>
-                <div className="optionSelect">
-                    <div className="optionImages">
-                        <div className = "optionSelectBtn">
+                <div className = "optionSelect">
+                    <div className = "optionImages">
+                        <div className = { optionState[2] === 0 ? "optionSelectedBtn" : "optionSelectBtn" } onClick = {() => {
+                            dispatch({ type : "시럽변경", payload : 0 })
+                        }}>
                             <img className="selectBtnImg" src={noSyrup}/>
                             <p> 시럽 없음 </p>
                         </div>
-                        <div className = "optionSelectBtn">
+                        <div className = { optionState[2] === 1 ? "optionSelectedBtn" : "optionSelectBtn" } onClick = {() => {
+                            dispatch({ type : "시럽변경", payload : 1 })
+                        }}>
                             <img className="selectBtnImg" src={syrup}/>
                             <p> 시럽 추가 </p>
                         </div>

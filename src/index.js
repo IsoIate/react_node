@@ -33,7 +33,7 @@ function reducer(state = primaryState, action) {
         let copy = [...state];
 
         copy.push(action.payload)
-
+        console.log(copy)
         /* 같은 메뉴인지 검사, 같은 메뉴일 시 수량, 가격 합산 */
         /*for(let index = 0; index < copy.length; index++) {
             if((copy[index].title == action.payload.title)) {
@@ -128,6 +128,7 @@ function detailReducer(state = detailState, action) {
         let tempTotal = action.payload.total;
 
         console.log("detail?")
+        console.log(tempData)
 
         for(let i = 0; i < action.payload.data.length; i++) {
             let data = new Object();
@@ -135,10 +136,11 @@ function detailReducer(state = detailState, action) {
             data.title = tempData[i].title;
             data.count = tempData[i].count;
             data.price = tempData[i].price;
+            data.options = tempData[i].options;
             data.menuIndex = tempData[i].menuIndex;
             data.totalPrice = tempTotal.price;
             data.totalCount = tempTotal.count;
-            data.options = [0, 0, 0, 0];
+
 
             /*data.payment = action.payload.payment[2];*/
 
