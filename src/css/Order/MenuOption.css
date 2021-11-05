@@ -63,6 +63,23 @@
     cursor: pointer;
 }
 
+.countDownButtonDisable {
+    /* Center the content */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    /* Spacing */
+    padding : 12px 20px;
+
+    background-color: #A6A6A6;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+
+    cursor: not-allowed;
+}
+
 .modalMinus {
     background: transparent;
     height: 20px;

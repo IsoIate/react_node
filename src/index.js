@@ -31,14 +31,11 @@ let store = createStore(combineReducers({
 function reducer(state = primaryState, action) {
     if(action.type === "항목추가") {
         let copy = [...state];
-        let check = false;
 
-        console.log("options")
-        console.log(action.payload.options);
-        console.log("copy")
-        console.log(copy);
+        copy.push(action.payload)
 
-        for(let index = 0; index < copy.length; index++) {
+        /* 같은 메뉴인지 검사, 같은 메뉴일 시 수량, 가격 합산 */
+        /*for(let index = 0; index < copy.length; index++) {
             if((copy[index].title == action.payload.title)) {
                 check = true;
                 (copy[index].count = copy[index].count + action.payload.count);
@@ -48,7 +45,7 @@ function reducer(state = primaryState, action) {
 
         if(check != true) {
             copy.push(action.payload)
-        }
+        }*/
 
         return copy;
     }
@@ -56,6 +53,12 @@ function reducer(state = primaryState, action) {
         let copy = [...state];
         let temp = action.payload;
         copy.splice(temp, 1);
+        return copy;
+    }
+    else if (action.type === "항목초기화") {
+        let copy = [...state];
+        copy.splice(0)
+        console.log(copy)
         return copy;
     }
     else {

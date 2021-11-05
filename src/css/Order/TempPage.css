@@ -90,7 +90,7 @@
     background-color: white;
     width: 100%;
     border-radius: 0 0 10px 10px;
-    font-size: 24px;
+    font-size: 28px;
     margin-top: 2%;
     padding: 5% 0;
 }
@@ -212,6 +212,10 @@
     font-weight: bold;
 }
 
+.resetButton {
+    cursor: pointer;
+}
+
 .recipeBody {
     display: flex;
     flex-direction: column;
@@ -239,6 +243,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 20%;
 }
 
 .recipeDetail > p {
@@ -250,6 +255,7 @@
     display: flex;
     flex-direction: row;
     margin-left: 3vw;
+    width: 40%;
 }
 
 .recipeCount > p {

@@ -17,7 +17,7 @@ function MainPage() {
                 <Card.Footer className="text-muted">
                     <div className="row" style={{ marginBottom: "20px" }}>
                         <div className="col-md-6">
-                            <Link as={ Link } to={ "/order/0" }>
+                            <Link as={ Link } to={ "/order" }>
                                 <Button className = "orderBtn" size="lg"> 주문하기 </Button>
                             </Link>
                         </div>

@@ -1,3 +1,4 @@
+/*
 import React, {useEffect, useState} from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import '../../css/Order/TempPage.css'
@@ -93,7 +94,7 @@ function TempPage() {
                     axios.get(getArray[index])
                         .then((res) => {
                             setArray[index](res.data.comp)
-                            /*console.log(res.data.comp)*/
+                            /!*console.log(res.data.comp)*!/
                         })
                         .catch(( error )=>{ console.log( error ) })
                 )
@@ -137,7 +138,7 @@ function TempPage() {
                 <div className = "arrowBtnDiv">
                     <div className = "leftArrowBtn" onClick={() => {
                         if(translate >= -slideNum && translate < 0) {
-                            /*setTranslate(translate + 69.56)*/
+                            /!*setTranslate(translate + 69.56)*!/
                             translate = translate + 69.56;
                             $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
                         }
@@ -147,7 +148,7 @@ function TempPage() {
                     </div>
                     <div className = "rightArrowBtn" onClick = {() => {
                         if(translate > -slideNum  && translate <= 0) {
-                            /*setTranslate(translate - 69.56)*/
+                            /!*setTranslate(translate - 69.56)*!/
                             translate = translate - 69.56;
                             $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
                         }
@@ -272,7 +273,7 @@ function MenuDisplayTab(props) {
                         </div>
                     </div>
                     {
-                        /* 반복이 끝나면 마지막에 모달을 호출함 */
+                        /!* 반복이 끝나면 마지막에 모달을 호출함 *!/
                         (index + 1) === props.menuArray[props.tabChange].length
                             ?   <MenuOption show = { show } onHide = { handleClose } handleClose = { handleClose }
                                     image = { props.menuImg[props.tabChange][clickNum] }
@@ -328,4 +329,4 @@ function MenuSelectButton(props) {
     )
 }
 
-export default TempPage;
+export default TempPage;*/

@@ -29,7 +29,7 @@ function App() {
         <div className="App">
 
             <Switch>
-                <Route exact path = { "/order/:id" }>
+                <Route exact path = { "/order" }>
                     <Order />
                 </Route>
                 <Route exact path = { "/SimpleOrder/:id" }>

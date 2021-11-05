@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button, Modal} from "react-bootstrap";
 import '../../css/Order/MenuOption.css'
 import coffee0 from "../../img/coffee/americano.png";
@@ -14,6 +14,11 @@ function MenuOption(props) {
     let reducerState = state.reducer;
     let optionState = state.optionReducer;
     let dispatch = useDispatch();
+    let [count, setCount] = useState(1);
+
+    useEffect(() => {
+        setCount(1)
+    }, [props.onHide])
 
     return (
         <div className = "modalContents">
@@ -28,13 +33,17 @@ function MenuOption(props) {
                             <h3> { props.title } </h3>
                         </div>
                         <div className = "countDiv">
-                            <div className = "countDownButton">
+                            <div className ={ count == 1 ? "countDownButtonDisable" : "countDownButton" } onClick = {() => {
+                                if(count > 1 && count <= 10) setCount(count - 1)
+                            }}>
                                 <div className="modalMinus"></div>
                             </div>
                             <div className="menuCountNumber">
-                                <p> 1 </p>
+                                <p> { count } </p>
                             </div>
-                            <div className = "countUpButton">
+                            <div className = { count == 10 ? "countDownButtonDisable" : "countDownButton" } onClick = {() => {
+                                if(count >= 1 && count < 10) setCount(count + 1)
+                            }}>
                                 <div className="modalPlus"></div>
                             </div>
                         </div>
@@ -62,17 +71,16 @@ function MenuOption(props) {
                             <Button  className = "addOrderButton" onClick={ () => {
                                 props.handleClose();
 
-                                console.log(props.title);
-                                console.log(props.image);
-                                console.log(props.price);
-                                /*console.log(props.optionState)
+                                dispatch({
+                                    type: "항목추가",
+                                    payload: {
+                                        title: props.title, count: count,
+                                        price: (props.price) * count , image: props.image
+                                    }
+                                })
 
-                                dispatch({type : "항목추가",
-                                    payload : { title : props.menuItem[props.id][props.clickNum].title,
-                                        count : props.count, price : ( props.menuItem[props.id][props.clickNum].price ) * props.count,
-                                        options : props.optionState, menuIndex : props.id }})
 
-                                dispatch({type : "주문추가", payload : { count : props.count,
+                                /*dispatch({type : "주문추가", payload : { count : props.count,
                                         price : ( props.menuItem[props.id][props.clickNum].price ) * props.count }})*/
                             } }>
                                 <p> 주문추가 </p>
