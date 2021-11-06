@@ -68,7 +68,7 @@ function CardMenuDetail(props) {
                             </div>
                             <div className = "md1">
                                 <Button className = "submitBtn" onClick = { () => {
-                                    dispatch({ type : "값 전송", payload : { data : props.req, payment : props.card }})
+                                    dispatch({ type : "값 전송", payload : { data : props.req, total : props.total }})
                                 }}>
                                     자세히
                                 </Button>

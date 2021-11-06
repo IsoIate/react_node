@@ -424,7 +424,7 @@ function OptionDisplayModal(props) {
                                             image = { props.menuImg[props.tabChange][clickNum] }
                                             title = { props.menuArray[props.tabChange][clickNum].title }
                                             price = { props.menuArray[props.tabChange][clickNum].price }
-                                            index = { props.menuArray[props.tabChange][clickNum].id }
+                                            menuIndex = { props.tabChange }
                             />
                             :   null
                     }
@@ -447,7 +447,6 @@ function MenuVarietyTab (props) {
                         return (
                             <div onClick = { () => {
                                 props.translate = 0;
-
                                 props.setTabChange(index)
                                 console.log(index)
                             } }>

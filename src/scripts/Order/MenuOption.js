@@ -15,7 +15,6 @@ function MenuOption(props) {
     let optionState = state.optionReducer;
     let dispatch = useDispatch();
     let [count, setCount] = useState(1);
-    console.log(props.index)
 
     useEffect(() => {
         setCount(1)
@@ -76,7 +75,7 @@ function MenuOption(props) {
                                     type: "항목추가",
                                     payload: {
                                         title: props.title, count: count, price: (props.price) * count,
-                                        image: props.image, menuIndex: props.index, options: optionState
+                                        image: props.image, menuIndex: props.menuIndex, options: optionState
                                     }
                                 })
 

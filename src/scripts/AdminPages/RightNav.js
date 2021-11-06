@@ -251,6 +251,7 @@ function ConfirmBtn(props) {
     )
 }
 
+/* 옵션 이미지 지정 함수 */
 function OptionSlide(props) {
     let size = props.cupSize
     let temp = props.drinkTemp
@@ -268,7 +269,7 @@ function OptionSlide(props) {
                         options.map((num, idx2) => {
                             return (
                                 <div className = "slide-box_op">
-                                    <img src = { options[idx2][result[idx1].options[idx2] - 1] } />
+                                    <img src = { options[idx2][result[idx1].options[idx2]] } />
                                 </div>
                             )
                         })
@@ -279,11 +280,14 @@ function OptionSlide(props) {
     )
 }
 
+
+/* 메뉴 이미지 지정 함수 */
 function MenuSlide(props) {
     let imageArray = JSON.parse(props.result);
 
     return (
         imageArray.map((num, index) => {
+            console.log(imageArray[index].image)
             return (
                 <div className = "slide-box">
                     <img src = { imageArray[index].image } />
@@ -294,6 +298,7 @@ function MenuSlide(props) {
     )
 }
 
+/* 옵션 상세보기 함수 */
 function OptionDetail(detailState, menu) {
     let coffeeInfo = ["아메리카노", "카페라떼", "바닐라라떼", "카페모카", "헤이즐넛", "카라멜마끼아또", "티라미수라떼"]
     let bubbleTeaInfo  = ['밀크티버블라떼', '흑당버블라떼', '달고나버블라떼', '흑당고구마라떼']
@@ -306,7 +311,7 @@ function OptionDetail(detailState, menu) {
 
     let menuInfo = [coffeeInfo, bubbleTeaInfo, frappeInfo, yogurtInfo, adeInfo, juiceInfo, teaInfo, dessertInfo];
 
-    let tempIndex = parseInt(detailState[0][0].menuIndex);  // 메뉴 인덱스
+    let menuIndex = detailState[0];  // 메뉴 인덱스
     let detailArray = [];
     let titleArray = [];
     let imageArray = [];
@@ -326,8 +331,8 @@ function OptionDetail(detailState, menu) {
     /* 이미지 고유주소 삽입 */
     menuInfo.map((num, idx1) => {
         titleArray.map((num, idx2) => {
-            if(menuInfo[tempIndex][idx1] == titleArray[idx2]) {
-                imageArray.push(menu[tempIndex][idx1]);
+            if(menuInfo[menuIndex[idx2].menuIndex][idx1] == titleArray[idx2]) {
+                imageArray.push(menu[menuIndex[idx2].menuIndex][idx1]);
             }
         })
     })
@@ -352,12 +357,3 @@ function OptionDetail(detailState, menu) {
 
 
 export default RightNav;
-
-/*/!* state를 props로 변환 *!/
-function Conversion(state) {
-    return {
-        detailState : state.detailReducer
-    }
-}*/
-
-/*export default connect(Conversion)(RightNav);*/
