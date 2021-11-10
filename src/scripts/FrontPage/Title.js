@@ -1,9 +1,7 @@
-import {Link} from "react-router-dom";
-import {Jumbotron} from "react-bootstrap";
 import React, {useState} from "react";
 import Admin from "../../img/Admin.png"
-
-import '../../css/FrontPage/FrontPage.css'
+import logo from "../../img/cafelogo.png";
+import '../../css/FrontPage/Title.css'
 import AdminModal from "./AdminModal";
 
 function Title(props) {
@@ -13,25 +11,22 @@ function Title(props) {
     const Open = () => setShow(true);
 
     return (
-        <>
-            <Jumbotron className = "jumbo jumbotron">
-                {/*<Link as = { Link } to = { "/AdminPage" } className = "link" >*/}
-                    <div className = "adminDiv" onClick = {() => {
+        <div className = "frontDiv">
+            <div className ={ props.pageCheck !== 'mainPage' ? "frontLink" : "mainLink"}>
+                <div className = "frontTitle">
+                    <img className = "frontLogoImg" src = { logo } onClick={() => {
                         Open();
-                        /*console.log(Show);*/
-                    }}>
-                        <img src = { Admin } className = "admin"/>
-                    </div>
-                {/*</Link>*/}
-                <h1> ABC Cafe </h1>
-            </Jumbotron>
+                    }}/>
+                    <h1> Coffee House </h1>
+                </div>
+            </div>
 
             {
                 Show === true ?
                     < AdminModal show = { Show } onHide = { Close } />
                     : null
             }
-        </>
+        </div>
     )
 }
 

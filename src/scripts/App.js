@@ -36,8 +36,7 @@ function App() {
                     <SimpleOrder />
                 </Route>
                 <Route exact path = { "/MainPage" }>
-                    <Title/>
-                    <MainPage show = { show } handleShow = { handleShow } handleClose = { handleClose }/>
+                    <MainPage/>
                 </Route>
                 <Route exact path = { "/AdminPage" }>
                     <AdminPage />

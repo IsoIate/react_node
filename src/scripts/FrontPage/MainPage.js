@@ -1,16 +1,49 @@
 /*eslint-disable*/
 import React, {useEffect, useState} from 'react';
 import { Jumbotron, Button, Card } from "react-bootstrap";
-import { Link, Route, Switch } from "react-router-dom";
+import {Link, Route, Switch, useHistory} from "react-router-dom";
+import $ from 'jquery'
 
 import '../../css/FrontPage/MainPage.css'
-/*import imgA from './img/Admin.png';*/
-import mainImg from '../../img/MainImg.png'
+import banner_01 from '../../img/banner/banner_01.jpg'
+import banner_02 from '../../img/banner/banner_02.jpg'
+import banner_03 from '../../img/banner/banner_03.jpg'
+import Title from "./Title";
 
 function MainPage() {
+    let history = useHistory();
+    let pageCheck = 'mainPage'
+    let [imgNum, setImgNum] = useState(0);
+
     return (
-        <>
-            <Card className="text-center" style={{height: "150vw", width: "100vw"}}>
+        <div className = "mainPage">
+            <div className = "mainPageHeader">
+                <Title pageCheck = { pageCheck } />
+            </div>
+            <div className = "mainPageBody">
+                <div className = "main_slideContainer">
+                    <div className = "main_slideBox">
+                        <img src = { banner_01 } />
+                    </div>
+                    <div className = "main_slideBox">
+                        <img src = { banner_02 } />
+                    </div>
+                    <div className = "main_slideBox">
+                        <img src = { banner_03 } />
+                    </div>
+                </div>
+            </div>
+            <div className = "mainPageFooter">
+                <Button className = "orderBtn" size="lg" onClick={() => {
+                    /*timer(imgNum, setImgNum)
+                    $('.main_slideContainer').css('-webkit-animation-name','slideAnimation');*/
+                    history.push('/order');
+                }}> 주문하기 </Button>
+                <Button className = "orderBtn" size="lg" onClick={() => {
+                    history.push('/SimpleOrder/0');
+                }}> 더 쉽게 주문하기 </Button>
+            </div>
+            {/*<Card className="text-center" style={{height: "150vw", width: "100vw"}}>
                 <Card.Body >
                     <img className= " mainImg " src = { mainImg } />
                 </Card.Body>
@@ -28,9 +61,21 @@ function MainPage() {
                         </div>
                     </div>
                 </Card.Footer>
-            </Card>
-        </>
+            </Card>*/}
+        </div>
     );
+}
+
+function timer(imgNum, setImgNum) {
+    console.log(imgNum)
+    setTimeout(() => {
+        if(imgNum <= -200) {
+            setImgNum(0)
+        }
+        else {
+            setImgNum(imgNum - 100)
+        }
+    }, 3000)
 }
 
 export default MainPage

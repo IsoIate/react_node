@@ -1,16 +1,51 @@
-.header {
-    display: flex;
-    flex-grow: 1;
+.frontPage {
+    background-color: #e8eeff;
 }
 
-.jumbo {
-    margin: 0px;
-    padding : 32px 32px 64px 32px;
+.frontHeader {
+
+}
+
+.frontBody {
+    display: flex;
+    flex-direction: row;
+    height: 81vh;
+}
+
+.frontBodyLeft {
     display: flex;
     flex-direction: column;
+    width: 60%;
+    height: 75vh;
+    background-color: white;
+    margin: 2%;
+    border-radius: 20px;
 }
 
-.body {
+.intro {
+    height: 80%;
+    font-family: "나눔스퀘어라운드 Bold";
+}
+
+.intro h2 {
+    font-size: 48px;
+}
+
+.intro p {
+    font-size: 32px;
+}
+
+.introDiv {
+    margin: 3%;
+}
+
+.frontBodyRight {
+    display: flex;
+    width: 40%;
+    margin: 2%;
+}
+
+.qrDiv {
 
 }
 
@@ -21,26 +56,23 @@
     cursor: pointer;
 }
 
-.admin {
-    width : 30%;
-    height : 30%;
-    background-repeat: no-repeat;
-}
-
 .qrcodeImg {
-    width:100%;
+    width: 40vw;
+    height: 75vh;
     opacity: 0.75;
+    border-radius: 20px;
+
 }
 
 .guideImg {
     width : 100%;
 }
 
-.footer {
+.frontFooter {
 
 }
 
-.btnDiv {
+.guestBook {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -54,7 +86,11 @@
     font-size: 30px;
     font-weight: bold;
 
-    background-color : deepskyblue;
+    background-color : #b3c6ff;
     border: none;
 
+}
+
+.writeBtn:hover {
+    background-color : #b3c6ff;
 }

@@ -47,7 +47,7 @@ export default Order*/
 
 import React, {useEffect, useState} from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import '../../css/Order/TempPage.css'
+import '../../css/Order/Order.css'
 import logo from "../../img/cafelogo.png";
 import LiveClock from "react-live-clock";
 import $ from 'jquery';
@@ -285,6 +285,9 @@ function Order() {
                                     icon: 'info',
                                     title: '처음 화면으로 돌아갑니다'
                             })
+                                .then((result) => {
+                                    history.push('/')
+                                })
                         }}> 취소하기 </Button>
                     </div>
                 </div>

@@ -85,7 +85,7 @@ function SelfModal(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" disabled = { show } onClick={() => {
-                        history.push("./MainPage/0");
+                        history.push("./MainPage");
 
                         console.log("이름 : " + name);
                         console.log("주소 : " + location);

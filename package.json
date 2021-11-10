@@ -44,7 +44,7 @@
     "redux": "^4.1.0",
     "socket.io": "^4.3.1",
     "socket.io-client": "^4.2.0",
-    "sweetalert2": "^11.1.9",
+    "sweetalert2": "^11.1.10",
     "web-vitals": "^1.0.1",
     "yarn": "^1.22.17"
   },

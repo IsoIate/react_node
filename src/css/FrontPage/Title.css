@@ -1,0 +1,45 @@
+.frontDiv {
+    border-radius: 10px;
+}
+
+.frontLink {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    margin: 2% 2% 0 2%;
+    border-radius: 20px;
+
+    background-color: white;
+}
+
+.mainLink {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    margin: 1% 2% 0 2%;
+    border-radius: 20px;
+
+    background-color: white;
+}
+
+.frontTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.frontTitle h1 {
+    font-size: 90px;
+    font-family: Gabriola;
+    margin: 0 5% 0 0;
+}
+
+.frontLogoImg {
+    width: 6.5%;
+    margin: 2.5%;
+}
+
