@@ -217,7 +217,7 @@ function ConfirmBtn(props) {
             <form action = "/makeComp" method = "post">
                 {
                     detail.map((num, idx2) => {
-                        console.log(detail[idx2].title)
+                        console.log(detail[idx2])
                         return (
                             <div style={{display : "none"}}>
                                 <input type = "text" value = { detail[idx2].title }

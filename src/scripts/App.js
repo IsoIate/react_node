@@ -32,7 +32,7 @@ function App() {
                 <Route exact path = { "/order" }>
                     <Order />
                 </Route>
-                <Route exact path = { "/SimpleOrder/:id" }>
+                <Route exact path = { "/SimpleOrder" }>
                     <SimpleOrder />
                 </Route>
                 <Route exact path = { "/MainPage" }>

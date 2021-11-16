@@ -14,8 +14,32 @@
     justify-content: center;
 }
 
-.optionModalHeader h2 {
+.optionModalHeaderText {
+    width: 48%;
+    display: flex;
+    justify-content: center;
+    padding-top: 1.5%;
+}
+
+.optionModalHeaderText h2 {
     margin: 0;
+}
+
+.helpText_opt {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+}
+
+.helpText_opt p {
+    font-family: "나눔스퀘어라운드 Bold";
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.helpInfo_opt {
+    display: flex;
+    justify-content: center;
 }
 
 .optionModalBody {

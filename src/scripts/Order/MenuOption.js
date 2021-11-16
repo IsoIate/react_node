@@ -24,7 +24,21 @@ function MenuOption(props) {
         <div className = "modalContents">
             <Modal className = "modalDiv modal-dialog-centered" size = "xl" show = { props.show } onHide = { props.onHide }>
                 <Modal.Header className = "optionModalHeader">
-                    <h2> 주문하기 </h2>
+                    <div className = "optionModalHeaderText">
+                        <h2> 주문하기 </h2>
+                    </div>
+                    <div className = "helpText_opt">
+                        <div className = "helpInfo_opt">
+                            <p> 주문 </p>
+                            <i className="fas fa-caret-right fa-3x helpArrow"></i>
+                            <p> 옵션 선택 </p>
+                            <i className="fas fa-caret-right fa-3x helpArrow"></i>
+                            <p> 결제 </p>
+                        </div>
+                        <div className = "optionProgress">
+                            <div className = "progress_option"></div>
+                        </div>
+                    </div>
                 </Modal.Header>
                 <Modal.Body className = "optionModalBody">
                     <div className = "modalBodyLeft">
@@ -69,8 +83,8 @@ function MenuOption(props) {
                                 <p> 돌아가기 </p>
                             </Button>
                             <Button  className = "addOrderButton" onClick={ () => {
+                                props.setProgress(2);
                                 props.modalClose();
-
                                 dispatch({
                                     type: "항목추가",
                                     payload: {

@@ -14,9 +14,8 @@ import AlertTemplate from "react-alert-template-basic";
 let primaryState = [];
 let orderState = [0, 0];
 let optionState = [0, 0, 0, 0];
-let receiptState = [];
 let detailState = [];
-let counterConfirmState = [];
+let helpModalState = 0;
 
 const options = {
     timeout: 5000,
@@ -24,7 +23,7 @@ const options = {
 };
 
 let store = createStore(combineReducers({
-    reducer, orderReducer, optionReducer, counterConfirmReducer, detailReducer
+    reducer, orderReducer, optionReducer, helpModalReducer, detailReducer
 }));
 
 /* 주문 표 생성, 제거 */
@@ -126,6 +125,7 @@ function detailReducer(state = detailState, action) {
         let jsonArray = new Array();
         let tempData = action.payload.data;
         let tempTotal = action.payload.total;
+        let payment = action.payload.payment;
 
         console.log("detail?")
         console.log(tempData)
@@ -140,7 +140,7 @@ function detailReducer(state = detailState, action) {
             data.menuIndex = tempData[i].menuIndex;
             data.totalPrice = tempTotal.price;
             data.totalCount = tempTotal.count;
-
+            data.payment = payment;
 
             /*data.payment = action.payload.payment[2];*/
 
@@ -176,10 +176,22 @@ function detailReducer(state = detailState, action) {
     }
 }
 
-/* 카운터에서 매출로 전송 */
-function counterConfirmReducer(state = counterConfirmState, action) {
-    if(action == null) {
-        return 0
+/* 간편주문 도우미 모달 */
+function helpModalReducer(state = helpModalState, action) {
+    if(action.type === "모달 추가") {
+        console.log(state)
+        state = 1
+        console.log("모달 추가")
+        return state
+    }
+
+    else if (action.type === "모달 열기") {
+        console.log("모달 열기")
+        if(state === 1) {
+            console.log("true")
+            return state
+        }
+        else return state
     }
 
     return 0;

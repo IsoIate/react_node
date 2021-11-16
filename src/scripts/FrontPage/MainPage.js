@@ -9,10 +9,12 @@ import banner_01 from '../../img/banner/banner_01.jpg'
 import banner_02 from '../../img/banner/banner_02.jpg'
 import banner_03 from '../../img/banner/banner_03.jpg'
 import Title from "./Title";
+import {useDispatch} from "react-redux";
 
 function MainPage() {
     let history = useHistory();
     let pageCheck = 'mainPage'
+    let dispatch = useDispatch();
     let [imgNum, setImgNum] = useState(0);
 
     return (
@@ -40,7 +42,8 @@ function MainPage() {
                     history.push('/order');
                 }}> 주문하기 </Button>
                 <Button className = "orderBtn" size="lg" onClick={() => {
-                    history.push('/SimpleOrder/0');
+                    dispatch({type : "모달 추가"})
+                    history.push('/SimpleOrder');
                 }}> 더 쉽게 주문하기 </Button>
             </div>
             {/*<Card className="text-center" style={{height: "150vw", width: "100vw"}}>

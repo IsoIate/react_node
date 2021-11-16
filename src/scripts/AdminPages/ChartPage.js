@@ -256,6 +256,7 @@ function ChartPage (props) {
 
     /* 결제방법 차트에 값 삽입 */
     if(props.payment != null) {
+        console.log(props.payment)
         payments.options.series.push(parseInt(props.payment.payData.cash), parseInt(props.payment.payData.card))
     }
 

@@ -142,6 +142,7 @@ app.post('/makeComp', (req, res) => {
             /* id 값을 1 증가시키는 함수 */
             CountInc();
 
+            /* 매달 방문객 수, 매출 기록 */
             db.collection('rev_month').findOne({ 날짜 : (date.getMonth() + 1) }, (err, monRes) => {
                 db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
                     {
@@ -235,10 +236,28 @@ app.post('/makeComp', (req, res) => {
                 globalCount = temp;
                 /* id 값을 주문 수만큼 증가시키는 함수 */
                 multiCountInc(cntRes, (req.body.title.length + 1));
+
+                /* 카운터 기능 수정 필요 */
+                /* 매달 방문객 수, 매출 기록 */
+                db.collection('rev_month').findOne({ 날짜 : (date.getMonth() + 1) }, (err, monRes) => {
+                    db.collection('rev_month').updateOne({ 날짜 : (date.getMonth() + 1) },
+                        {
+                            $set: {
+                                수량: parseInt(monRes.수량) + parseInt(req.body.count[index]),
+                                가격: parseInt(monRes.가격) + parseInt(req.body.price[index]),
+                                현금: req.body.payment[index] == 0
+                                    ? parseInt(monRes.현금) + 1
+                                    : parseInt(monRes.현금),
+                                카드: req.body.payment[index] == 1
+                                    ? parseInt(monRes.카드) + 1
+                                    : parseInt(monRes.카드)
+                            }
+                        })
+                })
             }
             console.log("result : " + globalCount)
         })
-/**/
+
         /* visitors 값을 1 증가시키는 함수 */
         VisInc();
 
@@ -313,9 +332,10 @@ function multiOrder(req, mMenu, index, temp) {
     db.collection('counter').findOne({ name: "카운터" }, (err, res) => {
         let totalCount = res.count;
         console.log("temp? " + temp)
+        console.log("temp + index : " + (temp + index))
         /* 매출 컬렉션 */
         db.collection('revenue').insertOne({
-                _id : ( temp ), 메뉴이름 : req.body.title[index],
+                _id : ( temp + index ), 메뉴이름 : req.body.title[index],
                 수량 : parseInt(req.body.count[index]), 가격 : parseInt(req.body.price[index]),
                 지불 : (req.body.payment[index] == 0 ? "현금" : "카드"), 옵션 : req.body.options[index]
             },
