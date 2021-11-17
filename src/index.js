@@ -28,26 +28,37 @@ let store = createStore(combineReducers({
 
 /* 주문 표 생성, 제거 */
 function reducer(state = primaryState, action) {
+    let check = false;
+
     if(action.type === "항목추가") {
         let copy = [...state];
 
-        copy.push(action.payload)
-        console.log(copy)
         /* 같은 메뉴인지 검사, 같은 메뉴일 시 수량, 가격 합산 */
-        /*for(let index = 0; index < copy.length; index++) {
-            if((copy[index].title == action.payload.title)) {
+        for(let index = 0; index < copy.length; index++) {
+            if (copy[index].title === action.payload.title) {
                 check = true;
-                (copy[index].count = copy[index].count + action.payload.count);
-                (copy[index].price = copy[index].price + action.payload.price);
+
+                copy[index].count = (copy[index].count + action.payload.count);
+                copy[index].price = (copy[index].price + action.payload.price);
             }
         }
 
         if(check != true) {
             copy.push(action.payload)
-        }*/
+            return copy
+        }
 
         return copy;
     }
+    else if (action.type == "항목수정") {
+        let copy = [...state];
+
+        copy.splice(action.payload, 1);
+        copy.push(action.payload)
+
+        return copy;
+    }
+
     else if (action.type === "항목제거") {
         let copy = [...state];
         let temp = action.payload;

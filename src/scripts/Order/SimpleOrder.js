@@ -1,4 +1,5 @@
 /*
+/!*
 import React, {useEffect, useState} from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -43,7 +44,7 @@ function Order() {
     )
 }
 
-export default Order*/
+export default Order*!/
 
 import React, {useEffect, useState} from 'react'
 import { Button, Modal } from 'react-bootstrap'
@@ -181,7 +182,7 @@ function SimpleOrder() {
                     axios.get(getArray[index])
                         .then((res) => {
                             setArray[index](res.data.comp)
-                            /*console.log(res.data.comp)*/
+                            /!*console.log(res.data.comp)*!/
                         })
                         .catch(( error )=>{ console.log( error ) })
                 )
@@ -223,7 +224,7 @@ function SimpleOrder() {
                 <div className = "arrowBtnDiv">
                     <div className = "leftArrowBtn" onClick={() => {
                         if(translate >= -slideNum && translate < 0) {
-                            /*setTranslate(translate + 69.56)*/
+                            /!*setTranslate(translate + 69.56)*!/
                             translate = translate + 69.56;
                             $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
                         }
@@ -233,7 +234,7 @@ function SimpleOrder() {
                     </div>
                     <div className = "rightArrowBtn" onClick = {() => {
                         if(translate > -slideNum  && translate <= 0) {
-                            /*setTranslate(translate - 69.56)*/
+                            /!*setTranslate(translate - 69.56)*!/
                             translate = translate - 69.56;
                             $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
                         }
@@ -281,18 +282,20 @@ function SimpleOrder() {
                             <p> 가격 </p>
                             <TotalPrice reducerState = { reducerState } />
                         </div>
-                        <Button className = "buyBtn" onClick={() => {
-                            paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
-                        }}> 구매하기 </Button>
-                        <Button className = "cancelBtn" onClick={() => {
-                            Toast.fire({
-                                icon: 'info',
-                                title: '처음 화면으로 돌아갑니다'
-                            })
-                                .then((result) => {
-                                    history.push('/')
+                        <div className = "recipeButtons">
+                            <Button className = "buyBtn" onClick={() => {
+                                paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
+                            }}> 구매하기 </Button>
+                            <Button className = "cancelBtn" onClick={() => {
+                                Toast.fire({
+                                    icon: 'info',
+                                    title: '처음 화면으로 돌아갑니다'
                                 })
-                        }}> 취소하기 </Button>
+                                    .then((result) => {
+                                        history.push('/')
+                                    })
+                            }}> 취소하기 </Button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -310,7 +313,7 @@ function SimpleOrder() {
     )
 }
 
-/* 결제 버튼 클릭 후 기능 */
+/!* 결제 버튼 클릭 후 기능 *!/
 function paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient) {
     let state = reducerState;
     let index = state.length;
@@ -358,7 +361,7 @@ function paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, his
 }
 
 
-/* 총 가격 출력 기능 */
+/!* 총 가격 출력 기능 *!/
 function TotalPrice(props) {
     let totalPrice = 0;
     let data = props.reducerState
@@ -379,7 +382,7 @@ function TotalPrice(props) {
     )
 }
 
-/* 주문 메뉴 장바구니 기능 */
+/!* 주문 메뉴 장바구니 기능 *!/
 function MenuOrderCart(props) {
     let data = props.reducerState;
 
@@ -401,7 +404,7 @@ function MenuOrderCart(props) {
     )
 }
 
-/* 각 메뉴 클릭 시 옵션 모달창 기능 */
+/!* 각 메뉴 클릭 시 옵션 모달창 기능 *!/
 function OptionDisplayModal(props) {
     const [show, setShow] = useState(false);
     const modalShow = () => setShow(true);
@@ -425,7 +428,7 @@ function OptionDisplayModal(props) {
                         </div>
                     </div>
                     {
-                        /* 반복이 끝나면 마지막에 모달을 호출함 */
+                        /!* 반복이 끝나면 마지막에 모달을 호출함 *!/
                         (index + 1) === props.menuArray[props.tabChange].length
                             ?   <MenuOption show = { show } onHide = { modalClose } modalClose = { modalClose }
                                             image = { props.menuImg[props.tabChange][clickNum] }
@@ -442,7 +445,7 @@ function OptionDisplayModal(props) {
     )
 }
 
-/* 음료 종류 탭 기능 */
+/!* 음료 종류 탭 기능 *!/
 function MenuVarietyTab (props) {
     let menu = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트']
     let tempArr = [0, 1, 2, 3]
@@ -482,4 +485,19 @@ function MenuVarietyTab (props) {
     )
 }
 
-export default SimpleOrder;
+export default SimpleOrder;*/
+
+import React from 'react'
+import Order from "./Order";
+import HelpModal from "./HelpModal";
+
+function SimpleOrder(props) {
+    return (
+        <>
+            {/*<HelpModal />*/}
+            <Order />
+        </>
+    )
+}
+
+export default SimpleOrder

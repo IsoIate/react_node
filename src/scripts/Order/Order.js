@@ -114,6 +114,10 @@ import Swal from "sweetalert2";
 import CashPayment from "./CashPayment";
 import CardPayment from "./CardPayment";
 import io from "socket.io-client";
+import SizeSelect from "./MenuSelectModal/SizeSelect";
+import IceSelect from "./MenuSelectModal/IceSelect";
+import SyrupSelect from "./MenuSelectModal/SyrupSelect";
+import PackageSelect from "./MenuSelectModal/PackageSelect";
 
 function Order() {
     let [coffee, setCoffee] = useState(coffeeData);
@@ -148,6 +152,7 @@ function Order() {
     let state = useSelector(state => state);
     let dispatch = useDispatch();
     let reducerState = state.reducer;
+    let [progress ,setProgress] = useState(0);
 
     const [cash, setCash] = useState(false);
     const cashShow = () => setCash(true);
@@ -197,21 +202,24 @@ function Order() {
                         <img className = "logoImage" src = { logo }/>
                         <p> Coffee House </p>
                     </div>
-                    <div className = "showDate">
-                        <div>
-                            { date.getMonth() + 1 + "월 "}
-                            { date.getDate() + "일"}
+                    <div className = "helpText">
+                        <div className = "helpInfo">
+                            <p> 주문 </p>
+                            <i className="fas fa-caret-right fa-3x helpArrow"></i>
+                            <p> 옵션 선택 </p>
+                            <i className="fas fa-caret-right fa-3x helpArrow"></i>
+                            <p> 결제 </p>
                         </div>
-                        <div>
-                            <LiveClock format ={"HH:mm:ss"} interval = { 1000 } ticking = { true } />
+                        <div className = "orderProgress">
+                            <div className = { progress === 2 ? "progress_pay" : "progress_order" }></div>
                         </div>
                     </div>
                 </div>
                 <div className = "orderBody">
                     <div className = "menuContents">
                         <div className = "menuItems">
-                            <OptionDisplayModal coffee = { coffee } coffeeImg = { coffeeImg }
-                                            tabChange = { tabChange } menuArray = { menuArray } menuImg = { menuImg } />
+                            <OptionDisplayModal coffee = { coffee } coffeeImg = { coffeeImg } setProgress = { setProgress }
+                                                tabChange = { tabChange } menuArray = { menuArray } menuImg = { menuImg } />
                         </div>
                     </div>
                 </div>
@@ -277,18 +285,20 @@ function Order() {
                             <p> 가격 </p>
                             <TotalPrice reducerState = { reducerState } />
                         </div>
-                        <Button className = "buyBtn" onClick={() => {
-                            paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
-                        }}> 구매하기 </Button>
-                        <Button className = "cancelBtn" onClick={() => {
-                            Toast.fire({
+                        <div className = "recipeButtons">
+                            <Button className = "recipeBtn" onClick={() => {
+                                paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
+                            }}> 구매하기 </Button>
+                            <Button className = "recipeBtn" onClick={() => {
+                                Toast.fire({
                                     icon: 'info',
                                     title: '처음 화면으로 돌아갑니다'
-                            })
-                                .then((result) => {
-                                    history.push('/')
                                 })
-                        }}> 취소하기 </Button>
+                                    .then((result) => {
+                                        history.push('/')
+                                    })
+                            }}> 취소하기 </Button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -378,22 +388,136 @@ function TotalPrice(props) {
 /* 주문 메뉴 장바구니 기능 */
 function MenuOrderCart(props) {
     let data = props.reducerState;
+    let [modal, setModal] = useState(false)
+    let [clickNum, setClickNum] = useState(0)
+    let [defaultPrice, setDefaultPrice] = useState(0)
+    let modalShow = () => setModal(true)
+    let modalClose = () => setModal(false)
 
     return (
         data.map((num, index) => {
             return (
-                <div className = "recipeContent">
-                    <img src = { data[index].image }/>
-                    <div className = "recipeDetail">
-                        <p> { data[index].title } </p>
+                <>
+                    <div className = "recipeContent" onClick = {() => {
+                        setClickNum(index)
+                        modalShow()
+                    }}>
+                        <img src = { data[index].image }/>
+                        <div className = "recipeDetail">
+                            <p> { data[index].title } </p>
+                        </div>
+                        <div className = "recipeCount">
+                            <p> { data[index].count } </p>
+                            <p> { data[index].price } </p>
+                        </div>
                     </div>
-                    <div className = "recipeCount">
-                        <p> { data[index].count } </p>
-                        <p> { data[index].price } </p>
-                    </div>
-                </div>
+                    {
+                        modal === true
+                            ? <MenuOptionReplace show = { modal }  modalClose = { modalClose } onHide = { modalClose }
+                                                 image = { data[clickNum].image } title = { data[clickNum].title }
+                                                 count = { data[clickNum].count } price = { data[clickNum].price }
+                                                 defaultPrice = { data[clickNum].price / data[clickNum].count }
+                            />
+                            : null
+                    }
+                </>
             )
         })
+    )
+}
+
+/* 카트에서 주문 메뉴 클릭 시 주문 수정 */
+function MenuOptionReplace(props) {
+    let dispatch = useDispatch()
+    let [count, setCount] = useState(props.count)
+    let state = useSelector((state) => state);
+    let optionState = state.optionReducer;
+
+    return (
+        <div className = "modalContents">
+            <Modal className = "modalDiv modal-dialog-centered" size = "xl" show = { props.show } onHide = { props.onHide }>
+                <Modal.Header className = "optionModalHeader">
+                    <div className = "optionModalHeaderText">
+                        <h2> 주문 수정하기 </h2>
+                    </div>
+                    <div className = "helpText_opt">
+                        <div className = "helpInfo_opt">
+                            <p> 주문 </p>
+                            <i className="fas fa-caret-right fa-3x helpArrow"></i>
+                            <p> 옵션 선택 </p>
+                            <i className="fas fa-caret-right fa-3x helpArrow"></i>
+                            <p> 결제 </p>
+                        </div>
+                        <div className = "optionProgress">
+                            <div className = "progress_option"></div>
+                        </div>
+                    </div>
+                </Modal.Header>
+                <Modal.Body className = "optionModalBody">
+                    <div className = "modalBodyLeft">
+                        <img src = { props.image } />
+                        <div className = "titleDiv">
+                            <h3> { props.title } </h3>
+                        </div>
+                        <div className = "countDiv">
+                            <div className ={ count == 1 ? "countDownButtonDisable" : "countDownButton" } onClick = {() => {
+                                if(count > 1 && count <= 10) setCount(count - 1)
+                            }}>
+                                <div className="modalMinus"></div>
+                            </div>
+                            <div className="menuCountNumber">
+                                <p> { count } </p>
+                            </div>
+                            <div className = { count == 10 ? "countDownButtonDisable" : "countDownButton" } onClick = {() => {
+                                if(count >= 1 && count < 10) setCount(count + 1)
+                            }}>
+                                <div className="modalPlus"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 옵션 저장 후 불러오는 기능은 추후 수정 */}
+                    <div className = "modalBodyRight">
+                        <SizeSelect />
+
+                        <IceSelect />
+
+                        <SyrupSelect />
+
+                        <PackageSelect />
+                    </div>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <div className = "optionModalFooter">
+                        <div className = "priceDiv">
+                            <h3> 가격 : { props.defaultPrice } 원 </h3>
+                        </div>
+                        <div className = "footerButtons">
+                            <Button className = "cancelButton" variant="secondary" onClick={ props.modalClose }>
+                                <p> 돌아가기 </p>
+                            </Button>
+                            <Button  className = "addOrderButton" onClick={ () => {
+                                /*props.setProgress(2);*/
+                                props.modalClose();
+                                dispatch({
+                                    type: "항목수정",
+                                    payload: {
+                                        title: props.title, count: count, price: (props.price) * count,
+                                        image: props.image, menuIndex: props.menuIndex, options: optionState
+                                    }
+                                })
+                                console.log("주문추가")
+                                /*dispatch({type : "주문추가", payload : { count : props.count,
+                                        price : ( props.menuItem[props.id][props.clickNum].price ) * props.count }})*/
+                            } }>
+                                <p> 주문수정 </p>
+
+                            </Button>
+                        </div>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+        </div>
     )
 }
 
@@ -427,7 +551,7 @@ function OptionDisplayModal(props) {
                                             image = { props.menuImg[props.tabChange][clickNum] }
                                             title = { props.menuArray[props.tabChange][clickNum].title }
                                             price = { props.menuArray[props.tabChange][clickNum].price }
-                                            menuIndex = { props.tabChange }
+                                            menuIndex = { props.tabChange } setProgress = { props.setProgress }
                             />
                             :   null
                     }

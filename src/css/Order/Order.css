@@ -40,11 +40,81 @@
     height: 90%;
 }
 
-.showDate {
+.helpText {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 75%;
+}
+
+.helpText p {
     font-family: "나눔스퀘어라운드 Bold";
-    font-size: 20px;
-    width: 70%;
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.helpInfo {
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+}
+
+.orderProgress {
+    background: #e8eeff;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+    margin: 1% 0;
+}
+
+.optionProgress {
+    background: #e8eeff;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin: 1% 0 1% 20%;
+}
+
+.progress_order {
+    width: 20%;
+    border-radius: 100px;
+    background: #b3c6ff;
+    height: 10px;
+}
+
+.progress_option {
+    width: 80%;
+    border-radius: 100px;
+    background: #b3c6ff;
+    height: 10px;
+}
+
+.progress_pay {
+    width: 98%;
+    border-radius: 100px;
+    background: #b3c6ff;
+    height: 10px;
+}
+
+.helpArrow {
+    /*animation: arrowMove 2s ease-in-out infinite;*/
+    margin: 0 5%;
+}
+
+@keyframes arrowMove {
+    0% {
+        color: black;
+    }
+
+    50% {
+        color: skyblue;
+    }
+
+    100% {
+        color: deepskyblue;
+    }
 }
 
 .orderBody {
@@ -231,6 +301,9 @@
     margin: 1.5% 5%;
     border-radius: 20px;
     background-color: #f7f9ff;
+
+    cursor: pointer;
+    user-select: none;
 }
 
 .recipeContent > img {
@@ -273,8 +346,6 @@
 }
 
 .recipeBottom {
-    display: flex;
-    flex-direction: column;
     height: 25%;
     border-radius: 20px;
     background-color: white;
@@ -286,7 +357,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 40%;
+    height: 50%;
 }
 
 .recipePrice > p {
@@ -294,12 +365,15 @@
     font-size: 20px;
 }
 
-.buyBtn {
-    height: 30%;
-    margin: 2.5% 10%;
+.recipeButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.cancelBtn {
-    height: 30%;
-    margin: 2.5% 10% 7.5% 10%;
+.recipeBtn {
+    height: 5vh;
+    width: 45%;
+    margin: 2.5% 7.5%;
 }

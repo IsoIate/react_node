@@ -1,3 +1,4 @@
+/*
 .orderContents {
     display: flex;
     flex-direction: row;
@@ -99,7 +100,7 @@
 }
 
 .helpArrow {
-    /*animation: arrowMove 2s ease-in-out infinite;*/
+    !*animation: arrowMove 2s ease-in-out infinite;*!
     margin: 0 5%;
 }
 
@@ -364,6 +365,11 @@
     font-size: 20px;
 }
 
+.recipeButtons {
+    display: flex;
+    flex-direction: row;
+}
+
 .buyBtn {
     height: 30%;
     margin: 2.5% 10%;
@@ -373,3 +379,4 @@
     height: 30%;
     margin: 2.5% 10% 7.5% 10%;
 }
+*/
