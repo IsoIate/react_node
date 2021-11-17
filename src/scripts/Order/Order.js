@@ -398,6 +398,8 @@ function MenuOrderCart(props) {
         data.map((num, index) => {
             return (
                 <>
+                    { console.log(data.length) }
+                    { console.log(index) }
                     <div className = "recipeContent" onClick = {() => {
                         setClickNum(index)
                         modalShow()
@@ -412,12 +414,14 @@ function MenuOrderCart(props) {
                         </div>
                     </div>
                     {
-                        modal === true
-                            ? <MenuOptionReplace show = { modal }  modalClose = { modalClose } onHide = { modalClose }
-                                                 image = { data[clickNum].image } title = { data[clickNum].title }
-                                                 count = { data[clickNum].count } price = { data[clickNum].price }
-                                                 defaultPrice = { data[clickNum].price / data[clickNum].count }
-                            />
+                        (index + 1) === data.length
+                            ? modal === true
+                                ? <MenuOptionReplace show = { modal }  modalClose = { modalClose } onHide = { modalClose }
+                                                     image = { data[clickNum].image } title = { data[clickNum].title }
+                                                     count = { data[clickNum].count } price = { data[clickNum].price }
+                                                     defaultPrice = { data[clickNum].price / data[clickNum].count }
+                                />
+                                : null
                             : null
                     }
                 </>
