@@ -47,7 +47,7 @@ function MenuOption(props) {
                             <h3> { props.title } </h3>
                         </div>
                         <div className = "countDiv">
-                            <div className ={ count == 1 ? "countDownButtonDisable" : "countDownButton" } onClick = {() => {
+                            <div className = { count == 1 ? "countDownButtonDisable" : "countDownButton" } onClick = {() => {
                                 if(count > 1 && count <= 10) setCount(count - 1)
                             }}>
                                 <div className="modalMinus"></div>
