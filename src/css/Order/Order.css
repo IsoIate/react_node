@@ -281,8 +281,10 @@
     font-weight: bold;
 }
 
-.resetButton {
-    cursor: pointer;
+.orderResetBtn {
+    margin: 0;
+    font-weight: bold;
+
 }
 
 .recipeBody {
@@ -372,8 +374,20 @@
     align-items: center;
 }
 
-.recipeBtn {
+.buyBtn {
     height: 5vh;
     width: 45%;
     margin: 2.5% 7.5%;
+    font-weight: bold;
+    background-color: #45d174 !important;
+    border: #45d174 !important;
+}
+
+.cancelBtn {
+    height: 5vh;
+    width: 45%;
+    margin: 2.5% 7.5%;
+    font-weight: bold;
+    background-color: #6c757d !important;
+    border: #6c757d !important;
 }

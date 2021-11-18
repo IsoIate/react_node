@@ -253,7 +253,7 @@ function Order() {
                     <div className = "recipeTop">
                         <div className = "recipeTitle">
                             <p> 계산대 </p>
-                            <div className = "resetButton" onClick={() => {
+                            <div onClick={() => {
                                 Swal.fire({
                                     title: '초기화 하시겠습니까?',
                                     text: "주문 내역이 모두 삭제됩니다.",
@@ -269,7 +269,9 @@ function Order() {
                                     }
                                 })
                             }}>
-                                <i className="fas fa-redo-alt fa-2x"></i>
+                                <div>
+                                    <Button  className = "orderResetBtn btn btn-danger"> 주문 초기화 </Button>
+                                </div>
                             </div>
                         </div>
                         <div className = "recipeBody">
@@ -282,14 +284,11 @@ function Order() {
                     </div>
                     <div className = "recipeBottom">
                         <div className = "recipePrice">
-                            <p> 가격 </p>
+                            <h3> 가격 </h3>
                             <TotalPrice reducerState = { reducerState } />
                         </div>
                         <div className = "recipeButtons">
-                            <Button className = "recipeBtn" onClick={() => {
-                                paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
-                            }}> 구매하기 </Button>
-                            <Button className = "recipeBtn" onClick={() => {
+                            <Button className = "cancelBtn" onClick={() => {
                                 Toast.fire({
                                     icon: 'info',
                                     title: '처음 화면으로 돌아갑니다'
@@ -298,6 +297,9 @@ function Order() {
                                         history.push('/')
                                     })
                             }}> 취소하기 </Button>
+                            <Button className = "buyBtn" onClick={() => {
+                                paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
+                            }}> 구매하기 </Button>
                         </div>
                     </div>
                 </div>
@@ -378,8 +380,8 @@ function TotalPrice(props) {
         <>
             {
                 index > 0
-                    ?   <p> { totalPrice } 원 </p>
-                    :   <p> 0 원 </p>
+                    ?   <h3> { totalPrice } 원 </h3>
+                    :   <h3> 0 원 </h3>
             }
         </>
     )
