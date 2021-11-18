@@ -330,3 +330,26 @@ function MenuSelectButton(props) {
 }
 
 export default TempPage;*/
+
+import React, {useState} from 'react'
+import TempPage_2 from "./TempPage_2";
+import {Button} from "react-bootstrap";
+
+function TempPage() {
+    let [number, setNumber] = useState(0)
+
+    return (
+        <>
+            <div>
+                <h1> TempPage </h1>
+                <Button onClick = {() => {
+                    setNumber(number + 1)
+                }}> 값 증가 </Button>
+                <h2> 값 : { number } </h2>
+            </div>
+
+        </>
+    )
+}
+
+export default TempPage
