@@ -15,7 +15,7 @@ let primaryState = [];
 let orderState = [0, 0];
 let optionState = [0, 0, 0, 0];
 let detailState = [];
-let helpModalState = 0;
+let helpModalState = -1;
 
 const options = {
     timeout: 5000,
@@ -189,23 +189,15 @@ function detailReducer(state = detailState, action) {
 
 /* 간편주문 도우미 모달 */
 function helpModalReducer(state = helpModalState, action) {
-    if(action.type === "모달 추가") {
-        console.log(state)
-        state = 1
-        console.log("모달 추가")
-        return state
+    if(action.type === "음료 안내") {
+        state = action.payload
+
+        return state;
+    }
+    else {
+        return -1;
     }
 
-    else if (action.type === "모달 열기") {
-        console.log("모달 열기")
-        if(state === 1) {
-            console.log("true")
-            return state
-        }
-        else return state
-    }
-
-    return 0;
 }
 
 ReactDOM.render(

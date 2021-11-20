@@ -241,6 +241,47 @@
     border-bottom-right-radius: 25px;
 }
 
+.coffeeTab {
+    border-top-left-radius: 25px;
+    animation-name: tabLighting;
+    animation-duration: 1.5s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+}
+
+.adeTab {
+    animation-name: tabLighting;
+    animation-duration: 1.5s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+}
+
+.teaTab {
+    animation-name: tabLighting;
+    animation-duration: 1.5s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+}
+
+.dessertTab {
+    animation-name: tabLighting;
+    animation-duration: 1.5s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes tabLighting {
+    0% {
+        background-color: white;
+    }
+    50% {
+        background-color: #b3c6ff;
+    }
+    100% {
+        background-color: white;
+    }
+}
+
 .menuTable > div > p {
     margin: 0;
     font-size: 20px;

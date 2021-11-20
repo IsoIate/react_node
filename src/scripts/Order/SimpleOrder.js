@@ -487,15 +487,22 @@ function MenuVarietyTab (props) {
 
 export default SimpleOrder;*/
 
-import React from 'react'
+import React, {useState} from 'react'
 import Order from "./Order";
 import HelpModal from "./HelpModal";
+import {useSelector} from "react-redux";
 
 function SimpleOrder(props) {
+    let [show, setShow] = useState(true)
+    let modalShow = () => setShow(true)
+    let modalClose = () => setShow(false)
+    let state = useSelector(state => state)
+    let helpModalState = state.helpModalReducer;
+
     return (
         <>
-            {/*<HelpModal />*/}
-            <Order />
+            <HelpModal show = { show } modalClose = { modalClose } onHide = { modalClose } />
+            <Order helpModalState = { helpModalState } />
         </>
     )
 }

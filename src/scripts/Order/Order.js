@@ -119,7 +119,7 @@ import IceSelect from "./MenuSelectModal/IceSelect";
 import SyrupSelect from "./MenuSelectModal/SyrupSelect";
 import PackageSelect from "./MenuSelectModal/PackageSelect";
 
-function Order() {
+function Order(props) {
     let [coffee, setCoffee] = useState(coffeeData);
     let [bubbleTea, setBubbleTea] = useState(bubbleTeaData);
     let [frappe, setFrappe] = useState(frappeData);
@@ -246,7 +246,7 @@ function Order() {
                         <i className="fas fa-chevron-right fa-3x"></i>
                     </div>
                 </div>
-                <MenuVarietyTab setTabChange = { setTabChange } translate = { translate } />
+                <MenuVarietyTab setTabChange = { setTabChange } translate = { translate } clickMenu = { props.helpModalState } />
             </div>
             <div className = "rightContents">
                 <div className = "recipe">
@@ -572,19 +572,24 @@ function OptionDisplayModal(props) {
 function MenuVarietyTab (props) {
     let menu = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트']
     let tempArr = [0, 1, 2, 3]
+
+    let lighting = props.clickMenu
+    let coffee = [0, 1, 2]
+    let ade = [3, 4, 5]
+    let tea = 6
+    let dessert = 7
+    let lightingArr = [coffee, ade, tea, dessert]
+
+    console.log(lighting)
     return (
         <div className = "varietyContents">
             <div className = "menuTable _top">
                 {
                     tempArr.map((num, index) => {
                         return (
-                            <div onClick = { () => {
-                                props.translate = 0;
-                                props.setTabChange(index)
-                                console.log(index)
-                            } }>
-                                <p> { menu[index] } </p>
-                            </div>
+                            <TabLightingTop translate = { props.translate } setTabChange = { props.setTabChange }
+                                                        index = { index } menu = { menu } lighting = { lighting }
+                            />
                         )
                     })
                 }
@@ -593,19 +598,105 @@ function MenuVarietyTab (props) {
                 {
                     tempArr.map((num, index) => {
                         return (
-                            <div onClick = { () => {
-                                props.translate = 0;
-                                props.setTabChange(index + 4)
-                                console.log(index + 4)
-                            } }>
-                                <p> { menu[index + 4] } </p>
-                            </div>
+                            <TabLightingBot translate = { props.translate } setTabChange = { props.setTabChange }
+                                         index = { index + 4 } menu = { menu } lighting = { lighting }
+                            />
                         )
                     })
                 }
             </div>
         </div>
     )
+}
+
+function TabLightingTop(props) {
+
+    if(props.lighting === 0) {
+        return (
+            <div className ={ props.index < 3 ? "coffeeTab" : null } onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.index)
+                console.log(props.index)
+            } }>
+                <p> { props.menu[props.index] } </p>
+            </div>
+        )
+    }
+
+    else if (props.lighting === 1) {
+        return (
+            <div className ={ props.index === 3 ? "adeTab" : null } onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.index)
+                console.log(props.index)
+            } }>
+                <p> { props.menu[props.index] } </p>
+            </div>
+        )
+    }
+
+    else {
+        return (
+            <div onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.index)
+                console.log(props.index)
+            } }>
+                <p> { props.menu[props.index] } </p>
+            </div>
+        )
+    }
+}
+
+function TabLightingBot(props) {
+
+    if (props.lighting === 1) {
+        return (
+            <div className ={ props.index < 6 ? "adeTab" : null } onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.index)
+                console.log(props.index)
+            } }>
+                <p> { props.menu[props.index] } </p>
+            </div>
+        )
+    }
+
+    else if (props.lighting === 2) {
+        return (
+            <div className ={ props.index === 6 ? "teaTab" : null } onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.index)
+                console.log(props.index)
+            } }>
+                <p> { props.menu[props.index] } </p>
+            </div>
+        )
+    }
+
+    else if (props.lighting === 3) {
+        return (
+            <div className ={ props.index === 7 ? "dessertTab" : null }  onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.index)
+                console.log(props.index)
+            } }>
+                <p> { props.menu[props.index] } </p>
+            </div>
+        )
+    }
+
+    else {
+        return (
+            <div onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.index)
+                console.log(props.index)
+            } }>
+                <p> { props.menu[props.index] } </p>
+            </div>
+        )
+    }
 }
 
 export default Order;

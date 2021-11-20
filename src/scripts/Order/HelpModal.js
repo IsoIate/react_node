@@ -1,11 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, Modal} from "react-bootstrap";
-import helpImage from '../../img/helpImage.PNG'
-import tempImage from '../../img/guide.png'
+import coffee from '../../img/coffee/americano.png'
+import ade from '../../img/ade/greenGrapeAde.png'
+import tea from '../../img/tea/earlgreyTea.png'
+import dessert from '../../img/dessert/cheeseCake.png'
 import '../../css/Order/HelpImage.css'
-import $ from "jquery";
+import {useDispatch} from "react-redux";
+import Swal from "sweetalert2";
 
 function HelpModal(props) {
+    let tempArr = [0, 1]
+    let menu = ['커피', '과일/탄산음료', '차', '간식']
+    let menuImage = [coffee, ade, tea, dessert]
+    let [tap, setTap] = useState(0)
+    let [tapShow, setTapShow] = useState(false)
+    const Toast = Swal.mixin({
+        width: 750,
+        padding: 50,
+        toast: true,
+        position: 'center-center',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
     return (
         <>
             <Modal className = "modal-dialog-centered" size = "xl" show = { props.show } onHide = { props.onHide } backdrop = { "static" } keyboard = { false } >
@@ -20,59 +42,61 @@ function HelpModal(props) {
                     </div>
                 </Modal.Header>
 
-                <Modal.Body style = {{ overflow : "hidden" }}>
-                    <div class="help_Container">
-                        <div class="help_Slide-box_1">
-                            <div className = "helpDiv_1L">
-                                <h2> 키오스크를 사용해서 </h2>
-                                <h2> 메뉴를 주문하는 방법을 </h2>
-                                <h2> 설명드리겠습니다. </h2>
-                            </div>
-                            <div className = "helpDiv_1R">
-                                <h2> 주문 순서는 다음과 같습니다. </h2>
-                                <img src = { tempImage } style={{ width : "100%"}} />
-                            </div>
-                        </div>
-                        <div class="help_Slide-box_2">
-                            <p>1</p>
-                        </div>
-                        <div class="help_Slide-box_3">
-                            <p>1</p>
-                        </div>
+                <Modal.Body className = "helpModalBody">
+                    <div className = "helpBodyHeader">
+                        <h2> 저희 카페에 방문해 주셔서 감사합니다. </h2>
+                        <h2> 드시고 싶은 음료의 종류를 선택해 주세요. </h2>
                     </div>
+                    {
+                        tapShow === false
+                            ?   tempArr.map((num1, idx1) => {
+                                    return (
+                                        <div className = "helpBodyContents">
+                                            {
+                                                tempArr.map((num2, idx2) => {
+                                                    return (
+                                                        <div className = "helpBodyContainer">
+                                                            <img src = { menuImage[idx2 + (idx1 * 2)] }/>
+                                                            <Button onClick={() => {
+                                                                setTap(idx2 + (idx1 * 2))
+                                                                setTapShow(true)
+                                                                Toast.fire({
+                                                                    icon: 'info',
+                                                                    title: '선택하신 메뉴 [' + menu[idx2 + (idx1 * 2)] + '] 로 안내해 드리겠습니다.'
+                                                                })
+                                                                    /*.then((result) => {
+                                                                        history.push('/')
+                                                                    })*/
+                                                            }}> { menu[idx2 + (idx1 * 2)] } </Button>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    )
+                                })
+                            :   ModalTap(tap, props.onHide)
 
-                    {/*<img className = "helpImage" src = { helpImage }/>*/}
+                    }
                 </Modal.Body>
-
-                <Modal.Footer className = "helpModalFooter">
-                    <div className = "help_leftArrowBtn" onClick={() => {
-                        $('.help_Container').css('transform', 'translateX(0vw)');
-
-                        /*if(translate >= -slideNum && translate < 0) {
-                            /!*setTranslate(translate + 69.56)*!/
-                            translate = translate + 69.56;
-                            $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
-                        }*/
-                    }}>
-                        <i className="fas fa-chevron-left fa-3x"></i>
-                        <p> 이전 페이지 </p>
+{/*
+                <Modal.Footer>
+                    <div className = "pageMoveBtn">
+                        <Button className = "previousBtn" onClick={() => {
+                            setTapShow(false)
+                        }}> 처음부터 </Button>
                     </div>
-                    <div className = "help_rightArrowBtn" onClick = {() => {
-                        $('.help_Container').css('transform', 'translateX(-59vw)');
-
-                        /*if(translate > -slideNum  && translate <= 0) {
-                            /!*setTranslate(translate - 69.56)*!/
-                            translate = translate - 69.56;
-                            $('.menuItems').css('transform', 'translateX(' + (translate) + 'vw)');
-                        }*/
-                    }}>
-                        <p> 다음 페이지 </p>
-                        <i className="fas fa-chevron-right fa-3x"></i>
-                    </div>
-                </Modal.Footer>
+                </Modal.Footer>*/}
             </Modal>
         </>
     )
+}
+
+/* 안내 페이지에서 음료 선택시 모달 닫는 함수 */
+function ModalTap(tap, onHide) {
+    let dispatch = useDispatch()
+    dispatch({ type : "음료 안내", payload : tap })
+    onHide()
 }
 
 export default HelpModal;

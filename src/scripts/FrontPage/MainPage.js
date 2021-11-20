@@ -42,7 +42,7 @@ function MainPage() {
                     history.push('/order');
                 }}> 주문하기 </Button>
                 <Button className = "orderBtn" size="lg" onClick={() => {
-                    dispatch({type : "모달 추가"})
+
                     history.push('/SimpleOrder');
                 }}> 더 쉽게 주문하기 </Button>
             </div>
