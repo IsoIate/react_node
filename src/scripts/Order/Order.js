@@ -296,7 +296,7 @@ function Order(props) {
                                     .then((result) => {
                                         history.push('/')
                                     })
-                            }}> 취소하기 </Button>
+                            }}> 처음으로 </Button>
                             <Button className = "buyBtn" onClick={() => {
                                 paymentSwal(reducerState, cashShow, cardShow, cashClose, cardClose, history, socketClient)
                             }}> 구매하기 </Button>
@@ -616,7 +616,7 @@ function TabLightingTop(props) {
             <div className ={ props.index < 3 ? "coffeeTab" : null } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                console.log(props.index)
+                $('.coffeeTab').removeClass('coffeeTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -628,7 +628,7 @@ function TabLightingTop(props) {
             <div className ={ props.index === 3 ? "adeTab" : null } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                console.log(props.index)
+                $('.adeTab').removeClass('adeTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -640,7 +640,6 @@ function TabLightingTop(props) {
             <div onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                console.log(props.index)
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -655,7 +654,7 @@ function TabLightingBot(props) {
             <div className ={ props.index < 6 ? "adeTab" : null } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                console.log(props.index)
+                $('.adeTab').removeClass('adeTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -667,7 +666,7 @@ function TabLightingBot(props) {
             <div className ={ props.index === 6 ? "teaTab" : null } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                console.log(props.index)
+                $('.teaTab').removeClass('teaTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -679,7 +678,7 @@ function TabLightingBot(props) {
             <div className ={ props.index === 7 ? "dessertTab" : null }  onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                console.log(props.index)
+                $('.dessertTab').removeClass('dessertTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -691,7 +690,6 @@ function TabLightingBot(props) {
             <div onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                console.log(props.index)
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>

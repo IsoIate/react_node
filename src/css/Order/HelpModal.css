@@ -12,20 +12,12 @@
 .headerText {
     display: flex;
     justify-content: center;
-    margin-left: 10%;
-    width: 90%;
-}
-
-.closeBtnDiv {
-    display: flex;
-    justify-content: flex-end;
-    width: 10%;
 }
 
 .helpModalBody {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .helpBodyHeader {
@@ -52,7 +44,12 @@
 }
 
 .helpBodyContainer Button {
-    width: 30%;
+    margin-top: 20px;
+    width: 35%;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #b3c6ff !important;
+    border: #b3c6ff !important;
 }
 
 .pageMoveBtn {
@@ -61,22 +58,12 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin: 2%;
 }
 
-.previousBtn {
+.modalCloseBtn {
     height: 5vh;
-    width: 45%;
-    margin: 2.5% 7.5%;
+    width: 30%;
     font-weight: bold;
-    background-color: #6c757d !important;
-    border: #6c757d !important;
-}
-
-.nextBtn {
-    height: 5vh;
-    width: 45%;
-    margin: 2.5% 7.5%;
-    font-weight: bold;
-    background-color: #45d174 !important;
-    border: #45d174 !important;
+    font-size: 20px;
 }

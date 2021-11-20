@@ -242,7 +242,6 @@
 }
 
 .coffeeTab {
-    border-top-left-radius: 25px;
     animation-name: tabLighting;
     animation-duration: 1.5s;
     animation-delay: 3s;

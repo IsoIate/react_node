@@ -4,7 +4,7 @@ import coffee from '../../img/coffee/americano.png'
 import ade from '../../img/ade/greenGrapeAde.png'
 import tea from '../../img/tea/earlgreyTea.png'
 import dessert from '../../img/dessert/cheeseCake.png'
-import '../../css/Order/HelpImage.css'
+import '../../css/Order/HelpModal.css'
 import {useDispatch} from "react-redux";
 import Swal from "sweetalert2";
 
@@ -31,17 +31,6 @@ function HelpModal(props) {
     return (
         <>
             <Modal className = "modal-dialog-centered" size = "xl" show = { props.show } onHide = { props.onHide } backdrop = { "static" } keyboard = { false } >
-                <Modal.Header className = "helpModalHeader">
-                    <div className = "headerText">
-                        <h2> 안내 페이지 </h2>
-                    </div>
-                    <div className = "closeBtnDiv">
-                        <Button onClick = {() => {
-                            props.onHide()
-                        }}> 닫기 </Button>
-                    </div>
-                </Modal.Header>
-
                 <Modal.Body className = "helpModalBody">
                     <div className = "helpBodyHeader">
                         <h2> 저희 카페에 방문해 주셔서 감사합니다. </h2>
@@ -64,9 +53,6 @@ function HelpModal(props) {
                                                                     icon: 'info',
                                                                     title: '선택하신 메뉴 [' + menu[idx2 + (idx1 * 2)] + '] 로 안내해 드리겠습니다.'
                                                                 })
-                                                                    /*.then((result) => {
-                                                                        history.push('/')
-                                                                    })*/
                                                             }}> { menu[idx2 + (idx1 * 2)] } </Button>
                                                         </div>
                                                     )
@@ -79,14 +65,14 @@ function HelpModal(props) {
 
                     }
                 </Modal.Body>
-{/*
+
                 <Modal.Footer>
                     <div className = "pageMoveBtn">
-                        <Button className = "previousBtn" onClick={() => {
-                            setTapShow(false)
-                        }}> 처음부터 </Button>
+                        <Button className = "modalCloseBtn btn-danger" onClick={() => {
+                            props.onHide()
+                        }}> 닫기 </Button>
                     </div>
-                </Modal.Footer>*/}
+                </Modal.Footer>
             </Modal>
         </>
     )
