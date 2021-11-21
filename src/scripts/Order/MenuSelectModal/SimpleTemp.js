@@ -25,8 +25,8 @@ function SimpleTemp(props) {
                                 <p style={{ color : "blue" }}> 차가운 </p>
                                 <p> { props.title } </p>
                             </div>
-                            <div className = { optionState[1] === 1 ? "simpleTempSelected borderRT" : "simpleTempSelect" } onClick = {() => {
-                                dispatch({ type : "얼음변경", payload : 1 })
+                            <div className = { optionState[1] === 2 ? "simpleTempSelected borderRT" : "simpleTempSelect" } onClick = {() => {
+                                dispatch({ type : "얼음변경", payload : 2 })
                             }}>
                                 <img className = "selectBtnImg" src = { hotDrink }/>
                                 <p style={{ color : "red" }}> 따뜻한 </p>

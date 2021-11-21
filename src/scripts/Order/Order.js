@@ -281,7 +281,7 @@ function Order(props) {
                         <div className = "recipeBody">
                             {
                                 reducerState != null
-                                    ?   <MenuOrderCart reducerState = { reducerState } page = { props.page } />
+                                    ?   <MenuOrderCart reducerState = { reducerState } page = { props.page } menuIndex = { tabChange } />
                                     :   null
                             }
                         </div>
@@ -426,7 +426,7 @@ function MenuOrderCart(props) {
                                                      image = { data[clickNum].image } title = { data[clickNum].title }
                                                      count = { data[clickNum].count } price = { data[clickNum].price }
                                                      defaultPrice = { data[clickNum].price / data[clickNum].count }
-                                                     page = { props.page }
+                                                     page = { props.page } menuIndex = { props.menuIndex }
                                 />
                                 : null
                             : null
@@ -532,6 +532,15 @@ function MenuOptionReplace(props) {
                             <Button  className = "addOrderButton" onClick={ () => {
                                 /*props.setProgress(2);*/
                                 props.modalClose();
+
+                                console.log("체크")
+                                console.log(props.title)
+                                console.log(count)
+                                console.log((props.price) * count)
+                                console.log(props.image)
+                                console.log(props.menuIndex)
+                                console.log(optionState)
+
                                 dispatch({
                                     type: "항목수정",
                                     payload: {
