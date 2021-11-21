@@ -219,7 +219,9 @@ function Order(props) {
                     <div className = "menuContents">
                         <div className = "menuItems">
                             <OptionDisplayModal coffee = { coffee } coffeeImg = { coffeeImg } setProgress = { setProgress }
-                                                tabChange = { tabChange } menuArray = { menuArray } menuImg = { menuImg } />
+                                                tabChange = { tabChange } menuArray = { menuArray } menuImg = { menuImg }
+                                                page = { props.page }
+                            />
                         </div>
                     </div>
                 </div>
@@ -558,6 +560,7 @@ function OptionDisplayModal(props) {
                                             title = { props.menuArray[props.tabChange][clickNum].title }
                                             price = { props.menuArray[props.tabChange][clickNum].price }
                                             menuIndex = { props.tabChange } setProgress = { props.setProgress }
+                                            page = { props.page }
                             />
                             :   null
                     }
@@ -613,10 +616,16 @@ function TabLightingTop(props) {
 
     if(props.lighting === 0) {
         return (
-            <div className ={ props.index < 3 ? "coffeeTab" : null } onClick = { () => {
+            <div className =
+                    { props.index === 0
+                        ? "lightingTab coffeeTab"
+                        : props.index > 0 && props.index < 3
+                            ? "lightingTab"
+                            : null
+                    } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                $('.coffeeTab').removeClass('coffeeTab')
+                $('.coffeeTab').removeClass('lightingTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -625,10 +634,10 @@ function TabLightingTop(props) {
 
     else if (props.lighting === 1) {
         return (
-            <div className ={ props.index === 3 ? "adeTab" : null } onClick = { () => {
+            <div className ={ props.index === 3 ? "lightingTab adeTab_t" : null } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                $('.adeTab').removeClass('adeTab')
+                $('.adeTab').removeClass('lightingTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -651,10 +660,16 @@ function TabLightingBot(props) {
 
     if (props.lighting === 1) {
         return (
-            <div className ={ props.index < 6 ? "adeTab" : null } onClick = { () => {
+            <div className =
+                     { props.index === 4
+                         ? "lightingTab adeTab_b"
+                         : props.index > 4 && props.index < 6
+                             ? "lightingTab"
+                             : null
+                     } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                $('.adeTab').removeClass('adeTab')
+                $('.adeTab').removeClass('lightingTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -663,10 +678,10 @@ function TabLightingBot(props) {
 
     else if (props.lighting === 2) {
         return (
-            <div className ={ props.index === 6 ? "teaTab" : null } onClick = { () => {
+            <div className ={ props.index === 6 ? "lightingTab" : null } onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                $('.teaTab').removeClass('teaTab')
+                $('.teaTab').removeClass('lightingTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>
@@ -675,10 +690,10 @@ function TabLightingBot(props) {
 
     else if (props.lighting === 3) {
         return (
-            <div className ={ props.index === 7 ? "dessertTab" : null }  onClick = { () => {
+            <div className ={ props.index === 7 ? "lightingTab dessertTab" : null }  onClick = { () => {
                 props.translate = 0;
                 props.setTabChange(props.index)
-                $('.dessertTab').removeClass('dessertTab')
+                $('.dessertTab').removeClass('lightingTab')
             } }>
                 <p> { props.menu[props.index] } </p>
             </div>

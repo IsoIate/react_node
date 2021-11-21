@@ -8,6 +8,8 @@ import IceSelect from "./MenuSelectModal/IceSelect";
 import SyrupSelect from "./MenuSelectModal/SyrupSelect";
 import PackageSelect from "./MenuSelectModal/PackageSelect";
 import {useDispatch, useSelector} from "react-redux";
+import SimpleTemp from "./MenuSelectModal/SimpleTemp";
+import SimplePackage from "./MenuSelectModal/SimplePackage";
 
 function MenuOption(props) {
     let state = useSelector((state) => state);
@@ -62,15 +64,33 @@ function MenuOption(props) {
                             </div>
                         </div>
                     </div>
-                    <div className = "modalBodyRight">
-                        <SizeSelect />
+                    {
+                        props.page === 'simple'
+                            ?   <div className = "modalBodyRight_simple">
+                                    <SimpleTemp title = { props.title } />
 
-                        <IceSelect />
+                                    <SimplePackage />
 
-                        <SyrupSelect />
+                                    <div className = "orderCheck">
+                                        <div className = "orderCheckHeader">
+                                            <h4> 주문메뉴 확인 </h4>
+                                        </div>
+                                        <div className = "orderCheckBody">
+                                            <h4> 주문하신 메뉴는 </h4>
+                                            <h4> 차가운 아메리카노, 포장 입니다 </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            :   <div className = "modalBodyRight">
+                                    <SizeSelect />
 
-                        <PackageSelect />
-                    </div>
+                                    <IceSelect />
+
+                                    <SyrupSelect />
+
+                                    <PackageSelect />
+                                </div>
+                    }
                 </Modal.Body>
 
                 <Modal.Footer>

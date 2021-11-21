@@ -241,32 +241,27 @@
     border-bottom-right-radius: 25px;
 }
 
+.lightingTab {
+    animation-name: tabLighting;
+    animation-duration: 1.5s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+}
+
 .coffeeTab {
-    animation-name: tabLighting;
-    animation-duration: 1.5s;
-    animation-delay: 3s;
-    animation-iteration-count: infinite;
+    border-top-left-radius: 25px;
 }
 
-.adeTab {
-    animation-name: tabLighting;
-    animation-duration: 1.5s;
-    animation-delay: 3s;
-    animation-iteration-count: infinite;
+.adeTab_t {
+    border-top-right-radius: 25px;
 }
 
-.teaTab {
-    animation-name: tabLighting;
-    animation-duration: 1.5s;
-    animation-delay: 3s;
-    animation-iteration-count: infinite;
+.adeTab_b {
+    border-bottom-left-radius: 25px;
 }
 
 .dessertTab {
-    animation-name: tabLighting;
-    animation-duration: 1.5s;
-    animation-delay: 3s;
-    animation-iteration-count: infinite;
+    border-bottom-right-radius: 25px;
 }
 
 @keyframes tabLighting {

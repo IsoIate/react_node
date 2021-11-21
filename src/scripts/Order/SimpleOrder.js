@@ -498,11 +498,12 @@ function SimpleOrder(props) {
     let modalClose = () => setShow(false)
     let state = useSelector(state => state)
     let helpModalState = state.helpModalReducer;
+    let page = "simple"
 
     return (
         <>
             <HelpModal show = { show } modalClose = { modalClose } onHide = { modalClose } />
-            <Order helpModalState = { helpModalState } />
+            <Order helpModalState = { helpModalState } page = { page } />
         </>
     )
 }
