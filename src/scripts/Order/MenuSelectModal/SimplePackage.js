@@ -18,14 +18,14 @@ function SimplePackage(props) {
                 </div>
                 <div className="simpleOptionSelect">
                     <div className = "optionImages">
-                        <div className = { optionState[5] === 0 ? "simpleTempSelected" : "simpleTempSelect" } onClick = {() => {
-                            dispatch({ type : "간단 포장변경", payload : 0 })
+                        <div className = { optionState[3] === 0 ? "simpleTempSelected" : "simpleTempSelect" } onClick = {() => {
+                            dispatch({ type : "포장변경", payload : 0 })
                         }}>
                             <img className = "selectBtnImg" src = { takeAway }/>
                             <p> 포장해서<br/>가져가기 </p>
                         </div>
-                        <div className = { optionState[5] === 1 ? "simpleTempSelected borderRB" : "simpleTempSelect" } onClick = {() => {
-                            dispatch({ type : "간단 포장변경", payload : 1 })
+                        <div className = { optionState[3] === 1 ? "simpleTempSelected borderRB" : "simpleTempSelect" } onClick = {() => {
+                            dispatch({ type : "포장변경", payload : 1 })
                         }}>
                             <img className = "selectBtnImg" src = { inStore }/>
                             <p> 매장에서<br/>취식하기 </p>

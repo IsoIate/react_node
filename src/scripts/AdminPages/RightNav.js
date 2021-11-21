@@ -328,6 +328,9 @@ function OptionDetail(detailState, menu) {
         optionArray.push(detailState[0][index].options);
     })
 
+    console.log(titleArray)
+    console.log(menuIndex)
+
     /* 이미지 고유주소 삽입 */
     menuInfo.map((num, idx1) => {
         titleArray.map((num, idx2) => {

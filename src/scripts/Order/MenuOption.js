@@ -77,7 +77,8 @@ function MenuOption(props) {
                                         </div>
                                         <div className = "orderCheckBody">
                                             <h4> 주문하신 메뉴는 </h4>
-                                            <h4> 차가운 아메리카노, 포장 입니다 </h4>
+                                            <h4> { optionState[1] === 0 ? "차가운" : "따뜻한" } { props.title },
+                                                 { optionState[3] === 0 ? " 포장" : " 매장취식" } 입니다 </h4>
                                         </div>
                                     </div>
                                 </div>

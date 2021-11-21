@@ -118,6 +118,8 @@ import SizeSelect from "./MenuSelectModal/SizeSelect";
 import IceSelect from "./MenuSelectModal/IceSelect";
 import SyrupSelect from "./MenuSelectModal/SyrupSelect";
 import PackageSelect from "./MenuSelectModal/PackageSelect";
+import SimpleTemp from "./MenuSelectModal/SimpleTemp";
+import SimplePackage from "./MenuSelectModal/SimplePackage";
 
 function Order(props) {
     let [coffee, setCoffee] = useState(coffeeData);
@@ -279,7 +281,7 @@ function Order(props) {
                         <div className = "recipeBody">
                             {
                                 reducerState != null
-                                    ?   <MenuOrderCart reducerState = { reducerState } />
+                                    ?   <MenuOrderCart reducerState = { reducerState } page = { props.page } />
                                     :   null
                             }
                         </div>
@@ -402,8 +404,8 @@ function MenuOrderCart(props) {
         data.map((num, index) => {
             return (
                 <>
-                    { console.log(data.length) }
-                    { console.log(index) }
+                    {/*{ console.log(data.length) }
+                    { console.log(index) }*/}
                     <div className = "recipeContent" onClick = {() => {
                         setClickNum(index)
                         modalShow()
@@ -424,6 +426,7 @@ function MenuOrderCart(props) {
                                                      image = { data[clickNum].image } title = { data[clickNum].title }
                                                      count = { data[clickNum].count } price = { data[clickNum].price }
                                                      defaultPrice = { data[clickNum].price / data[clickNum].count }
+                                                     page = { props.page }
                                 />
                                 : null
                             : null
@@ -440,6 +443,8 @@ function MenuOptionReplace(props) {
     let [count, setCount] = useState(props.count)
     let state = useSelector((state) => state);
     let optionState = state.optionReducer;
+
+    console.log(props.page)
 
     return (
         <div className = "modalContents">
@@ -483,16 +488,36 @@ function MenuOptionReplace(props) {
                             </div>
                         </div>
                     </div>
-                    {/* 옵션 저장 후 불러오는 기능은 추후 수정 */}
-                    <div className = "modalBodyRight">
-                        <SizeSelect />
+                    {
+                        props.page === 'simple'
+                            ?   <div className = "modalBodyRight_simple">
+                                    <SimpleTemp title = { props.title } />
 
-                        <IceSelect />
+                                    <SimplePackage />
 
-                        <SyrupSelect />
+                                    <div className = "orderCheck">
+                                        <div className = "orderCheckHeader">
+                                            <h4> 주문메뉴 확인 </h4>
+                                        </div>
+                                        <div className = "orderCheckBody">
+                                            <h4> 주문하신 메뉴는 </h4>
+                                            <h4> { optionState[4] === 0 ? "차가운" : "따뜻한" } { props.title },
+                                                { optionState[5] === 0 ? " 포장" : " 매장취식" } 입니다 </h4>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <PackageSelect />
-                    </div>
+                            /* 옵션 저장 후 불러오는 기능은 추후 수정 */
+                            :   <div className = "modalBodyRight">
+                                    <SizeSelect />
+
+                                    <IceSelect />
+
+                                    <SyrupSelect />
+
+                                    <PackageSelect />
+                                </div>
+                    }
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -583,7 +608,7 @@ function MenuVarietyTab (props) {
     let dessert = 7
     let lightingArr = [coffee, ade, tea, dessert]
 
-    console.log(lighting)
+    /*console.log(lighting)*/
     return (
         <div className = "varietyContents">
             <div className = "menuTable _top">

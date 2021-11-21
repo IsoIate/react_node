@@ -197,6 +197,12 @@
     height: 5vh;
 }
 
+.orderCheckHeader h4 {
+    font-size: 28px;
+    font-weight: bold;
+    color : white;
+}
+
 .orderCheckBody {
     display: flex;
     flex-direction: column;

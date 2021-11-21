@@ -13,7 +13,7 @@ import AlertTemplate from "react-alert-template-basic";
 /* defaultParameter */
 let primaryState = [];
 let orderState = [0, 0];
-let optionState = [0, 0, 0, 0, 0, 0];
+let optionState = [0, 0, 0, 0];
 let detailState = [];
 let helpModalState = -1;
 
@@ -124,16 +124,16 @@ function optionReducer(state = optionState, action) {
         copy[3] = action.payload;
         return copy;
     }
-    else if (action.type === "간단 얼음변경") {
+    /*else if (action.type === "간단 얼음변경") {
         let copy = [...state];
-        copy[4] = action.payload;
+        copy[1] = action.payload;
         return copy;
     }
     else if (action.type === "간단 포장변경") {
         let copy = [...state];
-        copy[5] = action.payload;
+        copy[3] = action.payload;
         return copy;
-    }
+    }*/
     else {
         return state
     }
