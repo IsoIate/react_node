@@ -501,8 +501,8 @@ function MenuOptionReplace(props) {
                                         </div>
                                         <div className = "orderCheckBody">
                                             <h4> 주문하신 메뉴는 </h4>
-                                            <h4> { optionState[4] === 0 ? "차가운" : "따뜻한" } { props.title },
-                                                { optionState[5] === 0 ? " 포장" : " 매장취식" } 입니다 </h4>
+                                            <h4> { optionState[1] === 0 ? "차가운" : "따뜻한" } { props.title },
+                                                { optionState[3] === 0 ? " 포장" : " 매장취식" } 입니다 </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -532,15 +532,6 @@ function MenuOptionReplace(props) {
                             <Button  className = "addOrderButton" onClick={ () => {
                                 /*props.setProgress(2);*/
                                 props.modalClose();
-
-                                console.log("체크")
-                                console.log(props.title)
-                                console.log(count)
-                                console.log((props.price) * count)
-                                console.log(props.image)
-                                console.log(props.menuIndex)
-                                console.log(optionState)
-
                                 dispatch({
                                     type: "항목수정",
                                     payload: {
@@ -548,7 +539,6 @@ function MenuOptionReplace(props) {
                                         image: props.image, menuIndex: props.menuIndex, options: optionState
                                     }
                                 })
-                                console.log("주문추가")
                                 /*dispatch({type : "주문추가", payload : { count : props.count,
                                         price : ( props.menuItem[props.id][props.clickNum].price ) * props.count }})*/
                             } }>
