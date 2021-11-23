@@ -16,6 +16,7 @@ let orderState = [0, 0];
 let optionState = [0, 0, 0, 0];
 let detailState = [];
 let helpModalState = -1;
+let tabChangeState = -1;
 
 const options = {
     timeout: 5000,
@@ -23,7 +24,7 @@ const options = {
 };
 
 let store = createStore(combineReducers({
-    reducer, orderReducer, optionReducer, helpModalReducer, detailReducer
+    reducer, orderReducer, optionReducer, helpModalReducer, detailReducer, tabChangeReducer
 }));
 
 /* 주문 표 생성, 제거 */
@@ -207,7 +208,16 @@ function helpModalReducer(state = helpModalState, action) {
     else {
         return -1;
     }
+}
 
+/* 탭 변경 함수 */
+function tabChangeReducer(state = tabChangeState, action) {
+    if(action.type === "탭 변경") {
+        state = action.payload;
+
+        return state;
+    }
+    else return -1;
 }
 
 ReactDOM.render(

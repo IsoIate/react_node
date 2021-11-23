@@ -51,6 +51,7 @@ function HelpModal(props) {
                                                             <Button onClick={() => {
                                                                 setTap(idx2 + (idx1 * 2))
                                                                 setTapShow(true)
+                                                                dispatch({ type : "탭 변경", payload : (idx2 + (idx1 * 2))})
                                                                 Toast.fire({
                                                                     icon: 'info',
                                                                     title: '선택하신 메뉴 [' + menu[idx2 + (idx1 * 2)] + '] 로 안내해 드리겠습니다.'

@@ -120,6 +120,7 @@ import SyrupSelect from "./MenuSelectModal/SyrupSelect";
 import PackageSelect from "./MenuSelectModal/PackageSelect";
 import SimpleTemp from "./MenuSelectModal/SimpleTemp";
 import SimplePackage from "./MenuSelectModal/SimplePackage";
+import HelpModal from "./HelpModal";
 
 function Order(props) {
     let [coffee, setCoffee] = useState(coffeeData);
@@ -599,35 +600,20 @@ function OptionDisplayModal(props) {
 function MenuVarietyTab (props) {
     let menu = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트']
     let tempArr = [0, 1, 2, 3]
-
-    console.log("click : " + props.clickMenu)
+    let history = useHistory()
 
     return (
         <div className = "varietyContents">
-            <div className = "menuTable _top">
-                <MenuGuide menu = { menu } tempArr = { tempArr } clickMenu = { props.clickMenu } />
-                {/*{
-                    tempArr.map((num, index) => {
-                        return (
-                            <div onClick = { () => {
-                                props.translate = 0;
-                                props.setTabChange(index)
-                            } }>
-                                <p> { menu[index] } </p>
-                            </div>
-                        )
-                    })
-                }*/}
+            <div className = "menuTable">
+                <MenuGuide menu = { menu } tempArr = { tempArr } clickMenu = { props.clickMenu }
+                           setTabChange = { props.setTabChange } />
             </div>
-            <div style={{backgroundColor : "blue", width : "30%"}}>
+            <div className = "anotherMenuClick">
                 <Button onClick={() => {
-
+                    window.location.replace("/SimpleOrder")
                 }}>
                 다른메뉴 선택하기 </Button>
             </div>
-            {/*<div className = "menuTable _bottom">
-                <MenuGuide_bot menu = { menu } tempArr = { tempArr } clickMenu = { props.clickMenu } />
-            </div>*/}
         </div>
     )
 }
@@ -638,7 +624,6 @@ function MenuGuide(props) {
     if(props.clickMenu === 0) {
         return (
             menuArr.map((num, index) => {
-                console.log(props.menu[index])
                 return (
                     <div onClick = { () => {
                         props.translate = 0;
@@ -653,11 +638,10 @@ function MenuGuide(props) {
     else if (props.clickMenu === 1) {
         return (
             menuArr.map((num, index) => {
-                console.log(props.menu[index + 3])
                 return (
                     <div onClick = { () => {
                         props.translate = 0;
-                        props.setTabChange(index)
+                        props.setTabChange(index + 3)
                     } }>
                         <p> { props.menu[index + 3] } </p>
                     </div>
@@ -666,20 +650,22 @@ function MenuGuide(props) {
         )
     }
     else if (props.clickMenu === 2) {
+        props.setTabChange(props.clickMenu + 4)
+
         return (
             <div onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.clickMenu + 4)
+
             } }>
                 <p> { props.menu[props.clickMenu + 4] } </p>
             </div>
         )
     }
     else if (props.clickMenu === 3) {
+        props.setTabChange(props.clickMenu + 4)
+
         return (
             <div onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.clickMenu + 4)
+
             } }>
                 <p> { props.menu[props.clickMenu + 4] } </p>
             </div>
