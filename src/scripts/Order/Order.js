@@ -251,7 +251,8 @@ function Order(props) {
                         <i className="fas fa-chevron-right fa-3x"></i>
                     </div>
                 </div>
-                <MenuVarietyTab setTabChange = { setTabChange } translate = { translate } clickMenu = { props.helpModalState } />
+                <MenuVarietyTab setTabChange = { setTabChange } translate = { translate }
+                                clickMenu = { props.helpModalState } page = { props.page } />
             </div>
             <div className = "rightContents">
                 <div className = "recipe">
@@ -600,22 +601,57 @@ function OptionDisplayModal(props) {
 function MenuVarietyTab (props) {
     let menu = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트']
     let tempArr = [0, 1, 2, 3]
-    let history = useHistory()
 
-    return (
-        <div className = "varietyContents">
-            <div className = "menuTable">
-                <MenuGuide menu = { menu } tempArr = { tempArr } clickMenu = { props.clickMenu }
-                           setTabChange = { props.setTabChange } />
+    if(props.page === "simple") {
+        return (
+            <div className = "varietyContents">
+                <div className = "menuTable">
+                    <MenuGuide menu = { menu } tempArr = { tempArr } clickMenu = { props.clickMenu }
+                               setTabChange = { props.setTabChange } />
+                </div>
+                <div className = "anotherMenuClick">
+                    <Button onClick={() => {
+                        window.location.replace("/SimpleOrder")
+                    }}>
+                        다른메뉴 선택하기 </Button>
+                </div>
             </div>
-            <div className = "anotherMenuClick">
-                <Button onClick={() => {
-                    window.location.replace("/SimpleOrder")
-                }}>
-                다른메뉴 선택하기 </Button>
+        )
+    }
+    else {
+        return (
+            <div className = "varietyContents_order">
+                <div className = "menuTable_top">
+                    {
+                        tempArr.map((num, index) => {
+                            return (
+                                <div onClick = { () => {
+                                    props.translate = 0;
+                                    props.setTabChange(index)
+                                }}>
+                                    <p className = "ppp"> { menu[index] } </p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className = "menuTable_bot">
+                    {
+                        tempArr.map((num, index) => {
+                            return (
+                                <div onClick = { () => {
+                                    props.translate = 0;
+                                    props.setTabChange(index + 4)
+                                }}>
+                                    <p className = "ppp"> { menu[index + 4] } </p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 function MenuGuide(props) {
@@ -678,54 +714,6 @@ function MenuGuide(props) {
             } }>
                 <p> 메뉴 선택중...  </p>
             </div>
-        )
-    }
-}
-
-function MenuGuide_bot(props) {
-    let teaArr = [6]
-    let dessertArr = [7]
-
-    if (props.clickMenu === 2) {
-        return (
-            teaArr.map((num, index) => {
-                return (
-                    <div onClick = { () => {
-                        props.translate = 0;
-                        props.setTabChange(num)
-                    } }>
-                        <p> { props.menu[num] } </p>
-                    </div>
-                )
-            })
-        )
-    }
-    else if (props.clickMenu === 3) {
-        return (
-            dessertArr.map((num, index) => {
-                return (
-                    <div onClick = { () => {
-                        props.translate = 0;
-                        props.setTabChange(num)
-                    } }>
-                        <p> { props.menu[num] } </p>
-                    </div>
-                )
-            })
-        )
-    }
-    else {
-        return (
-            props.tempArr.map((num, index) => {
-                return (
-                    <div onClick = { () => {
-                        props.translate = 0;
-                        props.setTabChange(index)
-                    } }>
-                        <p> { props.menu[index] } </p>
-                    </div>
-                )
-            })
         )
     }
 }

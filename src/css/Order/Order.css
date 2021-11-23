@@ -244,6 +244,81 @@
     font-family: "나눔스퀘어라운드 Bold";
 }
 
+.varietyContents_order {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 0% 2.75%;
+    border-radius: 25px;
+}
+
+.menuTable_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.menuTable_top > div {
+    width: 100%;
+    padding: 1.7% 10%;
+}
+
+.menuTable_top > p {
+    font-size: 24px;
+    margin: 0;
+}
+
+.menuTable_top > div:hover {
+    background-color: #c4d1f5;
+    cursor: pointer;
+}
+
+.menuTable_top > div:nth-child(1):hover {
+    background-color: #c4d1f5;
+    border-top-left-radius: 20px;
+}
+
+.menuTable_top > div:nth-child(4):hover {
+    background-color: #c4d1f5;
+    border-top-right-radius: 20px;
+}
+
+.menuTable_bot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.menuTable_bot > div {
+    width: 100%;
+    padding: 1.7% 10%;
+}
+
+.menuTable_bot > p {
+    font-size: 24px;
+    margin: 0;
+}
+
+.menuTable_bot > div:hover {
+    background-color: #c4d1f5;
+    cursor: pointer;
+}
+
+.menuTable_bot > div:nth-child(1):hover {
+    background-color: #c4d1f5;
+    border-bottom-left-radius: 20px;
+}
+
+.menuTable_bot > div:nth-child(4):hover {
+    background-color: #c4d1f5;
+    border-bottom-right-radius: 20px;
+}
+
+.ppp {
+    font-size: 20px;
+    margin: 0;
+}
+
 .anotherMenuClick {
     display: flex;
     justify-content: center;
