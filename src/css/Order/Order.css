@@ -204,6 +204,8 @@
 }
 
 .varietyContents {
+    display: flex;
+    flex-direction: row;
     background-color: white;
     margin: 0% 2.75%;
     border-radius: 25px;
@@ -213,72 +215,32 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    height: 15vh;
 }
 
 .menuTable > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 2% 10%;
+    height: 100%;
 }
 
 .menuTable > div:hover {
-    background-color: #c4d1f5;
+    background-color: #b3c6ff;
     cursor: pointer;
 }
 
-._top > div:nth-child(1):hover {
-    border-top-left-radius: 25px;
-}
-
-._top > div:nth-child(4):hover {
-    border-top-right-radius: 25px;
-}
-
-._bottom > div:nth-child(1):hover {
-    border-bottom-left-radius: 25px;
-}
-
-._bottom > div:nth-child(4):hover {
-    border-bottom-right-radius: 25px;
-}
-
-.lightingTab {
-    animation-name: tabLighting;
-    animation-duration: 1.5s;
-    animation-delay: 3s;
-    animation-iteration-count: infinite;
-}
-
-.coffeeTab {
-    border-top-left-radius: 25px;
-}
-
-.adeTab_t {
-    border-top-right-radius: 25px;
-}
-
-.adeTab_b {
-    border-bottom-left-radius: 25px;
-}
-
-.dessertTab {
-    border-bottom-right-radius: 25px;
-}
-
-@keyframes tabLighting {
-    0% {
-        background-color: white;
-    }
-    50% {
-        background-color: #b3c6ff;
-    }
-    100% {
-        background-color: white;
-    }
+.menuTable > div:first-child:hover {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 .menuTable > div > p {
     margin: 0;
-    font-size: 20px;
+    font-size: 32px;
     font-family: "나눔스퀘어라운드 Bold";
 }
 
@@ -289,7 +251,6 @@
 }
 
 .recipe {
-
     border-radius: 25px;
     margin: 6.5% 5%;
     height: 100%;

@@ -600,138 +600,146 @@ function MenuVarietyTab (props) {
     let menu = ['커피', '버블티', '프라페', '스무디', '에이드', '주스', '차', '디저트']
     let tempArr = [0, 1, 2, 3]
 
-    let lighting = props.clickMenu
-    let coffee = [0, 1, 2]
-    let ade = [3, 4, 5]
-    let tea = 6
-    let dessert = 7
-    let lightingArr = [coffee, ade, tea, dessert]
+    console.log("click : " + props.clickMenu)
 
-    /*console.log(lighting)*/
     return (
         <div className = "varietyContents">
             <div className = "menuTable _top">
-                {
+                <MenuGuide menu = { menu } tempArr = { tempArr } clickMenu = { props.clickMenu } />
+                {/*{
                     tempArr.map((num, index) => {
                         return (
-                            <TabLightingTop translate = { props.translate } setTabChange = { props.setTabChange }
-                                                        index = { index } menu = { menu } lighting = { lighting }
-                            />
+                            <div onClick = { () => {
+                                props.translate = 0;
+                                props.setTabChange(index)
+                            } }>
+                                <p> { menu[index] } </p>
+                            </div>
                         )
                     })
-                }
+                }*/}
             </div>
-            <div className = "menuTable _bottom">
-                {
-                    tempArr.map((num, index) => {
-                        return (
-                            <TabLightingBot translate = { props.translate } setTabChange = { props.setTabChange }
-                                         index = { index + 4 } menu = { menu } lighting = { lighting }
-                            />
-                        )
-                    })
-                }
+            <div style={{backgroundColor : "blue", width : "30%"}}>
+                <Button onClick={() => {
+
+                }}>
+                다른메뉴 선택하기 </Button>
             </div>
+            {/*<div className = "menuTable _bottom">
+                <MenuGuide_bot menu = { menu } tempArr = { tempArr } clickMenu = { props.clickMenu } />
+            </div>*/}
         </div>
     )
 }
 
-function TabLightingTop(props) {
+function MenuGuide(props) {
+    let menuArr = [0, 1, 2]
 
-    if(props.lighting === 0) {
+    if(props.clickMenu === 0) {
         return (
-            <div className =
-                    { props.index === 0
-                        ? "lightingTab coffeeTab"
-                        : props.index > 0 && props.index < 3
-                            ? "lightingTab"
-                            : null
-                    } onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.index)
-                $('.coffeeTab').removeClass('lightingTab')
-            } }>
-                <p> { props.menu[props.index] } </p>
-            </div>
+            menuArr.map((num, index) => {
+                console.log(props.menu[index])
+                return (
+                    <div onClick = { () => {
+                        props.translate = 0;
+                        props.setTabChange(index)
+                    } }>
+                        <p> { props.menu[index] } </p>
+                    </div>
+                )
+            })
         )
     }
-
-    else if (props.lighting === 1) {
+    else if (props.clickMenu === 1) {
         return (
-            <div className ={ props.index === 3 ? "lightingTab adeTab_t" : null } onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.index)
-                $('.adeTab').removeClass('lightingTab')
-            } }>
-                <p> { props.menu[props.index] } </p>
-            </div>
+            menuArr.map((num, index) => {
+                console.log(props.menu[index + 3])
+                return (
+                    <div onClick = { () => {
+                        props.translate = 0;
+                        props.setTabChange(index)
+                    } }>
+                        <p> { props.menu[index + 3] } </p>
+                    </div>
+                )
+            })
         )
     }
-
-    else {
+    else if (props.clickMenu === 2) {
         return (
             <div onClick = { () => {
                 props.translate = 0;
-                props.setTabChange(props.index)
+                props.setTabChange(props.clickMenu + 4)
             } }>
-                <p> { props.menu[props.index] } </p>
+                <p> { props.menu[props.clickMenu + 4] } </p>
+            </div>
+        )
+    }
+    else if (props.clickMenu === 3) {
+        return (
+            <div onClick = { () => {
+                props.translate = 0;
+                props.setTabChange(props.clickMenu + 4)
+            } }>
+                <p> { props.menu[props.clickMenu + 4] } </p>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div onClick = { () => {
+                console.log("잘못된 접근")
+            } }>
+                <p> 메뉴 선택중...  </p>
             </div>
         )
     }
 }
 
-function TabLightingBot(props) {
+function MenuGuide_bot(props) {
+    let teaArr = [6]
+    let dessertArr = [7]
 
-    if (props.lighting === 1) {
+    if (props.clickMenu === 2) {
         return (
-            <div className =
-                     { props.index === 4
-                         ? "lightingTab adeTab_b"
-                         : props.index > 4 && props.index < 6
-                             ? "lightingTab"
-                             : null
-                     } onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.index)
-                $('.adeTab').removeClass('lightingTab')
-            } }>
-                <p> { props.menu[props.index] } </p>
-            </div>
+            teaArr.map((num, index) => {
+                return (
+                    <div onClick = { () => {
+                        props.translate = 0;
+                        props.setTabChange(num)
+                    } }>
+                        <p> { props.menu[num] } </p>
+                    </div>
+                )
+            })
         )
     }
-
-    else if (props.lighting === 2) {
+    else if (props.clickMenu === 3) {
         return (
-            <div className ={ props.index === 6 ? "lightingTab" : null } onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.index)
-                $('.teaTab').removeClass('lightingTab')
-            } }>
-                <p> { props.menu[props.index] } </p>
-            </div>
+            dessertArr.map((num, index) => {
+                return (
+                    <div onClick = { () => {
+                        props.translate = 0;
+                        props.setTabChange(num)
+                    } }>
+                        <p> { props.menu[num] } </p>
+                    </div>
+                )
+            })
         )
     }
-
-    else if (props.lighting === 3) {
-        return (
-            <div className ={ props.index === 7 ? "lightingTab dessertTab" : null }  onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.index)
-                $('.dessertTab').removeClass('lightingTab')
-            } }>
-                <p> { props.menu[props.index] } </p>
-            </div>
-        )
-    }
-
     else {
         return (
-            <div onClick = { () => {
-                props.translate = 0;
-                props.setTabChange(props.index)
-            } }>
-                <p> { props.menu[props.index] } </p>
-            </div>
+            props.tempArr.map((num, index) => {
+                return (
+                    <div onClick = { () => {
+                        props.translate = 0;
+                        props.setTabChange(index)
+                    } }>
+                        <p> { props.menu[index] } </p>
+                    </div>
+                )
+            })
         )
     }
 }

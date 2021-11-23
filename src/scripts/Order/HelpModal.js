@@ -14,6 +14,8 @@ function HelpModal(props) {
     let menuImage = [coffee, ade, tea, dessert]
     let [tap, setTap] = useState(0)
     let [tapShow, setTapShow] = useState(false)
+    let dispatch = useDispatch()
+
     const Toast = Swal.mixin({
         width: 750,
         padding: 50,
@@ -65,14 +67,14 @@ function HelpModal(props) {
 
                     }
                 </Modal.Body>
-
+{/*
                 <Modal.Footer>
                     <div className = "pageMoveBtn">
                         <Button className = "modalCloseBtn btn-danger" onClick={() => {
                             props.onHide()
                         }}> 닫기 </Button>
                     </div>
-                </Modal.Footer>
+                </Modal.Footer>*/}
             </Modal>
         </>
     )

@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 2% 0 3% 0;
 }
 
 .helpBodyContents {
@@ -46,6 +47,7 @@
 .helpBodyContainer Button {
     margin-top: 20px;
     width: 35%;
+    height: 5vh;
     font-size: 20px;
     font-weight: bold;
     background-color: #b3c6ff !important;
